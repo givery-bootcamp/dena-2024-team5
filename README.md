@@ -1,12 +1,12 @@
 # Training app 2023
 ## docker-compose structure
 
-- backend: 
-  - go: 1.20.0
+- backend:
+  - go: 1.22
   - air: 1.43.0
     - https://github.com/cosmtrek/air
 - frontend:
-  - node:16.14.2
+  - node:20.12.2
   - react: 18
     - https://reactjs.org/docs/getting-started.html
   - @reduxjs/toolkit: 1.9
@@ -21,8 +21,8 @@
     - https://github.com/JedWatson/classnames
   - typescript: 5
     - https://www.typescriptlang.org/docs/
-- db: 
-  - mysql: 8.0.28
+- db:
+  - mysql: 8.3
 
 ## How to develop
 
@@ -100,7 +100,7 @@ backend/
     interfaces/ : インターフェース
     middleware/ : ginのmiddleware
     repositories/ : リポジトリ - systemに近い部分の実装
-    usecases/ : ユースケース - ビジネスに近い部分の実装    
+    usecases/ : ユースケース - ビジネスに近い部分の実装
 ```
 
 ### Frontend
@@ -112,7 +112,7 @@ frontend/
     画像などの静的ファイル
   src/
     main.tsx: Reactアプリケーションが起動するエントリーポイント
-    app/ 
+    app/
       機能横断的に使う機能をまとめる
     features/
       post/

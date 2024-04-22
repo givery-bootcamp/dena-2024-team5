@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   backend:
-    build: 
+    build:
       context: ./docker
       dockerfile: backend.Dockerfile
     ports:
@@ -14,7 +14,7 @@ services:
     environment:
       TZ: Asia/Tokyo
   frontend:
-    image: node:16.14.2
+    image: node:20.12.2
     working_dir: /home/node/myapp
     ports:
       - '3000:3000'
@@ -25,10 +25,9 @@ services:
     environment:
       TZ: Asia/Tokyo
   db:
-    build: 
+    build:
       context: ./docker
       dockerfile: mysql.Dockerfile
-    platform: linux/x86_64
     volumes:
       - ./docker/mysql:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf

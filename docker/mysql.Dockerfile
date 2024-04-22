@@ -1,5 +1,10 @@
-FROM mysql:8.0.28
+FROM mysql:8
 
-RUN apt-get update && apt-get install -y locales
-RUN sed -i -E 's/# (ja\_JP.UTF-8 UTF-8)/\1/' /etc/locale.gen && locale-gen
-ENV LANG ja\_JP.UTF-8
+ENV TZ "Asia/Tokyo"
+
+RUN microdnf update -y \
+	&& microdnf install -y glibc-locale-source \
+	&& localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
+
+ENV LANG ja_JP.UTF-8
+ENV LC_ALL ja_JP.UTF-8
