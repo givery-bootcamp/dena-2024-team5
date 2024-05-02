@@ -1,4 +1,4 @@
-# Training app 2023
+# Training app 2024
 ## docker-compose structure
 
 - backend:
