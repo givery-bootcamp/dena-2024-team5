@@ -25,7 +25,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: backend-bin
-        path: myapp
+        path: ./myapp
 
   frontend-build:
     runs-on: ubuntu-latest
