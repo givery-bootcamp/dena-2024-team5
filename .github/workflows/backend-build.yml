@@ -1,4 +1,4 @@
-name: Go Build
+name: Backend Build
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  build:
+  backend-build:
     runs-on: ubuntu-latest
 
     steps:
