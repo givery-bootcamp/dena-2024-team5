@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
 WORKDIR /app
-COPY myapp /app
+COPY backend/myapp /app
 
 ENTRYPOINT ["./myapp"]
