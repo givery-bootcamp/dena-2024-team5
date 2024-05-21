@@ -63,7 +63,6 @@ jobs:
         name: backend-bin
 
     - name: Check
-      working-directory: ./backend
       run: ls -l
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
