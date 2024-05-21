@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: [backend-build, frontend-build]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Download backend build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: backend-build
+        path: ./backend
+
+    - name: Download frontend build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: frontend-build
+        path: ./frontend/build
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build and push Docker image
+      run: |
+        ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+        IMAGE_TAG=latest
+
+        docker build -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME:$IMAGE_TAG .
+        docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME:$IMAGE_TAG
+      env:
+        AWS_REGION: ap-northeast-1
+        REPOSITORY_NAME: dena-training-2024-team-0-backend
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
