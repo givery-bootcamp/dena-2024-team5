@@ -20,7 +20,12 @@ jobs:
 
     - name: Build
       working-directory: ./backend
-      run: go build
+      run: go build -o myapp
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: backend-bin
+        path: myapp
 
   frontend-build:
     runs-on: ubuntu-latest
@@ -48,20 +53,11 @@ jobs:
     if: github.ref == 'refs/heads/deploy'
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Download backend build artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
-        name: backend-build
-        path: ./backend
-
-    - name: Download frontend build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: frontend-build
-        path: ./frontend/build
+        name: backend-bin
+        path: .
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
