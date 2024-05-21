@@ -5,6 +5,12 @@ on:
     branches:
       - '**'
 
+env:
+  AWS_REGION: ap-northeast-1
+  REPOSITORY_NAME: dena-training-2024-team-0-backend
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   backend-build:
     runs-on: ubuntu-latest
@@ -79,8 +85,3 @@ jobs:
 
         docker build -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME:$IMAGE_TAG .
         docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME:$IMAGE_TAG
-      env:
-        AWS_REGION: ap-northeast-1
-        REPOSITORY_NAME: dena-training-2024-team-0-backend
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
