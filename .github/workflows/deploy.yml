@@ -3,12 +3,49 @@ name: Deploy
 on:
   push:
     branches:
-      - deploy
+      - '**'
 
 jobs:
-  build-and-push:
+  backend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '1.22'
+
+    - name: Build
+      working-directory: ./backend
+      run: go build
+
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    - name: Build
+      working-directory: ./frontend
+      run: npm run build
+
+  ecr-push:
     runs-on: ubuntu-latest
     needs: [backend-build, frontend-build]
+    if: github.ref == 'refs/heads/deploy'
 
     steps:
     - name: Checkout code
