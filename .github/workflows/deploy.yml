@@ -100,6 +100,10 @@ jobs:
     if: github.ref == 'refs/heads/deploy'
 
     steps:
+    - name: Download frontend build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: frontend-bin
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
