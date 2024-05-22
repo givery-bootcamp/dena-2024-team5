@@ -2,4 +2,4 @@ FROM ubuntu:22.04
 WORKDIR /app
 COPY backend/myapp /app
 
-ENTRYPOINT ["./myapp"]
+ENTRYPOINT ["pwd && ls -l && ./myapp"]
