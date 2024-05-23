@@ -10,6 +10,8 @@ env:
   REPOSITORY_NAME: dena-training-2024-team-0-backend
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  ECS_CLUSTER: dena-training-2024
+  ECS_SERVICE: dena-training-2024-team-0
   BUCKET_PREFIX: team-0
   VITE_API_ENDPOINT_PATH: https://team-0_bk.member0005.track-bootcamp.run
 
