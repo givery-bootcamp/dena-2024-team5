@@ -22,9 +22,9 @@ export default async function Home() {
   });
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {listData.map((data, idx) => (
+      {listData.map((data) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-        <div key={idx}>
+        <div key={data.id}>
           <PostedItem postedItem={data} />
         </div>
       ))}

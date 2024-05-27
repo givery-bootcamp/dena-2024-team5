@@ -6,7 +6,7 @@ export default async function PostedItem({
 }: { postedItem: PostedItemType }) {
   return (
     <div>
-      <Link href={"#"}>{postedItem.title}</Link>
+      <Link href={`posts/${postedItem.id}`}>{postedItem.title}</Link>
       <div>{postedItem.username}</div>
       <div>{postedItem.updated_at.toLocaleString("ja")}</div>
     </div>
