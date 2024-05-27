@@ -1,9 +1,9 @@
 export type PostedItemType = {
-    ID: number,
-    Title: string,
-    Body: string,
-    UserId: number,
-    UserName: string,
-    CreatedAt: Date,
-    UpdatedAt: Date
-}
+  id: number;
+  title: string;
+  body: string;
+  user_id: number;
+  username: string;
+  created_at: Date;
+  updated_at: Date;
+};

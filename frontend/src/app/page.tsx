@@ -3,38 +3,31 @@ import type { PostedItemType } from "@/types/PostedItemType";
 import Image from "next/image";
 
 async function getData() {
-	const res = await fetch("http://localhost:9000/hello");
+  const res = await fetch("http://localhost:9000/posts");
 
-	if (!res.ok) {
-		// This will activate the closest `error.js` Error Boundary
-		throw new Error("Failed to fetch data");
-	}
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
 
-	return res.json();
+  return res.json();
 }
 
 export default async function Home() {
-	const data = await getData();
-	const mockData: PostedItemType = {
-		ID: 0,
-		Title: "test-title",
-		Body: "text-text",
-		UserId: 0,
-		UserName: "hogehoge",
-		CreatedAt: new Date(),
-		UpdatedAt: new Date(),
-	};
-
-	const listData = [mockData, mockData, mockData];
-	console.log(data);
-	return (
-		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			{listData.map((data, idx) => (
-				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-				<div key={idx}>
-					<PostedItem postedItem={data} />
-				</div>
-			))}
-		</main>
-	);
+  const listData = await getData();
+  // 日付をData型にする
+  listData.forEach((data: PostedItemType) => {
+    data.created_at = new Date(data.created_at);
+    data.updated_at = new Date(data.updated_at);
+  });
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      {listData.map((data, idx) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+        <div key={idx}>
+          <PostedItem postedItem={data} />
+        </div>
+      ))}
+    </main>
+  );
 }
