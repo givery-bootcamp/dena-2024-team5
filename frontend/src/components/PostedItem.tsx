@@ -7,7 +7,8 @@ export default async function PostedItem({
 	return (
 		<div>
 			<Link href={"#"}>{postedItem.Title}</Link>
-			{postedItem.UpdatedAt.toLocaleDateString()}
+			<div>{postedItem.UserName}</div>
+			<div>{postedItem.UpdatedAt.toLocaleString("ja")}</div>
 		</div>
 	);
 }
