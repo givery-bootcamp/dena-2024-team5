@@ -15,5 +15,6 @@ jobs:
         uses: biomejs/setup-biome@v2
         with:
           version: latest
+          working-dir: "./frontend/"
       - name: Run Biome
-        run: biome ci ./frontend/src/
+        run: biome ci ./src/
