@@ -1,5 +1,3 @@
-import type { PostedItemType } from "@/types/PostedItemType";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,6 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { PostedItemType } from "@/types/PostedItemType";
+import Link from "next/link";
 
 export default async function PostedItem({
   postedItem,
