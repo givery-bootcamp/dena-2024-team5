@@ -87,6 +87,22 @@ host$ npm install
 
 [frontend(nodejs)をDocker外で動かすための設定変更](https://github.com/givery-technology/training-app-2023/wiki/Docker%E3%81%AE%E4%B8%AD%E3%81%AENode%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%84%E3%82%84%E3%81%A0%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E4%BA%BA%E5%90%91%E3%81%91%E3%81%AE%E8%84%B1%E7%8D%84%E3%81%AE%E6%89%8B%E5%BC%95%E3%81%8D)
 
+## OpenAPI(swagger)
+<http://localhost:9000/swagger/index.html>にアクセスすると確認できます。
+
+### re-generate swagger file
+
+swaggerファイルの再生成は以下のコマンドを実行してください。
+```
+docker-compose exec backend sh -c "swag init"
+```
+
+### how to write doc
+
+1. 各endpointに対応する関数(controllers層)に対して記述してください。 
+2. `backend/internal/controllers_post.go`の`GetList`の書き方を参考にdocを記述してください。
+
+
 ## ディレクトリ構成
 
 ### Backend
