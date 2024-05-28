@@ -37,18 +37,17 @@ $ docker-compose up
 
 ### Initial setup
 
-初期状態で、DBから値を読み出してHello worldを表示する構成となっていますが、初回起動時にはテーブルが存在しないためWebサーバへのアクセスがエラーになります。
-起動後に以下のスクリプトを実行してテーブルの作成と初期データの投入を行ってください。
-
-```
-host$ docker-compose exec db sh -c "mysql < /sqlscripts/create.sql"
-host$ docker-compose exec db sh -c "mysql training < /sqlscripts/insert.sql"
-```
-
 Reactを開発する人はブラウザの拡張機能をインストールしてください。(任意)
 
 - React Developer Tools
 - Redux DevTools
+
+## How to reset database
+
+`mysql/sql`内のsqlコマンドファイルが更新されたら、以下のdownコマンドでdbをリセットしてください。
+```
+docker-compose down -v
+```
 
 ## How to connect database
 
