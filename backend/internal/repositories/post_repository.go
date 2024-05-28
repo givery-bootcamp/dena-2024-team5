@@ -51,6 +51,15 @@ func (p *PostRepository) GetList() (*[]entities.Post, error) {
 	return &posts, nil
 }
 
+func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {
+	var obj Post
+	result := p.Conn.Preload("User").Where("id = ?", id).First(&obj)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return convertPostModelToEntity(&obj), nil
+}
+
 func convertPostModelToEntity(p *Post) *entities.Post {
 	return &entities.Post{
 		Id:        p.Id,
