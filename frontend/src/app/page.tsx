@@ -27,9 +27,7 @@ export default async function Home() {
       <div className="container relative my-4">
         <div className="grid grid-cols-1 gap-4">
           {formattedListData.map((data) => (
-            <div key={data.id}>
-              <PostedItem postedItem={data} />
-            </div>
+            <PostedItem key={data.id} postedItem={data} />
           ))}
         </div>
       </div>
