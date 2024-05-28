@@ -99,8 +99,8 @@ docker-compose exec backend sh -c "swag init"
 
 ### how to write doc
 
-1. 各endpointに対応する関数(controllers層)に対して記述してください。 
-2. `backend/internal/controllers/post.go`の`GetList`の書き方を参考にdocを記述してください。
+1. 各endpointに対応する関数(controllers層)に対して記述してください。
+2. `backend/internal/controllers/post_get_list.go`の`GetList`の書き方を参考にdocを記述してください。
 
 
 ## ディレクトリ構成
