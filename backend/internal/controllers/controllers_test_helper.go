@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -9,6 +10,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
+
+type ErrResponse struct {
+	Message string `json:"message"`
+}
+
+func NewErrResponse(message string) string {
+	jsonBytes, _ := json.Marshal(ErrResponse{message})
+	return string(jsonBytes)
+}
 
 func TestRequest(
 	t *testing.T,

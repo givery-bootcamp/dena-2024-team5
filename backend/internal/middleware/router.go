@@ -18,4 +18,5 @@ func SetupRoutes(app *gin.Engine) {
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	app.GET("/hello", controllers.HelloWorld)
 	app.GET("/posts", controllers.GetList)
+	app.GET("/posts/:postId", controllers.GetDetail)
 }
