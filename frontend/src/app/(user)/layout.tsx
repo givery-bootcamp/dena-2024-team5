@@ -18,13 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <>
-          <Header />
-          <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-            <div className="mt-4 md:w-1/5 w-0 mx-auto">
-              <LeftMenu />
-            </div>
-            <div className="md:w-4/5 w-full">{children}</div>
-          </div>
-          </>
+      <Header />
+      <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+        <div className="mt-4 md:w-1/5 w-0 mx-auto">
+          <LeftMenu />
+        </div>
+        <div className="md:w-4/5 w-full">{children}</div>
+      </div>
+    </>
   );
 }
