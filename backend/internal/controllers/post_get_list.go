@@ -3,6 +3,7 @@ package controllers
 import (
 	"myapp/internal/repositories"
 	"myapp/internal/usecases"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,10 +11,10 @@ import (
 func GetListInternal(ctx *gin.Context, usecase *usecases.PostGetListUsecase) {
 	result, err := usecase.Execute()
 	if err != nil {
-		handleError(ctx, 500, err)
+		handleError(ctx, http.StatusInternalServerError, err)
 		return
 	}
-	ctx.JSON(200, result)
+	ctx.JSON(http.StatusOK, result)
 }
 
 // Get List Posts
