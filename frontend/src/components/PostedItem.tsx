@@ -28,9 +28,10 @@ export default async function PostedItem({
     <Card className="w-full">
       <CardHeader>
         <CardTitle>{postedItem.title}</CardTitle>
-        <CardDescription className="">{postedItem.body}</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+        <CardDescription className="">{postedItem.body}</CardDescription>
+      </CardContent>
       <CardFooter className="flex justify-between">
         <p className="text-sm">{postedItem.username}</p>
         <p className="text-sm">{postedItem.updated_at.toLocaleString("ja")}</p>

@@ -32,7 +32,7 @@ export default function RootLayout({
               <LeftMenu />
             </div>
             <div className="md:w-3/5 w-full">{children}</div>
-            <div className="md:w-1/5 w-0"></div>
+            <div className="md:w-1/5 w-0" />
           </div>
         </ThemeProvider>
       </body>
