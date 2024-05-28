@@ -1,0 +1,51 @@
+definitions:
+  controllers.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  entities.Post:
+    properties:
+      body:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: このswaggerはweb application演習5班のAPI仕様書です。
+  title: web-application team 5 API
+  version: "1.0"
+paths:
+  /posts:
+    get:
+      consumes:
+      - application/json
+      description: 投稿一覧を取得します
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Post'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: 投稿一覧の取得
+      tags:
+      - posts
+swagger: "2.0"
