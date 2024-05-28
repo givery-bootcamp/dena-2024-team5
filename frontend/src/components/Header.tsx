@@ -10,7 +10,7 @@ export default function Header() {
       </Link>
       <div className="flex items-center space-x-4">
         <Button asChild>
-        <Link href={"/login"}>ログイン</Link>
+          <Link href={"/login"}>ログイン</Link>
         </Button>
         <ModeToggle />
       </div>

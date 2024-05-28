@@ -1,8 +1,8 @@
+import Header from "@/components/Header";
+import LeftMenu from "@/components/LeftMenu";
+import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Header from "@/components/Header";
-import { ThemeProvider } from "@/components/theme-provider";
-import LeftMenu from "@/components/LeftMenu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <>
-          <Header />
-          <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-            <div className="mt-4 md:w-1/5 w-0 mx-auto">
-              <LeftMenu />
-            </div>
-            <div className="md:w-4/5 w-full">{children}</div>
-          </div>
-          </>
+      <Header />
+      <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+        <div className="mt-4 md:w-1/5 w-0 mx-auto">
+          <LeftMenu />
+        </div>
+        <div className="md:w-4/5 w-full">{children}</div>
+      </div>
+    </>
   );
 }

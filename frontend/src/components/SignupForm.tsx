@@ -1,24 +1,22 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function SignupForm() {
   return (
     <Card className="max-w-md w-full border-0 shadow-none">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
-        <CardDescription>
-            個人情報を入力してください
-        </CardDescription>
+        <CardDescription>個人情報を入力してください</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
@@ -46,12 +44,12 @@ export function SignupForm() {
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
-        アカウントをお持ちの場合{" "}
+          アカウントをお持ちの場合{" "}
           <Link href="/login" className="underline">
             ログイン
           </Link>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
