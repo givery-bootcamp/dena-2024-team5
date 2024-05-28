@@ -9,7 +9,9 @@ export default function Header() {
         <h1 className="text-2xl font-bold">Header</h1>
       </Link>
       <div className="flex items-center space-x-4">
-        <Button>Sign In</Button>
+        <Button asChild>
+        <Link href={"/login"}>ログイン</Link>
+        </Button>
         <ModeToggle />
       </div>
     </header>
