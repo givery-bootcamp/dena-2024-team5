@@ -39,10 +39,5 @@ export default async function PostedItem({
         </Button>
       </CardFooter>
     </Card>
-    // <div>
-    //   <Link href={`posts/${postedItem.id}`}>{postedItem.title}</Link>
-    //   <div>{postedItem.username}</div>
-    //   <div>{postedItem.updated_at.toLocaleString("ja")}</div>
-    // </div>
   );
 }
