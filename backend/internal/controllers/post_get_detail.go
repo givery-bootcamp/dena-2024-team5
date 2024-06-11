@@ -15,12 +15,12 @@ import (
 // @Tags	posts
 // @Accept	json
 // @Produce	json
-// @Param	postId	path		string
+// @Param	postId	path		int	true	"Post ID"
 // @Success	200		{object}	entities.Post
 // @Failure	400		{object}	controllers.ErrorResponse
 // @Failure	404		{object}	controllers.ErrorResponse
 // @Failure	500		{object}	controllers.ErrorResponse
-// @Router	/post/postId	[get]
+// @Router	/post/{postId}	[get]
 func PostGetDetail(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
