@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"myapp/internal/repositories"
 	"myapp/internal/usecases"
 	"net/http"
 	"strconv"
@@ -11,7 +10,11 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetDetailInternal(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
+func PostGetDetail(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
+	if usecase == nil {
+		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
+		return
+	}
 	postIdStr := ctx.Param("postId")
 	postId, err := strconv.Atoi(postIdStr)
 	if err != nil {
@@ -28,10 +31,4 @@ func GetDetailInternal(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase)
 		return
 	}
 	ctx.JSON(http.StatusOK, result)
-}
-
-func GetDetail(ctx *gin.Context) {
-	repository := repositories.NewPostRepository(DB(ctx))
-	usecase := usecases.NewPostGetDetailUsecase(repository)
-	GetDetailInternal(ctx, usecase)
 }

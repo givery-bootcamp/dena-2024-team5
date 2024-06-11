@@ -69,7 +69,7 @@ func TestPostGetDetail(t *testing.T) {
 
 	app := gin.Default()
 	app.GET("/posts/:postId", func(ctx *gin.Context) {
-		controllers.GetDetailInternal(ctx, usecase)
+		controllers.PostGetDetail(ctx, usecase)
 	})
 
 	// 正常系

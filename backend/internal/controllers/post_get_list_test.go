@@ -40,7 +40,7 @@ func TestPostGetList(t *testing.T) {
 
 	app := gin.Default()
 	app.GET("/posts", func(ctx *gin.Context) {
-		controllers.GetListInternal(ctx, usecase)
+		controllers.PostGetList(ctx, usecase)
 	})
 
 	// 正常系
