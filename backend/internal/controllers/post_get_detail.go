@@ -15,7 +15,7 @@ import (
 // @Tags	posts
 // @Accept	json
 // @Produce	json
-// @Param	postId	path		int	true	"Post ID"
+// @Param	postId	path	int		true	"Post ID"
 // @Success	200		{object}	entities.Post
 // @Failure	400		{object}	controllers.ErrorResponse
 // @Failure	404		{object}	controllers.ErrorResponse
