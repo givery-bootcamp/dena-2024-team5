@@ -37,5 +37,8 @@
     "formatter": {
       "trailingCommas": "none"
     }
+  },
+  "files": {
+    "ignore": ["src/components/ui/**"]
   }
 }
