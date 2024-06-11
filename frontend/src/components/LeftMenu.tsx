@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ModeToggle } from "./ThemeChanger";
 
 export default function LeftMenu() {
   return (
