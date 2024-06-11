@@ -11,12 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type ErrResponse struct {
-	Message string `json:"message"`
-}
-
 func NewErrResponse(message string) string {
-	jsonBytes, _ := json.Marshal(ErrResponse{message})
+	jsonBytes, _ := json.Marshal(ErrorResponse{message})
 	return string(jsonBytes)
 }
 

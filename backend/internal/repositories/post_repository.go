@@ -37,7 +37,7 @@ func NewPostRepository(conn *gorm.DB) *PostRepository {
 	}
 }
 
-func (p *PostRepository) GetList() (*[]entities.Post, error) {
+func (p *PostRepository) GetList() ([]entities.Post, error) {
 	var obj []Post
 	result := p.Conn.Order("id desc").Preload("User").Find(&obj)
 	if result.Error != nil {
@@ -48,7 +48,7 @@ func (p *PostRepository) GetList() (*[]entities.Post, error) {
 	for i, model := range obj {
 		posts[i] = *convertPostModelToEntity(&model)
 	}
-	return &posts, nil
+	return posts, nil
 }
 
 func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {

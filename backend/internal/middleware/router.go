@@ -1,9 +1,8 @@
 package middleware
 
 import (
-	"myapp/internal/controllers"
-
 	_ "myapp/docs"
+	"myapp/internal/dependency"
 
 	"github.com/gin-gonic/gin"
 
@@ -16,7 +15,8 @@ func SetupRoutes(app *gin.Engine) {
 		ctx.String(200, "It works")
 	})
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-	app.GET("/hello", controllers.HelloWorld)
-	app.GET("/posts", controllers.GetList)
-	app.GET("/posts/:postId", controllers.GetDetail)
+
+	container := dependency.NewDIContainer()
+	app.GET("/posts", container.PostGetListController)
+	app.GET("/posts/:postId", container.PostGetDetailController)
 }

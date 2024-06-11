@@ -16,16 +16,16 @@ import (
 )
 
 type DummyPostGetDetailRepository struct {
-	Posts *[]entities.Post
+	Posts []entities.Post
 }
 
 func NewDummyPostGetDetailRepository() *DummyPostGetDetailRepository {
 	return &DummyPostGetDetailRepository{
-		Posts: &[]entities.Post{},
+		Posts: []entities.Post{},
 	}
 }
 
-func (p *DummyPostGetDetailRepository) SetPosts(posts *[]entities.Post) {
+func (p *DummyPostGetDetailRepository) SetPosts(posts []entities.Post) {
 	p.Posts = posts
 }
 
@@ -33,7 +33,7 @@ func (p *DummyPostGetDetailRepository) GetDetail(id int) (*entities.Post, error)
 	if p.Posts == nil {
 		return nil, errors.New("database broken")
 	} else {
-		for _, post := range *p.Posts {
+		for _, post := range p.Posts {
 			if post.Id == id {
 				return &post, nil
 			}
@@ -44,7 +44,7 @@ func (p *DummyPostGetDetailRepository) GetDetail(id int) (*entities.Post, error)
 
 func TestPostGetDetail(t *testing.T) {
 	repository := NewDummyPostGetDetailRepository()
-	DummyPostGetDetails := &[]entities.Post{
+	DummyPostGetDetails := []entities.Post{
 		{
 			Id:        2,
 			Title:     "test2",
@@ -69,11 +69,11 @@ func TestPostGetDetail(t *testing.T) {
 
 	app := gin.Default()
 	app.GET("/posts/:postId", func(ctx *gin.Context) {
-		controllers.GetDetailInternal(ctx, usecase)
+		controllers.PostGetDetail(ctx, usecase)
 	})
 
 	// 正常系
-	b, _ := json.Marshal((*DummyPostGetDetails)[0])
+	b, _ := json.Marshal((DummyPostGetDetails)[0])
 	controllers.TestRequest(t, app, "GET", "/posts/2", nil, http.StatusOK, string(b))
 	// 不正なIDを指定 (数値でない)
 	_, err := strconv.Atoi("foo")

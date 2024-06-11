@@ -15,6 +15,6 @@ func NewPostGetListUsecase(r interfaces.PostGetListRepository) *PostGetListUseca
 	}
 }
 
-func (p *PostGetListUsecase) Execute() (*[]entities.Post, error) {
+func (p *PostGetListUsecase) Execute() ([]entities.Post, error) {
 	return p.repository.GetList()
 }
