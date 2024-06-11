@@ -4,10 +4,15 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'frontend/**'
 
 jobs:
   quality:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,4 +21,4 @@ jobs:
         with:
           version: latest
       - name: Run Biome
-        run: cd frontend && biome ci ./src
+        run: biome ci ./src
