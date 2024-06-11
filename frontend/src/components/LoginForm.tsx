@@ -1,15 +1,32 @@
-import { Button } from "@/components/ui/button";
+"use client";
+import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import * as z from "zod";
+
+const formSchema = z.object({
+  email: z
+    .string({
+      required_error: "メールアドレスは必須です。",
+    })
+    .email({
+      message: "メールアドレスの形式が正しくありません。",
+    })
+    .describe("メールアドレス"),
+  pass: z
+    .string({
+      required_error: "パスワードは必須です。",
+    })
+    .min(8, {
+      message: "パスワードは8文字以上である必要があります。",
+    })
+    .describe("パスワード"),
+});
 
 export function LoginForm() {
   return (
@@ -20,25 +37,32 @@ export function LoginForm() {
           メールアドレスとパスワードを入力してください
         </CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" required />
-        </div>
-      </CardContent>
-      <CardFooter className="grid">
-        <Button className="w-full">ログイン</Button>
+      <AutoForm
+        onSubmit={(data) => console.log(data)}
+        formSchema={formSchema}
+        fieldConfig={{
+          email: {
+            inputProps: {
+              type: "email",
+              placeholder: "example@example.com",
+            },
+          },
+          pass: {
+            inputProps: {
+              type: "password",
+              placeholder: "••••••••",
+            },
+          },
+        }}
+      >
+        <AutoFormSubmit>送信</AutoFormSubmit>
         <div className="mt-4 text-center text-sm">
           アカウントをお持ちでない場合{" "}
           <Link href="/signup" className="underline">
             登録
           </Link>
         </div>
-      </CardFooter>
+      </AutoForm>
     </Card>
   );
 }
