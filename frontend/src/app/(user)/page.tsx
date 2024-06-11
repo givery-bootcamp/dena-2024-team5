@@ -1,19 +1,10 @@
 import PostedItem from "@/components/PostedItem";
+import { aspidaClient } from "@/lib/aspidaClient";
 import type { PostedItemType } from "@/types/PostedItemType";
 
-async function getData() {
-  const res = await fetch("http://localhost:9000/posts");
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
 export default async function Home() {
-  const listData = await getData();
+  const listData = await aspidaClient.posts.$get();
+
   // 日付をData型にする
   const formattedListData: PostedItemType[] = listData.map(
     (data: PostedItemType) => {
