@@ -10,6 +10,17 @@ import (
 	"gorm.io/gorm"
 )
 
+// @Summary get post detail
+// @Description	投稿の詳細を取得します
+// @Tags	posts
+// @Accept	json
+// @Produce	json
+// @Param	postId	path		string
+// @Success	200		{object}	entities.Post
+// @Failure	400		{object}	controllers.ErrorResponse
+// @Failure	404		{object}	controllers.ErrorResponse
+// @Failure	500		{object}	controllers.ErrorResponse
+// @Router	/post/postId	[get]
 func PostGetDetail(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
