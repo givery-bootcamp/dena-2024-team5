@@ -42,6 +42,10 @@ func (p *DummyPostGetDetailRepository) GetDetail(id int) (*entities.Post, error)
 	}
 }
 
+func (p *DummyPostGetDetailRepository) GetList() ([]entities.Post, error) {
+	return nil, nil
+}
+
 func TestPostGetDetail(t *testing.T) {
 	repository := NewDummyPostGetDetailRepository()
 	DummyPostGetDetails := []entities.Post{

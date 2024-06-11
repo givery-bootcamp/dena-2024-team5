@@ -4,6 +4,7 @@ import (
 	"myapp/internal/entities"
 )
 
-type PostGetDetailRepository interface {
+type PostRepository interface {
+	GetList() ([]entities.Post, error)
 	GetDetail(id int) (*entities.Post, error)
 }

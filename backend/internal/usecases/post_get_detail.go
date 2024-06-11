@@ -6,10 +6,10 @@ import (
 )
 
 type PostGetDetailUsecase struct {
-	repository interfaces.PostGetDetailRepository
+	repository interfaces.PostRepository
 }
 
-func NewPostGetDetailUsecase(r interfaces.PostGetDetailRepository) *PostGetDetailUsecase {
+func NewPostGetDetailUsecase(r interfaces.PostRepository) *PostGetDetailUsecase {
 	return &PostGetDetailUsecase{
 		repository: r,
 	}

@@ -26,6 +26,10 @@ func (p *DummyPostGetListRepository) SetPosts(posts []entities.Post) {
 	p.Posts = posts
 }
 
+func (p *DummyPostGetListRepository) GetDetail(id int) (*entities.Post, error) {
+	return nil, nil
+}
+
 func (p *DummyPostGetListRepository) GetList() ([]entities.Post, error) {
 	if p.Posts != nil {
 		return p.Posts, nil
