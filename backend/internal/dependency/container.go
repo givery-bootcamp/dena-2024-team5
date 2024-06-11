@@ -25,3 +25,9 @@ func (di *DIContainer) PostGetDetailController(ctx *gin.Context) {
 	usecase := usecases.NewPostGetDetailUsecase(repository)
 	controllers.PostGetDetail(ctx, usecase)
 }
+
+func (di *DIContainer) AuthSigninController(ctx *gin.Context) {
+	repository := repositories.NewUserRepository(controllers.DB(ctx))
+	usecase := usecases.NewAuthSigninUsecase(repository)
+	controllers.AuthSignin(ctx, usecase)
+}
