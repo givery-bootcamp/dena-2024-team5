@@ -3,7 +3,7 @@ package entities
 import "time"
 
 type Post struct {
-	Id        uint      `json:"id"`
+	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
 	Body      string    `json:"body"`
 	UserID    uint      `json:"user_id"`

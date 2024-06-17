@@ -34,7 +34,7 @@ func (p *DummyPostGetDetailRepository) GetDetail(id uint) (*entities.Post, error
 		return nil, errors.New("database broken")
 	} else {
 		for _, post := range p.Posts {
-			if post.Id == id {
+			if post.ID == id {
 				return &post, nil
 			}
 		}
@@ -46,7 +46,7 @@ func TestPostGetDetail(t *testing.T) {
 	repository := NewDummyPostGetDetailRepository()
 	DummyPostGetDetails := []entities.Post{
 		{
-			Id:        2,
+			ID:        2,
 			Title:     "test2",
 			Body:      "This is test2",
 			UserID:    1,
@@ -55,7 +55,7 @@ func TestPostGetDetail(t *testing.T) {
 			UpdatedAt: time.Now(),
 		},
 		{
-			Id:        1,
+			ID:        1,
 			Title:     "test1",
 			Body:      "This is test1",
 			UserID:    1,
@@ -68,7 +68,7 @@ func TestPostGetDetail(t *testing.T) {
 	usecase := usecases.NewPostGetDetailUsecase(repository)
 
 	app := gin.Default()
-	app.GET("/posts/:postId", func(ctx *gin.Context) {
+	app.GET("/posts/:postID", func(ctx *gin.Context) {
 		controllers.PostGetDetail(ctx, usecase)
 	})
 

@@ -46,7 +46,7 @@ func TestPostGetList(t *testing.T) {
 	// 正常系
 	DummyPostGetLists := []entities.Post{
 		{
-			Id:        2,
+			ID:        2,
 			Title:     "test2",
 			Body:      "This is test2",
 			UserID:    1,
@@ -55,7 +55,7 @@ func TestPostGetList(t *testing.T) {
 			UpdatedAt: time.Now(),
 		},
 		{
-			Id:        1,
+			ID:        1,
 			Title:     "test1",
 			Body:      "This is test1",
 			UserID:    1,

@@ -42,7 +42,7 @@ func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 
 func convertPostModelToEntity(p *model.Post) *entities.Post {
 	return &entities.Post{
-		Id:        p.ID,
+		ID:        p.ID,
 		Title:     p.Title,
 		Body:      p.Body,
 		UserID:    p.UserID,

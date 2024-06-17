@@ -15,24 +15,24 @@ import (
 // @Tags	posts
 // @Accept	json
 // @Produce	json
-// @Param	postId	path	int		true	"Post ID"
+// @Param	postID	path	int		true	"Post ID"
 // @Success	200		{object}	entities.Post
 // @Failure	400		{object}	controllers.ErrorResponse
 // @Failure	404		{object}	controllers.ErrorResponse
 // @Failure	500		{object}	controllers.ErrorResponse
-// @Router	/post/{postId}	[get]
+// @Router	/post/{postID}	[get]
 func PostGetDetail(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
 		return
 	}
-	postIdStr := ctx.Param("postId")
-	postId, err := strconv.ParseUint(postIdStr, 10, 64)
+	postIDStr := ctx.Param("postID")
+	postID, err := strconv.ParseUint(postIDStr, 10, 64)
 	if err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}
-	result, err := usecase.Execute(uint(postId))
+	result, err := usecase.Execute(uint(postID))
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			handleError(ctx, http.StatusNotFound, err)
