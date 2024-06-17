@@ -22,7 +22,11 @@ export default function RootLayout({
         <div className="mt-4 md:w-1/5 w-0 mx-auto">
           <LeftMenu />
         </div>
-        <div className="md:w-4/5 w-full">{children}</div>
+        <div className="md:w-4/5 w-full">
+          <main className="flex min-h-screen bg-background">
+            <div className="container relative my-4">{children}</div>
+          </main>
+        </div>
       </div>
     </>
   );

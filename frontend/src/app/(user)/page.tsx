@@ -14,14 +14,10 @@ export default async function Home() {
     },
   );
   return (
-    <main className="flex min-h-screen bg-background">
-      <div className="container relative my-4">
-        <div className="grid grid-cols-1 gap-4">
-          {formattedListData.map((data) => (
-            <PostedItem key={data.id} postedItem={data} />
-          ))}
-        </div>
-      </div>
-    </main>
+    <div className="grid grid-cols-1 gap-4">
+      {formattedListData.map((data) => (
+        <PostedItem key={data.id} postedItem={data} />
+      ))}
+    </div>
   );
 }
