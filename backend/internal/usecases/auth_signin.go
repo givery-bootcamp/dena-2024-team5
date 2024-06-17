@@ -1,7 +1,6 @@
 package usecases
 
 import (
-	"fmt"
 	"myapp/internal/entities"
 	"myapp/internal/interfaces"
 	"os"
@@ -26,27 +25,29 @@ func (a *AuthSigninUsecase) Execute(username, password string) (*entities.User, 
 	if err != nil {
 		return nil, "", err
 	}
-
-	// Claimsオブジェクトの作成
-	claims := jwt.MapClaims{
-		"user_id": 12345678,
-		"exp":     time.Now().Add(time.Hour * 24).Unix(),
-	}
-	// ヘッダーとペイロードの生成
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	err = godotenv.Load()
+	jwtToken, err := GetJwtToken(user.Id)
 	if err != nil {
 		return nil, "", err
 	}
 
+	return user, jwtToken, nil
+}
+
+func GetJwtToken(userId int) (string, error) {
+	err := godotenv.Load()
+	if err != nil {
+		return "", err
+	}
 	secretKey := os.Getenv("SECRET_KEY")
-	fmt.Println(secretKey)
 
-	// ファイル名を指定できる
-
+	// ヘッダーとペイロードの生成
+	// Claimsオブジェクトの作成
+	claims := jwt.MapClaims{
+		"user_id": userId,
+		"exp":     time.Now().Add(time.Hour * 24).Unix(),
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// トークンに署名を付与
 	tokenString, _ := token.SignedString([]byte(secretKey))
-	fmt.Println(tokenString)
-
-	return user, tokenString, nil
+	return tokenString, nil
 }

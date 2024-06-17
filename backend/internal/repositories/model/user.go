@@ -11,8 +11,6 @@ type User struct {
 	Id       int
 	Name     string
 	Password string
-	// CreatedAt time.Time
-	// UpdatedAt time.Time
 }
 
 func ConvertUserModelToEntity(p *User) *entities.User {

@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"myapp/internal/usecases"
 	"net/http"
 
@@ -15,12 +14,13 @@ type AuthSigninReq struct {
 }
 
 // Signin
-// @Summary singin
-// @Description signinします
-// @Tags sign
+// @Summary singin API
+// @Description usernameとpasswordでsigninします。
+// @Tags auth
 // @Accept json
 // @Produce json
-// @Success 200 {object} []entities.Post
+// @Param signinPost body controllers.AuthSigninReq true "リクエストパラメータ"
+// @Success 200 {object} entities.User
 // @Failure 500 {object} controllers.ErrorResponse
 // @Router /signin [post]
 func AuthSignin(ctx *gin.Context, usecase *usecases.AuthSigninUsecase) {
@@ -30,11 +30,8 @@ func AuthSignin(ctx *gin.Context, usecase *usecases.AuthSigninUsecase) {
 	}
 	var req AuthSigninReq
 	ctx.BindJSON(&req)
-	// ctx.JSON(200, req)
-	fmt.Println(req)
 
 	result, token, err := usecase.Execute(req.Username, req.Password)
-	fmt.Println(token)
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
 		return

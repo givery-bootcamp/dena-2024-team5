@@ -8,16 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// type User struct {
-// 	gorm.Model
-// 	Id   int
-// 	Name string
-// 	// 今後必要かも
-// 	// Password  string
-// 	// CreatedAt time.Time
-// 	// UpdatedAt time.Time
-// }
-
 type Post struct {
 	gorm.Model
 	Id        int
