@@ -11,7 +11,7 @@ import (
 )
 
 // @Summary get user me
-// @Description	ログインしているユーザーの
+// @Description	ログインしているユーザーの情報を取得します
 // @Tags	users
 // @Accept	json
 // @Produce	json
