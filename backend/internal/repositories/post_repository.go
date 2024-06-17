@@ -31,7 +31,7 @@ func (p *PostRepository) GetList() ([]entities.Post, error) {
 	return posts, nil
 }
 
-func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {
+func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 	var obj model.Post
 	result := p.Conn.Preload("User").Where("id = ?", id).First(&obj)
 	if result.Error != nil {
@@ -42,10 +42,10 @@ func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {
 
 func convertPostModelToEntity(p *model.Post) *entities.Post {
 	return &entities.Post{
-		Id:        p.Id,
+		Id:        p.ID,
 		Title:     p.Title,
 		Body:      p.Body,
-		UserId:    p.UserId,
+		UserID:    p.UserID,
 		Username:  p.User.Name,
 		CreatedAt: p.CreatedAt,
 		UpdatedAt: p.UpdatedAt,

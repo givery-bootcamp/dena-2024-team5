@@ -29,7 +29,7 @@ func (p *DummyPostGetDetailRepository) SetPosts(posts []entities.Post) {
 	p.Posts = posts
 }
 
-func (p *DummyPostGetDetailRepository) GetDetail(id int) (*entities.Post, error) {
+func (p *DummyPostGetDetailRepository) GetDetail(id uint) (*entities.Post, error) {
 	if p.Posts == nil {
 		return nil, errors.New("database broken")
 	} else {
@@ -49,7 +49,7 @@ func TestPostGetDetail(t *testing.T) {
 			Id:        2,
 			Title:     "test2",
 			Body:      "This is test2",
-			UserId:    1,
+			UserID:    1,
 			Username:  "uga-rosa",
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
@@ -58,7 +58,7 @@ func TestPostGetDetail(t *testing.T) {
 			Id:        1,
 			Title:     "test1",
 			Body:      "This is test1",
-			UserId:    1,
+			UserID:    1,
 			Username:  "uga-rosa",
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
@@ -76,7 +76,7 @@ func TestPostGetDetail(t *testing.T) {
 	b, _ := json.Marshal((DummyPostGetDetails)[0])
 	controllers.TestRequest(t, app, "GET", "/posts/2", nil, http.StatusOK, string(b))
 	// 不正なIDを指定 (数値でない)
-	_, err := strconv.Atoi("foo")
+	_, err := strconv.ParseUint("foo", 10, 64)
 	expectedResponse := controllers.NewErrResponse(err.Error())
 	controllers.TestRequest(t, app, "GET", "/posts/foo", nil, http.StatusBadRequest, expectedResponse)
 	// 不正なIDを指定 (数値だけど対応するPostがない)

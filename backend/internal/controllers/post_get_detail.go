@@ -27,12 +27,12 @@ func PostGetDetail(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
 		return
 	}
 	postIdStr := ctx.Param("postId")
-	postId, err := strconv.Atoi(postIdStr)
+	postId, err := strconv.ParseUint(postIdStr, 10, 64)
 	if err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}
-	result, err := usecase.Execute(postId)
+	result, err := usecase.Execute(uint(postId))
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			handleError(ctx, http.StatusNotFound, err)
