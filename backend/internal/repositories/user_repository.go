@@ -28,7 +28,7 @@ func (p *UserRepository) GetByUsernameAndPassword(username, password string) (*e
 	return model.ConvertUserModelToEntity(&obj), nil
 }
 
-func (p *UserRepository) Post(username, password string) (*entities.User, error) {
+func (p *UserRepository) Create(username, password string) (*entities.User, error) {
 	// 重複存在チェック
 	var existingUser model.User
 	result := p.Conn.Where("name = ?", username).First(&existingUser)

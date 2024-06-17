@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserPostReq struct {
+type UserCreateReq struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
@@ -19,17 +19,18 @@ type UserPostReq struct {
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param userPost body controllers.UserPostReq true "リクエストパラメータ"
+// @Param userCreate body controllers.UserCreateReq true "リクエストパラメータ"
 // @Success 200 {object} entities.User
 // @Failure 400 {object} controllers.ErrorResponse
+// @Failure 409 {object} controllers.ErrorResponse
 // @Failure 500 {object} controllers.ErrorResponse
 // @Router /users [post]
-func UserPost(ctx *gin.Context, usecase *usecases.UserPostUsecase) {
+func UserCreate(ctx *gin.Context, usecase *usecases.UserCreateUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("usecase is nil"))
 		return
 	}
-	var req UserPostReq
+	var req UserCreateReq
 	err := ctx.BindJSON(&req)
 	if err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
@@ -47,7 +48,7 @@ func UserPost(ctx *gin.Context, usecase *usecases.UserPostUsecase) {
 
 	result, err := usecase.Execute(req.Username, req.Password)
 	if err != nil {
-		handleError(ctx, http.StatusBadRequest, err)
+		handleError(ctx, http.StatusConflict, err)
 		return
 	}
 	ctx.JSON(http.StatusOK, result)

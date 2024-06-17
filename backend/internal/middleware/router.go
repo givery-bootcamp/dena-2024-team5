@@ -23,5 +23,5 @@ func SetupRoutes(app *gin.Engine) {
 
 	app.POST("/signin", container.AuthSigninController)
 	app.POST("/signout", container.AuthSignoutController)
-	app.POST("/users", container.UserPostController)
+	app.POST("/users", container.UserCreateController)
 }

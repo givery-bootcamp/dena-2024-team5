@@ -32,10 +32,10 @@ func (di *DIContainer) AuthSigninController(ctx *gin.Context) {
 	controllers.AuthSignin(ctx, usecase)
 }
 
-func (di *DIContainer) UserPostController(ctx *gin.Context) {
+func (di *DIContainer) UserCreateController(ctx *gin.Context) {
 	repository := repositories.NewUserRepository(controllers.DB(ctx))
-	usecase := usecases.NewUserPostUsecase(repository)
-	controllers.UserPost(ctx, usecase)
+	usecase := usecases.NewUserCreateUsecase(repository)
+	controllers.UserCreate(ctx, usecase)
 }
 
 func (di *DIContainer) AuthSignoutController(ctx *gin.Context) {

@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/post/{postId}": {
+        "/post/{postID}": {
             "get": {
                 "description": "投稿の詳細を取得します",
                 "consumes": [
@@ -32,7 +32,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "description": "Post ID",
-                        "name": "postId",
+                        "name": "postID",
                         "in": "path",
                         "required": true
                     }
@@ -159,11 +159,11 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "リクエストパラメータ",
-                        "name": "userPost",
+                        "name": "userCreate",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.UserPostReq"
+                            "$ref": "#/definitions/controllers.UserCreateReq"
                         }
                     }
                 ],
@@ -176,6 +176,12 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
                         "schema": {
                             "$ref": "#/definitions/controllers.ErrorResponse"
                         }
@@ -217,7 +223,7 @@ const docTemplate = `{
                 }
             }
         },
-        "controllers.UserPostReq": {
+        "controllers.UserCreateReq": {
             "type": "object",
             "required": [
                 "password",

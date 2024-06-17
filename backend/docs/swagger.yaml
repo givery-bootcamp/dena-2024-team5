@@ -17,7 +17,7 @@ definitions:
     required:
     - message
     type: object
-  controllers.UserPostReq:
+  controllers.UserCreateReq:
     properties:
       password:
         type: string
@@ -71,7 +71,7 @@ info:
   title: web-application team 5 API
   version: "1.0"
 paths:
-  /post/{postId}:
+  /post/{postID}:
     get:
       consumes:
       - application/json
@@ -79,7 +79,7 @@ paths:
       parameters:
       - description: Post ID
         in: path
-        name: postId
+        name: postID
         required: true
         type: integer
       produces:
@@ -163,10 +163,10 @@ paths:
       parameters:
       - description: リクエストパラメータ
         in: body
-        name: userPost
+        name: userCreate
         required: true
         schema:
-          $ref: '#/definitions/controllers.UserPostReq'
+          $ref: '#/definitions/controllers.UserCreateReq'
       produces:
       - application/json
       responses:
@@ -176,6 +176,10 @@ paths:
             $ref: '#/definitions/entities.User'
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "409":
+          description: Conflict
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
         "500":
