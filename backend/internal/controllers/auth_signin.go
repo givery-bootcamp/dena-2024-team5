@@ -21,6 +21,7 @@ type AuthSigninReq struct {
 // @Produce json
 // @Param signinPost body controllers.AuthSigninReq true "リクエストパラメータ"
 // @Success 200 {object} entities.User
+// @Failure 400 {object} controllers.ErrorResponse
 // @Failure 500 {object} controllers.ErrorResponse
 // @Router /signin [post]
 func AuthSignin(ctx *gin.Context, usecase *usecases.AuthSigninUsecase) {
@@ -33,7 +34,7 @@ func AuthSignin(ctx *gin.Context, usecase *usecases.AuthSigninUsecase) {
 
 	result, token, err := usecase.Execute(req.Username, req.Password)
 	if err != nil {
-		handleError(ctx, http.StatusInternalServerError, err)
+		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}
 	// samesiteをnonemodeにする
