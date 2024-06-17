@@ -31,3 +31,7 @@ func (di *DIContainer) AuthSigninController(ctx *gin.Context) {
 	usecase := usecases.NewAuthSigninUsecase(repository)
 	controllers.AuthSignin(ctx, usecase)
 }
+
+func (di *DIContainer) AuthSignoutController(ctx *gin.Context) {
+	controllers.AuthSignout(ctx)
+}
