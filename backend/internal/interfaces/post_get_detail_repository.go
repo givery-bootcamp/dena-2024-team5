@@ -5,5 +5,5 @@ import (
 )
 
 type PostGetDetailRepository interface {
-	GetDetail(id int) (*entities.Post, error)
+	GetDetail(id uint) (*entities.Post, error)
 }

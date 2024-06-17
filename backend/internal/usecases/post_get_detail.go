@@ -15,6 +15,6 @@ func NewPostGetDetailUsecase(r interfaces.PostGetDetailRepository) *PostGetDetai
 	}
 }
 
-func (p *PostGetDetailUsecase) Execute(id int) (*entities.Post, error) {
+func (p *PostGetDetailUsecase) Execute(id uint) (*entities.Post, error) {
 	return p.repository.GetDetail(id)
 }

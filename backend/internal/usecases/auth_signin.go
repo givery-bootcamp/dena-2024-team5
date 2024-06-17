@@ -25,7 +25,7 @@ func (a *AuthSigninUsecase) Execute(username, password string) (*entities.User, 
 	if err != nil {
 		return nil, "", err
 	}
-	jwtToken, err := GetJwtToken(user.Id)
+	jwtToken, err := GetJwtToken(user.ID)
 	if err != nil {
 		return nil, "", err
 	}
@@ -33,7 +33,7 @@ func (a *AuthSigninUsecase) Execute(username, password string) (*entities.User, 
 	return user, jwtToken, nil
 }
 
-func GetJwtToken(userId int) (string, error) {
+func GetJwtToken(userID uint) (string, error) {
 	err := godotenv.Load()
 	if err != nil {
 		return "", err
@@ -43,7 +43,7 @@ func GetJwtToken(userId int) (string, error) {
 	// ヘッダーとペイロードの生成
 	// Claimsオブジェクトの作成
 	claims := jwt.MapClaims{
-		"user_id": userId,
+		"user_id": userID,
 		"exp":     time.Now().Add(time.Hour * 24).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
