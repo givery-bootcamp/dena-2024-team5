@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { formSchema } from "./components/LoginForm";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -8,7 +9,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        let user = null;
+        let user = {};
+        const { username, password } = await formSchema.parseAsync(credentials);
         user = { id: "1", name: "taro" };
         if (!user) {
           throw new Error("No user found");
