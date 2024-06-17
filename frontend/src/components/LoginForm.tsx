@@ -6,18 +6,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { serversideSignin } from "@/utils/signin";
 import Link from "next/link";
 import * as z from "zod";
 
 const formSchema = z.object({
-  email: z
+  username: z
     .string({
-      required_error: "メールアドレスは必須です。",
+      required_error: "ユーザーネームは必須です。",
     })
-    .email({
-      message: "メールアドレスの形式が正しくありません。",
-    })
-    .describe("メールアドレス"),
+    .describe("ユーザーネーム"),
   pass: z
     .string({
       required_error: "パスワードは必須です。",
@@ -34,17 +32,18 @@ export function LoginForm() {
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          メールアドレスとパスワードを入力してください
+          ユーザーネームとパスワードを入力してください
         </CardDescription>
       </CardHeader>
       <AutoForm
-        onSubmit={(data) => console.log(data)}
+        onSubmit={async (data) => {
+          await serversideSignin(data);
+        }}
         formSchema={formSchema}
         fieldConfig={{
-          email: {
+          username: {
             inputProps: {
-              type: "email",
-              placeholder: "example@example.com",
+              placeholder: "ユーザーネーム",
             },
           },
           pass: {
