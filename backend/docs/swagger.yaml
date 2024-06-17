@@ -1,5 +1,12 @@
 basePath: /
 definitions:
+  controllers.AuthSigninReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   controllers.ErrorResponse:
     properties:
       message:
@@ -18,6 +25,13 @@ definitions:
       updated_at:
         type: string
       user_id:
+        type: integer
+      username:
+        type: string
+    type: object
+  entities.User:
+    properties:
+      id:
         type: integer
       username:
         type: string
@@ -83,4 +97,30 @@ paths:
       summary: get list posts
       tags:
       - posts
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: usernameとpasswordでsigninします。
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: signinPost
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AuthSigninReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: singin API
+      tags:
+      - auth
 swagger: "2.0"
