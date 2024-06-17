@@ -147,6 +147,10 @@ const docTemplate = `{
     "definitions": {
         "controllers.AuthSigninReq": {
             "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
             "properties": {
                 "password": {
                     "type": "string"
@@ -158,6 +162,9 @@ const docTemplate = `{
         },
         "controllers.ErrorResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
@@ -166,6 +173,15 @@ const docTemplate = `{
         },
         "entities.Post": {
             "type": "object",
+            "required": [
+                "body",
+                "created_at",
+                "id",
+                "title",
+                "updated_at",
+                "user_id",
+                "username"
+            ],
             "properties": {
                 "body": {
                     "type": "string"
@@ -192,6 +208,10 @@ const docTemplate = `{
         },
         "entities.User": {
             "type": "object",
+            "required": [
+                "id",
+                "username"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"

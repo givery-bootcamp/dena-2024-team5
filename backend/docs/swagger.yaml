@@ -6,11 +6,16 @@ definitions:
         type: string
       username:
         type: string
+    required:
+    - password
+    - username
     type: object
   controllers.ErrorResponse:
     properties:
       message:
         type: string
+    required:
+    - message
     type: object
   entities.Post:
     properties:
@@ -28,6 +33,14 @@ definitions:
         type: integer
       username:
         type: string
+    required:
+    - body
+    - created_at
+    - id
+    - title
+    - updated_at
+    - user_id
+    - username
     type: object
   entities.User:
     properties:
@@ -35,6 +48,9 @@ definitions:
         type: integer
       username:
         type: string
+    required:
+    - id
+    - username
     type: object
 host: localhost:9000
 info:

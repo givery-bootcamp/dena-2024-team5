@@ -141,6 +141,10 @@
     "definitions": {
         "controllers.AuthSigninReq": {
             "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
             "properties": {
                 "password": {
                     "type": "string"
@@ -152,6 +156,9 @@
         },
         "controllers.ErrorResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
@@ -160,6 +167,15 @@
         },
         "entities.Post": {
             "type": "object",
+            "required": [
+                "body",
+                "created_at",
+                "id",
+                "title",
+                "updated_at",
+                "user_id",
+                "username"
+            ],
             "properties": {
                 "body": {
                     "type": "string"
@@ -186,6 +202,10 @@
         },
         "entities.User": {
             "type": "object",
+            "required": [
+                "id",
+                "username"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
