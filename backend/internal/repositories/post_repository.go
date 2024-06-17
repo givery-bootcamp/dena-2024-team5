@@ -1,20 +1,12 @@
 package repositories
 
 import (
-	"gorm.io/gorm"
 	"myapp/internal/entities"
+	"myapp/internal/repositories/model"
 	"time"
-)
 
-type User struct {
-	gorm.Model
-	Id   int
-	Name string
-	// 今後必要かも
-	// Password  string
-	// CreatedAt time.Time
-	// UpdatedAt time.Time
-}
+	"gorm.io/gorm"
+)
 
 type Post struct {
 	gorm.Model
@@ -22,7 +14,7 @@ type Post struct {
 	Title     string
 	Body      string
 	UserId    int
-	User      User
+	User      model.User
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

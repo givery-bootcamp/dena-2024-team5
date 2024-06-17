@@ -19,4 +19,5 @@ func SetupRoutes(app *gin.Engine) {
 	container := dependency.NewDIContainer()
 	app.GET("/posts", container.PostGetListController)
 	app.GET("/posts/:postId", container.PostGetDetailController)
+	app.POST("/signin", container.AuthSigninController)
 }

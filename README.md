@@ -94,7 +94,7 @@ host$ npm install
 
 swaggerファイルの再生成は以下のコマンドを実行してください。
 ```
-docker-compose exec backend sh -c "swag init"
+make swag
 ```
 
 ### how to write doc
