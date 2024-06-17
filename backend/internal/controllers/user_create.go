@@ -13,7 +13,7 @@ type UserCreateReq struct {
 	Password string `json:"password"`
 }
 
-// User Post
+// User Create
 // @Summary  Create User API
 // @Description usernameとpasswordでuserを作成します。
 // @Tags users
