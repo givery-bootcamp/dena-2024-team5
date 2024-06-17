@@ -7,13 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { PostedItemType } from "@/types/PostedItemType";
+import type {Entities_Post} from "../../api/@types/"
 import Link from "next/link";
+import { dateFormatString2DateJa } from "@/utils/date";
 
 export default async function PostedItem({
   postedItem,
 }: {
-  postedItem: PostedItemType;
+  postedItem: Entities_Post;
 }) {
   return (
     <Card className="w-full">
@@ -25,7 +26,7 @@ export default async function PostedItem({
       </CardContent>
       <CardFooter className="flex justify-between">
         <p className="text-sm">{postedItem.username}</p>
-        <p className="text-sm">{postedItem.updated_at.toLocaleString("ja")}</p>
+        <p className="text-sm">{dateFormatString2DateJa(postedItem.created_at)}</p>
         <Button asChild>
           <Link href={`posts/${postedItem.id}`}>詳細</Link>
         </Button>
