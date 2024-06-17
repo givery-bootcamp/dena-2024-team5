@@ -16,10 +16,5 @@ func NewUserCreateUsecase(r interfaces.UserCreateRepository) *UserCreateUsecase 
 }
 
 func (a *UserCreateUsecase) Execute(username, password string) (*entities.User, error) {
-	user, err := a.repository.Create(username, password)
-	if err != nil {
-		return nil, err
-	}
-
-	return user, nil
+	return a.repository.Create(username, password)
 }
