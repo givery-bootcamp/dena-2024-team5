@@ -35,3 +35,9 @@ func (di *DIContainer) AuthSigninController(ctx *gin.Context) {
 func (di *DIContainer) AuthSignoutController(ctx *gin.Context) {
 	controllers.AuthSignout(ctx)
 }
+
+func (di *DIContainer) UserGetMeController(ctx *gin.Context) {
+	repository := repositories.NewUserRepository(controllers.DB(ctx))
+	usecase := usecases.NewUserGetMeUsecase(repository)
+	controllers.UserGetMe(ctx, usecase)
+}
