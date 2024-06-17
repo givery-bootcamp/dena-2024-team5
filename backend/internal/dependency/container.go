@@ -37,3 +37,7 @@ func (di *DIContainer) UserPostController(ctx *gin.Context) {
 	usecase := usecases.NewUserPostUsecase(repository)
 	controllers.UserPost(ctx, usecase)
 }
+
+func (di *DIContainer) AuthSignoutController(ctx *gin.Context) {
+	controllers.AuthSignout(ctx)
+}

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome lint ./src",
-    "format": "biome check --apply ./src && biome format --write ./src"
+    "format": "biome check --apply ./src && biome format --write ./src",
+    "openapi": "rm -r ./api && pnpm dlx openapi2aspida -i ../backend/docs/swagger.json"
   },
   "dependencies": {
     "@aspida/fetch": "^1.14.0",

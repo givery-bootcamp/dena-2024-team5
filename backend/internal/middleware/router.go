@@ -17,8 +17,11 @@ func SetupRoutes(app *gin.Engine) {
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	container := dependency.NewDIContainer()
+
 	app.GET("/posts", container.PostGetListController)
 	app.GET("/posts/:postId", container.PostGetDetailController)
+
 	app.POST("/signin", container.AuthSigninController)
+	app.POST("/signout", container.AuthSignoutController)
 	app.POST("/users", container.UserPostController)
 }

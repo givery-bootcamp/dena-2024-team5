@@ -1,14 +1,24 @@
 /* eslint-disable */
+export type Controllers_AuthSigninReq = {
+  password: string
+  username: string
+}
+
 export type Controllers_ErrorResponse = {
-  message?: string | undefined
+  message: string
 }
 
 export type Entities_Post = {
-  body?: string | undefined
-  created_at?: string | undefined
-  id?: number | undefined
-  title?: string | undefined
-  updated_at?: string | undefined
-  user_id?: number | undefined
-  username?: string | undefined
+  body: string
+  created_at: string
+  id: number
+  title: string
+  updated_at: string
+  user_id: number
+  username: string
+}
+
+export type Entities_User = {
+  id: number
+  username: string
 }
