@@ -8,6 +8,6 @@ type Post struct {
 	Body      string    `json:"body"`
 	UserId    int       `json:"user_id"`
 	Username  string    `json:"username"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" format:"date-time"`
 }
