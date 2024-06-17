@@ -30,7 +30,11 @@ func UserPost(ctx *gin.Context, usecase *usecases.UserPostUsecase) {
 		return
 	}
 	var req UserPostReq
-	ctx.BindJSON(&req)
+	err := ctx.BindJSON(&req)
+	if err != nil {
+		handleError(ctx, http.StatusBadRequest, err)
+		return
+	}
 
 	if req.Username == "" {
 		handleError(ctx, http.StatusBadRequest, errors.New("username is empty"))
