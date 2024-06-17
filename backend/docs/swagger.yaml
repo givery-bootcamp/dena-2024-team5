@@ -61,7 +61,7 @@ info:
   title: web-application team 5 API
   version: "1.0"
 paths:
-  /post/{postId}:
+  /post/{postID}:
     get:
       consumes:
       - application/json
@@ -69,7 +69,7 @@ paths:
       parameters:
       - description: Post ID
         in: path
-        name: postId
+        name: postID
         required: true
         type: integer
       produces:
@@ -145,4 +145,31 @@ paths:
       summary: singin API
       tags:
       - auth
+  /user/me:
+    get:
+      consumes:
+      - application/json
+      description: ログインしているユーザーの情報を取得します
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: get user me
+      tags:
+      - users
 swagger: "2.0"
