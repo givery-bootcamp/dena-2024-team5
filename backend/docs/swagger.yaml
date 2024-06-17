@@ -17,6 +17,16 @@ definitions:
     required:
     - message
     type: object
+  controllers.UserPostReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
   entities.Post:
     properties:
       body:
@@ -145,4 +155,34 @@ paths:
       summary: singin API
       tags:
       - auth
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: usernameとpasswordでuserを作成します。
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: userPost
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserPostReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: Create User API
+      tags:
+      - users
 swagger: "2.0"
