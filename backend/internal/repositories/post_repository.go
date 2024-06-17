@@ -3,21 +3,9 @@ package repositories
 import (
 	"myapp/internal/entities"
 	"myapp/internal/repositories/model"
-	"time"
 
 	"gorm.io/gorm"
 )
-
-type Post struct {
-	gorm.Model
-	Id        int
-	Title     string
-	Body      string
-	UserId    int
-	User      model.User
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
 
 type PostRepository struct {
 	Conn *gorm.DB
@@ -30,7 +18,7 @@ func NewPostRepository(conn *gorm.DB) *PostRepository {
 }
 
 func (p *PostRepository) GetList() ([]entities.Post, error) {
-	var obj []Post
+	var obj []model.Post
 	result := p.Conn.Order("id desc").Preload("User").Find(&obj)
 	if result.Error != nil {
 		return nil, result.Error
@@ -44,7 +32,7 @@ func (p *PostRepository) GetList() ([]entities.Post, error) {
 }
 
 func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {
-	var obj Post
+	var obj model.Post
 	result := p.Conn.Preload("User").Where("id = ?", id).First(&obj)
 	if result.Error != nil {
 		return nil, result.Error
@@ -52,7 +40,7 @@ func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {
 	return convertPostModelToEntity(&obj), nil
 }
 
-func convertPostModelToEntity(p *Post) *entities.Post {
+func convertPostModelToEntity(p *model.Post) *entities.Post {
 	return &entities.Post{
 		Id:        p.Id,
 		Title:     p.Title,
