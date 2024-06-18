@@ -133,6 +133,30 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "投稿を削除する",
+                "tags": [
+                    "posts"
+                ],
+                "summary": "delete post API",
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    }
+                }
             }
         },
         "/signin": {
