@@ -21,7 +21,7 @@ type PostNewReq struct {
 // @Accept json
 // @Produce json
 // @Param signinPost body controllers.PostNewReq true "リクエストパラメータ"
-// @Success 200 {object} entities.User
+// @Success 200 {object} entities.Post
 // @Failure 400 {object} controllers.ErrorResponse
 // @Failure 500 {object} controllers.ErrorResponse
 // @Router /posts [post]
