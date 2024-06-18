@@ -12,12 +12,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "Username" },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "Password",
-        },
+        username: {},
+        password: {},
       },
       authorize: async (credentials) => {
         try {
@@ -32,7 +28,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               return null;
             });
           // TODO aspidaによる認証情報を返す
-          user = { id: "1", name: "taro" };
+          if (userInfo) {
+            user = userInfo.body;
+          }
           if (!user) {
             throw new Error("No user found");
           }
@@ -41,7 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (error instanceof ZodError) {
             return null;
           }
-          throw new CustomError();
+          throw new Error();
         }
       },
     }),
