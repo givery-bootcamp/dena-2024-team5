@@ -30,7 +30,11 @@ func AuthSignin(ctx *gin.Context, usecase *usecases.AuthSigninUsecase) {
 		return
 	}
 	var req AuthSigninReq
-	ctx.BindJSON(&req)
+	err := ctx.BindJSON(&req)
+	if err != nil {
+		handleError(ctx, http.StatusBadRequest, err)
+		return
+	}
 
 	result, token, err := usecase.Execute(req.Username, req.Password)
 	if err != nil {

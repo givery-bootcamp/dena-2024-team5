@@ -19,6 +19,7 @@ func SetupRoutes(app *gin.Engine) {
 	container := dependency.NewDIContainer()
 	app.POST("/signin", container.AuthSigninController)
 	app.POST("/signout", container.AuthSignoutController)
+	app.POST("/users", container.UserCreateController)
 
 	authGroup := app.Group("")
 	authGroup.Use(JwtAuthorizeMiddleware())
@@ -27,5 +28,4 @@ func SetupRoutes(app *gin.Engine) {
 		authGroup.GET("/posts/:postID", container.PostGetDetailController)
 		authGroup.GET("/user/me", container.UserGetMeController)
 	}
-
 }
