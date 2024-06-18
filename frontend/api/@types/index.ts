@@ -8,6 +8,16 @@ export type Controllers_ErrorResponse = {
   message: string
 }
 
+export type Controllers_PostNewReq = {
+  body: string
+  title: string
+}
+
+export type Controllers_UserCreateReq = {
+  password: string
+  username: string
+}
+
 export type Entities_Post = {
   body: string
   created_at: string
