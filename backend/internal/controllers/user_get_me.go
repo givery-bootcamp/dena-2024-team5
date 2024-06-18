@@ -13,7 +13,6 @@ import (
 // @Summary get user me
 // @Description	ログインしているユーザーの情報を取得します
 // @Tags	users
-// @Accept	json
 // @Produce	json
 // @Success	200		{object}	entities.User
 // @Failure	401		{object}	controllers.ErrorResponse
