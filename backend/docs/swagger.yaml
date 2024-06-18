@@ -17,6 +17,17 @@ definitions:
     required:
     - message
     type: object
+  controllers.PostNewReq:
+    properties:
+      body:
+        type: string
+      title:
+        maxLength: 100
+        type: string
+    required:
+    - body
+    - title
+    type: object
   controllers.UserCreateReq:
     properties:
       password:
@@ -90,6 +101,31 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
       summary: get list posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: signinPost
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.PostNewReq'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: new post API
       tags:
       - posts
   /posts/{postID}:
@@ -191,8 +227,6 @@ paths:
       - users
   /users/me:
     get:
-      consumes:
-      - application/json
       description: ログインしているユーザーの情報を取得します
       produces:
       - application/json
