@@ -1,7 +1,7 @@
 "use server";
 import { signIn } from "@/auth";
+import type { loginFormSchema } from "@/lib/zod";
 import type { z } from "zod";
-import type { loginFormSchema } from "./login";
 
 type loginFormType = z.infer<typeof loginFormSchema>;
 

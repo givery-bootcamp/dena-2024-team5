@@ -6,25 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { serversideSignin } from "@/utils/signIn";
+import { loginFormSchema } from "@/lib/zod";
+import { serversideSignIn } from "@/utils/signIn";
 import Link from "next/link";
-import * as z from "zod";
-
-export const formSchema = z.object({
-  username: z
-    .string({
-      required_error: "ユーザーネームは必須です。",
-    })
-    .describe("ユーザーネーム"),
-  password: z
-    .string({
-      required_error: "パスワードは必須です。",
-    })
-    .min(8, {
-      message: "パスワードは8文字以上である必要があります。",
-    })
-    .describe("パスワード"),
-});
 
 export function LoginForm() {
   return (
@@ -36,9 +20,9 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <AutoForm
-        formSchema={formSchema}
+        formSchema={loginFormSchema}
         onSubmit={(values) => {
-          serversideSignin(values);
+          serversideSignIn(values);
         }}
         fieldConfig={{
           username: {
@@ -56,7 +40,7 @@ export function LoginForm() {
           },
         }}
       >
-        <AutoFormSubmit>送信</AutoFormSubmit>
+        <AutoFormSubmit className="w-full">ログイン</AutoFormSubmit>
         <div className="mt-4 text-center text-sm">
           アカウントをお持ちでない場合{" "}
           <Link href="/signup" className="underline">
