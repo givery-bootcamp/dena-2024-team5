@@ -46,6 +46,5 @@ func JwtAuthorizeMiddleware() gin.HandlerFunc {
 
 		ctx.Set(constants.GIN_CONTEXT_USERID, claims.UserID)
 		ctx.Next()
-
 	}
 }
