@@ -74,6 +74,7 @@ jobs:
     - name: Build
       working-directory: ./backend
       run: |
+        touch .env
         echo "SECRET_KEY=${AUTH_SECRET_KEY}" >> .env
         go build -o myapp
       env:
