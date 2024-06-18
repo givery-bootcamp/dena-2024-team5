@@ -39,3 +39,16 @@ func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 	}
 	return model.ConvertPostModelToEntity(&obj), nil
 }
+
+func (p *PostRepository) PostNew(userID uint, title, body string) (*entities.Post, error) {
+	post := &model.Post{
+		Title:  title,
+		Body:   body,
+		UserID: userID,
+	}
+	result := p.Conn.Create(&post)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return model.ConvertPostModelToEntity(post), nil
+}
