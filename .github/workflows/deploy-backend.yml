@@ -76,6 +76,7 @@ jobs:
       run: |
         touch .env
         echo "SECRET_KEY=${AUTH_SECRET_KEY}" >> .env
+        cat .env
         go build -o myapp
       env:
         AUTH_SECRET_KEY: ${{ env.AUTH_SECRET_KEY }}
