@@ -71,9 +71,6 @@ info:
   title: web-application team 5 API
   version: "1.0"
 paths:
-<<<<<<< HEAD
-  /post/{postID}:
-=======
   /posts:
     get:
       consumes:
@@ -96,7 +93,6 @@ paths:
       tags:
       - posts
   /posts/{postID}:
->>>>>>> main
     get:
       consumes:
       - application/json
@@ -159,13 +155,6 @@ paths:
       summary: singin API
       tags:
       - auth
-<<<<<<< HEAD
-  /user/me:
-    get:
-      consumes:
-      - application/json
-      description: ログインしているユーザーの情報を取得します
-=======
   /users:
     post:
       consumes:
@@ -178,7 +167,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/controllers.UserCreateReq'
->>>>>>> main
       produces:
       - application/json
       responses:
@@ -186,32 +174,46 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/entities.User'
-<<<<<<< HEAD
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
-        "404":
-          description: Not Found
-=======
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
         "409":
           description: Conflict
->>>>>>> main
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
-<<<<<<< HEAD
-      summary: get user me
-=======
       summary: Create User API
->>>>>>> main
+      tags:
+      - users
+  /users/me:
+    get:
+      consumes:
+      - application/json
+      description: ログインしているユーザーの情報を取得します
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: get user me
       tags:
       - users
 swagger: "2.0"

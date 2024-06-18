@@ -15,59 +15,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-<<<<<<< HEAD
-        "/post/{postID}": {
-            "get": {
-                "description": "投稿の詳細を取得します",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "posts"
-                ],
-                "summary": "get post detail",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Post ID",
-                        "name": "postID",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/entities.Post"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-=======
->>>>>>> main
         "/posts": {
             "get": {
                 "description": "投稿一覧を取得します",
@@ -196,15 +143,9 @@ const docTemplate = `{
                 }
             }
         },
-<<<<<<< HEAD
-        "/user/me": {
-            "get": {
-                "description": "ログインしているユーザーの情報を取得します",
-=======
         "/users": {
             "post": {
                 "description": "usernameとpasswordでuserを作成します。",
->>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -214,9 +155,6 @@ const docTemplate = `{
                 "tags": [
                     "users"
                 ],
-<<<<<<< HEAD
-                "summary": "get user me",
-=======
                 "summary": "Create User API",
                 "parameters": [
                     {
@@ -229,7 +167,6 @@ const docTemplate = `{
                         }
                     }
                 ],
->>>>>>> main
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -237,24 +174,55 @@ const docTemplate = `{
                             "$ref": "#/definitions/entities.User"
                         }
                     },
-<<<<<<< HEAD
-                    "401": {
-                        "description": "Unauthorized",
-=======
                     "400": {
                         "description": "Bad Request",
->>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/controllers.ErrorResponse"
                         }
                     },
-<<<<<<< HEAD
-                    "404": {
-                        "description": "Not Found",
-=======
                     "409": {
                         "description": "Conflict",
->>>>>>> main
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/me": {
+            "get": {
+                "description": "ログインしているユーザーの情報を取得します",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get user me",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.User"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/controllers.ErrorResponse"
                         }
