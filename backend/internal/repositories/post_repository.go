@@ -41,12 +41,22 @@ func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 }
 
 func (p *PostRepository) PostNew(userID uint, title, body string) error {
-	post := &model.Post{
+	post := model.Post{
 		Title:  title,
 		Body:   body,
 		UserID: userID,
 	}
 	result := p.Conn.Create(&post)
+	return result.Error
+}
+
+func (p *PostRepository) Update(id uint, title, body string) error {
+	m := model.Post{}
+	m.ID = id
+	m.Title = title
+	m.Body = body
+	result := p.Conn.Updates(&m)
+
 	return result.Error
 }
 

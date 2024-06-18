@@ -28,6 +28,17 @@ definitions:
     - body
     - title
     type: object
+  controllers.PostUpdateRequest:
+    properties:
+      body:
+        type: string
+      title:
+        maxLength: 100
+        type: string
+    required:
+    - body
+    - title
+    type: object
   controllers.UserCreateReq:
     properties:
       password:
@@ -175,6 +186,44 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
       summary: get post detail
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: 投稿を更新します。
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: postUpdate
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.PostUpdateRequest'
+      - description: Post ID
+        in: path
+        name: postID
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: update post
       tags:
       - posts
   /signin:

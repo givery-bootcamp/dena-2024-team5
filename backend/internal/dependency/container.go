@@ -54,6 +54,13 @@ func (di *DIContainer) PostNewController(ctx *gin.Context) {
 	controllers.PostNew(ctx, usecase)
 }
 
+func (di *DIContainer) PostUpdateController(ctx *gin.Context) {
+	repository := repositories.NewPostRepository(controllers.DB(ctx))
+	postUpdateUsecase := usecases.NewPostUpdateUsecase(repository)
+	postOwnerValidateUsecase := usecases.NewPostOwnerValidateUsecase(repository)
+	controllers.PostUpdate(ctx, postOwnerValidateUsecase, postUpdateUsecase)
+}
+
 func (di *DIContainer) PostDeleteController(ctx *gin.Context) {
 	repository := repositories.NewPostRepository(controllers.DB(ctx))
 	ownerUsecase := usecases.NewPostOwnerValidateUsecase(repository)
