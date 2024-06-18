@@ -25,29 +25,27 @@ func (p *PostRepository) GetList() ([]entities.Post, error) {
 	}
 
 	posts := make([]entities.Post, len(obj))
-	for i, model := range obj {
-		posts[i] = *convertPostModelToEntity(&model)
+	for i, o := range obj {
+		posts[i] = *model.ConvertPostModelToEntity(&o)
 	}
 	return posts, nil
 }
 
-func (p *PostRepository) GetDetail(id int) (*entities.Post, error) {
+func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 	var obj model.Post
 	result := p.Conn.Preload("User").Where("id = ?", id).First(&obj)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return convertPostModelToEntity(&obj), nil
+	return model.ConvertPostModelToEntity(&obj), nil
 }
 
-func convertPostModelToEntity(p *model.Post) *entities.Post {
-	return &entities.Post{
-		Id:        p.Id,
-		Title:     p.Title,
-		Body:      p.Body,
-		UserId:    p.UserId,
-		Username:  p.User.Name,
-		CreatedAt: p.CreatedAt,
-		UpdatedAt: p.UpdatedAt,
+func (p *PostRepository) PostNew(userID uint, title, body string) error {
+	post := &model.Post{
+		Title:  title,
+		Body:   body,
+		UserID: userID,
 	}
+	result := p.Conn.Create(&post)
+	return result.Error
 }

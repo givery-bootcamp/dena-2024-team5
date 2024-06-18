@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/joho/godotenv"
 )
 
 type AuthSigninUsecase struct {
@@ -25,7 +24,7 @@ func (a *AuthSigninUsecase) Execute(username, password string) (*entities.User, 
 	if err != nil {
 		return nil, "", err
 	}
-	jwtToken, err := GetJwtToken(user.Id)
+	jwtToken, err := GetJwtToken(user.ID)
 	if err != nil {
 		return nil, "", err
 	}
@@ -33,21 +32,16 @@ func (a *AuthSigninUsecase) Execute(username, password string) (*entities.User, 
 	return user, jwtToken, nil
 }
 
-func GetJwtToken(userId int) (string, error) {
-	err := godotenv.Load()
-	if err != nil {
-		return "", err
-	}
-	secretKey := os.Getenv("SECRET_KEY")
-
+func GetJwtToken(userID uint) (string, error) {
 	// ヘッダーとペイロードの生成
 	// Claimsオブジェクトの作成
 	claims := jwt.MapClaims{
-		"user_id": userId,
+		"user_id": userID,
 		"exp":     time.Now().Add(time.Hour * 24).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// トークンに署名を付与
+	secretKey := os.Getenv("SECRET_KEY")
 	tokenString, _ := token.SignedString([]byte(secretKey))
 	return tokenString, nil
 }

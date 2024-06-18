@@ -17,6 +17,27 @@ definitions:
     required:
     - message
     type: object
+  controllers.PostNewReq:
+    properties:
+      body:
+        type: string
+      title:
+        maxLength: 100
+        type: string
+    required:
+    - body
+    - title
+    type: object
+  controllers.UserCreateReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
   entities.Post:
     properties:
       body:
@@ -61,7 +82,53 @@ info:
   title: web-application team 5 API
   version: "1.0"
 paths:
-  /post/{postId}:
+  /posts:
+    get:
+      consumes:
+      - application/json
+      description: 投稿一覧を取得します
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Post'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: get list posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: signinPost
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.PostNewReq'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: new post API
+      tags:
+      - posts
+  /posts/{postID}:
     get:
       consumes:
       - application/json
@@ -69,7 +136,7 @@ paths:
       parameters:
       - description: Post ID
         in: path
-        name: postId
+        name: postID
         required: true
         type: integer
       produces:
@@ -92,27 +159,6 @@ paths:
           schema:
             $ref: '#/definitions/controllers.ErrorResponse'
       summary: get post detail
-      tags:
-      - posts
-  /posts:
-    get:
-      consumes:
-      - application/json
-      description: 投稿一覧を取得します
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/entities.Post'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
-      summary: get list posts
       tags:
       - posts
   /signin:
@@ -145,4 +191,63 @@ paths:
       summary: singin API
       tags:
       - auth
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: usernameとpasswordでuserを作成します。
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: userCreate
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: Create User API
+      tags:
+      - users
+  /users/me:
+    get:
+      description: ログインしているユーザーの情報を取得します
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: get user me
+      tags:
+      - users
 swagger: "2.0"

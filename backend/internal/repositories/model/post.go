@@ -1,18 +1,27 @@
 package model
 
 import (
-	"time"
+	"myapp/internal/entities"
 
 	"gorm.io/gorm"
 )
 
 type Post struct {
 	gorm.Model
-	Id        int
-	Title     string
-	Body      string
-	UserId    int
-	User      User
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Title  string
+	Body   string
+	UserID uint
+	User   User
+}
+
+func ConvertPostModelToEntity(p *Post) *entities.Post {
+	return &entities.Post{
+		ID:        p.ID,
+		Title:     p.Title,
+		Body:      p.Body,
+		UserID:    p.UserID,
+		Username:  p.User.Name,
+		CreatedAt: p.CreatedAt,
+		UpdatedAt: p.UpdatedAt,
+	}
 }
