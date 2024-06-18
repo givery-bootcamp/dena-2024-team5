@@ -19,3 +19,10 @@ func handleError(ctx *gin.Context, status int, err error) {
 	}
 	ctx.JSON(status, &res)
 }
+
+func HandleErrorAbort(ctx *gin.Context, status int, err error) {
+	res := ErrorResponse{
+		Message: err.Error(),
+	}
+	ctx.AbortWithStatusJSON(status, &res)
+}

@@ -28,6 +28,15 @@ func (p *UserRepository) GetByUsernameAndPassword(username, password string) (*e
 	return model.ConvertUserModelToEntity(&obj), nil
 }
 
+func (p *UserRepository) GetDetail(id uint) (*entities.User, error) {
+	var user model.User
+	result := p.Conn.First(&user, id)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return model.ConvertUserModelToEntity(&user), nil
+}
+
 func (p *UserRepository) Create(username, password string) (*entities.User, error) {
 	// 重複存在チェック
 	var existingUser model.User
