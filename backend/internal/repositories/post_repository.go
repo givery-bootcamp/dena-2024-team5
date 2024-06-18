@@ -53,7 +53,9 @@ func (p *PostRepository) PostNew(userID uint, title, body string) error {
 func (p *PostRepository) Update(id uint, title, body string) error {
 	m := model.Post{}
 	m.ID = id
-	result := p.Conn.Model(&m).Updates(model.Post{Title: title, Body: body})
+	m.Title = title
+	m.Body = body
+	result := p.Conn.Updates(&m)
 
 	return result.Error
 }
