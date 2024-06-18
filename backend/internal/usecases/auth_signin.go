@@ -1,9 +1,9 @@
 package usecases
 
 import (
+	"myapp/internal/config"
 	"myapp/internal/entities"
 	"myapp/internal/interfaces"
-	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -41,7 +41,7 @@ func GetJwtToken(userID uint) (string, error) {
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// トークンに署名を付与
-	secretKey := os.Getenv("SECRET_KEY")
+	secretKey := config.AuthSecretKey
 	tokenString, _ := token.SignedString([]byte(secretKey))
 	return tokenString, nil
 }
