@@ -25,8 +25,8 @@ func (p *PostRepository) GetList() ([]entities.Post, error) {
 	}
 
 	posts := make([]entities.Post, len(obj))
-	for i, model := range obj {
-		posts[i] = *convertPostModelToEntity(&model)
+	for i, o := range obj {
+		posts[i] = *model.ConvertPostModelToEntity(&o)
 	}
 	return posts, nil
 }
@@ -37,17 +37,5 @@ func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return convertPostModelToEntity(&obj), nil
-}
-
-func convertPostModelToEntity(p *model.Post) *entities.Post {
-	return &entities.Post{
-		ID:        p.ID,
-		Title:     p.Title,
-		Body:      p.Body,
-		UserID:    p.UserID,
-		Username:  p.User.Name,
-		CreatedAt: p.CreatedAt,
-		UpdatedAt: p.UpdatedAt,
-	}
+	return model.ConvertPostModelToEntity(&obj), nil
 }
