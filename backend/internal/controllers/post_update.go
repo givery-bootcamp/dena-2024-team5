@@ -23,7 +23,9 @@ type PostUpdateRequest struct {
 // @Param postUpdate body controllers.PostUpdateRequest true "リクエストパラメータ"
 // @Param	postID	path	int		true	"Post ID"
 // @Success	204
+// @Failure	400		{object}	controllers.ErrorResponse
 // @Failure	403		{object}	controllers.ErrorResponse
+// @Failure	404		{object}	controllers.ErrorResponse
 // @Failure	500		{object}	controllers.ErrorResponse
 // @Router	/posts/{postID}	[put]
 func PostUpdate(
