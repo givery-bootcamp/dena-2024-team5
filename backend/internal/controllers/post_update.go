@@ -43,7 +43,7 @@ func PostUpdate(
 	}
 
 	req := PostUpdateRequest{}
-	err = ctx.ShouldBind(&req)
+	err = ctx.ShouldBindJSON(&req)
 	if err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
