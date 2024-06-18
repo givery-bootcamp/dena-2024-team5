@@ -27,6 +27,7 @@ func SetupRoutes(app *gin.Engine) {
 		authGroup.GET("/posts", container.PostGetListController)
 		authGroup.GET("/posts/:postID", container.PostGetDetailController)
 		authGroup.POST("/posts", container.PostNewController)
+		authGroup.DELETE("/posts/:postID", container.PostDeleteController)
 		authGroup.GET("/users/me", container.UserGetMeController)
 	}
 }

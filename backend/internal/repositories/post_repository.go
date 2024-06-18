@@ -49,3 +49,8 @@ func (p *PostRepository) PostNew(userID uint, title, body string) error {
 	result := p.Conn.Create(&post)
 	return result.Error
 }
+
+func (p *PostRepository) PostDelete(postID uint) error {
+	result := p.Conn.Delete(&model.Post{}, "id = ?", postID)
+	return result.Error
+}
