@@ -15,6 +15,6 @@ func NewUserGetMeUsecase(r interfaces.UserGetDetailRepository) *UserGetMeUsecase
 	}
 }
 
-func (p *UserGetMeUsecase) Execute(id int) (*entities.User, error) {
+func (p *UserGetMeUsecase) Execute(id uint) (*entities.User, error) {
 	return p.repository.GetDetail(id)
 }

@@ -9,5 +9,5 @@ type UserRepository interface {
 }
 
 type UserGetDetailRepository interface {
-	GetDetail(id int) (*entities.User, error)
+	GetDetail(id uint) (*entities.User, error)
 }

@@ -26,7 +26,7 @@ func UserGetMe(ctx *gin.Context, usecase *usecases.UserGetMeUsecase) {
 		return
 	}
 
-	id, ok := ctx.Value(constants.GIN_CONTEXT_USERID).(int)
+	id, ok := ctx.Value(constants.GIN_CONTEXT_USERID).(uint)
 	if !ok {
 		handleError(ctx, http.StatusBadRequest, errors.New("user id not found"))
 		return

@@ -27,7 +27,7 @@ func (p *UserRepository) GetByUsernameAndPassword(username, password string) (*e
 	return model.ConvertUserModelToEntity(&obj), nil
 }
 
-func (p *UserRepository) GetDetail(id int) (*entities.User, error) {
+func (p *UserRepository) GetDetail(id uint) (*entities.User, error) {
 	var user model.User
 	result := p.Conn.First(&user, id)
 	if result.Error != nil {
