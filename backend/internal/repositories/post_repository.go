@@ -3,7 +3,6 @@ package repositories
 import (
 	"myapp/internal/entities"
 	"myapp/internal/repositories/model"
-	"time"
 
 	"gorm.io/gorm"
 )
@@ -53,14 +52,8 @@ func (p *PostRepository) PostNew(userID uint, title, body string) error {
 
 func (p *PostRepository) Update(id uint, title, body string) error {
 	m := model.Post{}
-	if err := p.Conn.First(&m, id).Error; err != nil {
-		return err
-	}
-
-	m.Title = title
-	m.Body = body
-	m.UpdatedAt = time.Now()
-	result := p.Conn.Save(&m)
+	m.ID = id
+	result := p.Conn.Model(&m).Updates(model.Post{Title: title, Body: body})
 
 	return result.Error
 }
