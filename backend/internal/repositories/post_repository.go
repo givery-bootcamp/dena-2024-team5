@@ -78,3 +78,8 @@ func convertPostModelToEntity(p *model.Post) *entities.Post {
 		UpdatedAt: p.UpdatedAt,
 	}
 }
+
+func (p *PostRepository) PostDelete(postID uint) error {
+	result := p.Conn.Delete(&model.Post{}, "id = ?", postID)
+	return result.Error
+}
