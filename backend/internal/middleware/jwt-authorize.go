@@ -3,6 +3,7 @@ package middleware
 import (
 	"errors"
 	"myapp/internal/constants"
+	"myapp/internal/controllers"
 	"net/http"
 	"os"
 
@@ -12,16 +13,14 @@ import (
 
 type JwtClaims struct {
 	jwt.StandardClaims
-	UserID int `json:"user_id,omitempty"`
+	UserID uint `json:"user_id,omitempty"`
 }
 
 func JwtAuthorizeMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		tokenString, err := ctx.Cookie("jwt")
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"error": "login required",
-			})
+			controllers.HandleErrorAbort(ctx, http.StatusBadRequest, err)
 			return
 		}
 
@@ -35,15 +34,13 @@ func JwtAuthorizeMiddleware() gin.HandlerFunc {
 		})
 
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"error": "invalid token",
-			})
+			controllers.HandleErrorAbort(ctx, http.StatusInternalServerError, errors.New("invalid token"))
 			return
 		}
 
 		claims, ok := token.Claims.(*JwtClaims)
 		if (!ok) || !token.Valid {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, errors.New("invalid token"))
+			controllers.HandleErrorAbort(ctx, http.StatusInternalServerError, errors.New("invalid token"))
 			return
 		}
 
