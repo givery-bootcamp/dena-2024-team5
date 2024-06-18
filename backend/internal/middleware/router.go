@@ -26,6 +26,6 @@ func SetupRoutes(app *gin.Engine) {
 	{
 		authGroup.GET("/posts", container.PostGetListController)
 		authGroup.GET("/posts/:postID", container.PostGetDetailController)
-		authGroup.GET("/user/me", container.UserGetMeController)
+		authGroup.GET("/users/me", container.UserGetMeController)
 	}
 }

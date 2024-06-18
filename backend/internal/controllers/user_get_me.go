@@ -19,7 +19,7 @@ import (
 // @Failure	401		{object}	controllers.ErrorResponse
 // @Failure	404		{object}	controllers.ErrorResponse
 // @Failure	500		{object}	controllers.ErrorResponse
-// @Router	/user/me	[get]
+// @Router	/users/me	[get]
 func UserGetMe(ctx *gin.Context, usecase *usecases.UserGetMeUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
