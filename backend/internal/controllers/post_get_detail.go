@@ -20,7 +20,7 @@ import (
 // @Failure	400		{object}	controllers.ErrorResponse
 // @Failure	404		{object}	controllers.ErrorResponse
 // @Failure	500		{object}	controllers.ErrorResponse
-// @Router	/post/{postID}	[get]
+// @Router	/posts/{postID}	[get]
 func PostGetDetail(ctx *gin.Context, usecase *usecases.PostGetDetailUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
