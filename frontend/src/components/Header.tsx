@@ -1,7 +1,7 @@
+import { auth } from "@/auth";
 import Link from "next/link";
 import { SignInSignOutButton } from "./Buttons";
 import { ModeToggle } from "./ThemeChanger";
-import { auth } from "@/auth";
 
 export default async function Header() {
   const session = await auth();
