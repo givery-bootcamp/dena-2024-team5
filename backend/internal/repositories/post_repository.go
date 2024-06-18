@@ -60,23 +60,9 @@ func (p *PostRepository) Update(id uint, title, body string) error {
 	m.Title = title
 	m.Body = body
 	m.UpdatedAt = time.Now()
-	if err := p.Conn.Save(&m).Error; err != nil {
-		return err
-	}
+	result := p.Conn.Save(&m)
 
-	return nil
-}
-
-func convertPostModelToEntity(p *model.Post) *entities.Post {
-	return &entities.Post{
-		ID:        p.ID,
-		Title:     p.Title,
-		Body:      p.Body,
-		UserID:    p.UserID,
-		Username:  p.User.Name,
-		CreatedAt: p.CreatedAt,
-		UpdatedAt: p.UpdatedAt,
-	}
+	return result.Error
 }
 
 func (p *PostRepository) PostDelete(postID uint) error {
