@@ -3,6 +3,7 @@ package repositories
 import (
 	"myapp/internal/entities"
 	"myapp/internal/repositories/model"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -48,4 +49,32 @@ func (p *PostRepository) PostNew(userID uint, title, body string) error {
 	}
 	result := p.Conn.Create(&post)
 	return result.Error
+}
+
+func (p *PostRepository) Update(id uint, title, body string) error {
+	m := model.Post{}
+	if err := p.Conn.First(&m, id).Error; err != nil {
+		return err
+	}
+
+	m.Title = title
+	m.Body = body
+	m.UpdatedAt = time.Now()
+	if err := p.Conn.Save(&m).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func convertPostModelToEntity(p *model.Post) *entities.Post {
+	return &entities.Post{
+		ID:        p.ID,
+		Title:     p.Title,
+		Body:      p.Body,
+		UserID:    p.UserID,
+		Username:  p.User.Name,
+		CreatedAt: p.CreatedAt,
+		UpdatedAt: p.UpdatedAt,
+	}
 }
