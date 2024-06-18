@@ -188,7 +188,7 @@ paths:
       summary: get post detail
       tags:
       - posts
-    post:
+    put:
       consumes:
       - application/json
       description: 投稿を更新します。

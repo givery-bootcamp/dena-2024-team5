@@ -134,7 +134,7 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
+            "put": {
                 "description": "投稿を更新します。",
                 "consumes": [
                     "application/json"
