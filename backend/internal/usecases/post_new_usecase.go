@@ -1,7 +1,6 @@
 package usecases
 
 import (
-	"myapp/internal/entities"
 	"myapp/internal/interfaces"
 )
 
@@ -15,6 +14,6 @@ func NewPostNewUsecase(r interfaces.PostNewRepository) *PostNewUsecase {
 	}
 }
 
-func (p *PostNewUsecase) Execute(userId uint, title, body string) (*entities.Post, error) {
+func (p *PostNewUsecase) Execute(userId uint, title, body string) error {
 	return p.repository.PostNew(userId, title, body)
 }

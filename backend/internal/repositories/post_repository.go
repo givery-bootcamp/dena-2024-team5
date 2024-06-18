@@ -40,16 +40,12 @@ func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 	return model.ConvertPostModelToEntity(&obj), nil
 }
 
-func (p *PostRepository) PostNew(userID uint, title, body string) (*entities.Post, error) {
+func (p *PostRepository) PostNew(userID uint, title, body string) error {
 	post := &model.Post{
 		Title:  title,
 		Body:   body,
 		UserID: userID,
 	}
-	// userNameは空だけど、フロントで使わないからこのままでよし
 	result := p.Conn.Create(&post)
-	if result.Error != nil {
-		return nil, result.Error
-	}
-	return model.ConvertPostModelToEntity(post), nil
+	return result.Error
 }

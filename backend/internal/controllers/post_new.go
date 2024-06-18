@@ -19,9 +19,8 @@ type PostNewReq struct {
 // @Description サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
 // @Tags posts
 // @Accept json
-// @Produce json
 // @Param signinPost body controllers.PostNewReq true "リクエストパラメータ"
-// @Success 200 {object} entities.Post
+// @Success 204
 // @Failure 400 {object} controllers.ErrorResponse
 // @Failure 500 {object} controllers.ErrorResponse
 // @Router /posts [post]
@@ -41,10 +40,10 @@ func PostNew(ctx *gin.Context, usecase *usecases.PostNewUsecase) {
 		handleError(ctx, http.StatusBadRequest, errors.New("user id not found"))
 		return
 	}
-	post, err := usecase.Execute(userID, req.Title, req.Body)
+	err = usecase.Execute(userID, req.Title, req.Body)
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
 		return
 	}
-	ctx.JSON(http.StatusOK, post)
+	ctx.Status(http.StatusNoContent)
 }
