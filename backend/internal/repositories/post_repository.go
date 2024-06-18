@@ -46,6 +46,7 @@ func (p *PostRepository) PostNew(userID uint, title, body string) (*entities.Pos
 		Body:   body,
 		UserID: userID,
 	}
+	// userNameは空だけど、フロントで使わないからこのままでよし
 	result := p.Conn.Create(&post)
 	if result.Error != nil {
 		return nil, result.Error
