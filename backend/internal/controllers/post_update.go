@@ -12,8 +12,8 @@ import (
 )
 
 type PostUpdateRequest struct {
-	Title string `json:"title" binding:"max=100" maxLength:"100"`
-	Body  string `json:"body"`
+	Title string `json:"title" binding:"required,max=100" maxLength:"100"`
+	Body  string `json:"body" binding:"required"`
 }
 
 // @Summary update post
@@ -25,7 +25,7 @@ type PostUpdateRequest struct {
 // @Success	204
 // @Failure	403		{object}	controllers.ErrorResponse
 // @Failure	500		{object}	controllers.ErrorResponse
-// @Router	/posts/{postID}	[post]
+// @Router	/posts/{postID}	[put]
 func PostUpdate(
 	ctx *gin.Context,
 	postOwnerValidateUsecase *usecases.PostOwnerValidateUsecase,
