@@ -41,7 +41,7 @@ func (p *PostRepository) GetDetail(id uint) (*entities.Post, error) {
 }
 
 func (p *PostRepository) PostNew(userID uint, title, body string) error {
-	post := &model.Post{
+	post := model.Post{
 		Title:  title,
 		Body:   body,
 		UserID: userID,
