@@ -128,6 +128,51 @@
                     }
                 }
             },
+            "post": {
+                "description": "投稿を更新します。",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "update post",
+                "parameters": [
+                    {
+                        "description": "リクエストパラメータ",
+                        "name": "postUpdate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.PostUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Post ID",
+                        "name": "postID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ErrorResponse"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "description": "投稿を削除する",
                 "tags": [
@@ -318,6 +363,22 @@
             }
         },
         "controllers.PostNewReq": {
+            "type": "object",
+            "required": [
+                "body",
+                "title"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "controllers.PostUpdateRequest": {
             "type": "object",
             "required": [
                 "body",
