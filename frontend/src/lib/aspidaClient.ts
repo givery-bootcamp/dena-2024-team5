@@ -1,5 +1,4 @@
 import aspida from "@aspida/fetch";
-import { cookies } from "next/headers";
 import api from "../../api/$api";
 
 const fetchConfig = (token: string) => {
@@ -8,8 +7,7 @@ const fetchConfig = (token: string) => {
     baseURL: "http://localhost:9000",
     throwHttpErrors: true, // throw an error on 4xx/5xx, default is false
     headers: {
-      Cookie:
-        `jwt=${token}`,
+      Cookie: `jwt=${token}`,
     },
   };
 };

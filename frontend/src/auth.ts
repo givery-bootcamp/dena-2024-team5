@@ -39,13 +39,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           });
           // set-cookieの値を読み取ってcookieにセットする
           // これにより次回以降のリクエストで認証情報が送信される
-          // set-cookie
           const cookie = userInfo.headers["set-cookie"];
           const cookieRegex = /([^=;\s]+)=([^;]*)/g;
           let match: RegExpExecArray | null;
           const cookieDict: { [key: string]: string } = {};
 
-          while ((match = cookieRegex.exec(cookie))) {
+          while (true) {
+            const match = cookieRegex.exec(cookie);
+            if (match == null) break;
             const key = match[1].trim();
             const value = match[2].trim();
             cookieDict[key] = value;
@@ -54,28 +55,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // cookies().set()に渡すオブジェクトを作成
           const cookieObj: CookieObject = {
             name: "jwt",
-            value: cookieDict["jwt"],
+            value: cookieDict.jwt,
             options: {
-              path: cookieDict["Path"],
-              domain: cookieDict["Domain"],
+              path: cookieDict.Path,
+              domain: cookieDict.Domain,
               maxAge: cookieDict["Max-Age"]
                 ? Number.parseInt(cookieDict["Max-Age"])
                 : undefined,
-              sameSite: cookieDict["SameSite"] as "Strict" | "Lax" | "None",
+              sameSite: cookieDict.SameSite as "Strict" | "Lax" | "None",
             },
           };
-          // cookies().set("jwt", cookie);
-          // jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg3ODQ1MjMsInVzZXJfaWQiOjF9.AvvpqEeIim5YRhWWfUiHzV7lAPgnkAkZGrjq85dP8DM; Path=/; Domain=localhost; Max-Age=86400; SameSite=Noneをパースしてcookieにセットする
           cookies().set(cookieObj);
 
-          // TODO aspidaによる認証情報を返す
           if (userInfo) {
             user = userInfo.body;
           }
           if (!user) {
             throw new Error("No user found");
           }
-          return user;
+          return { id: user.id.toString(), username: user.username };
         } catch (error) {
           if (error instanceof ZodError) {
             return null;
