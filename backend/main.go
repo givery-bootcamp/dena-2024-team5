@@ -12,7 +12,6 @@ import (
 // @title web-application team 5 API
 // @version 1.0
 // @description このswaggerはweb application演習5班のAPI仕様書です。
-// @host localhost:9000
 // @BasePath /
 func main() {
 	// load .env

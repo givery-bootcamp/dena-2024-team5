@@ -6,7 +6,6 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:9000",
     "basePath": "/",
     "paths": {
         "/posts": {

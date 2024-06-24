@@ -75,7 +75,6 @@ definitions:
     - id
     - username
     type: object
-host: localhost:9000
 info:
   contact: {}
   description: このswaggerはweb application演習5班のAPI仕様書です。
