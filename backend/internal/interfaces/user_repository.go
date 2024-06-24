@@ -1,13 +1,13 @@
 package interfaces
 
 import (
-	"myapp/internal/entities"
+	"myapp/internal/entity"
 )
 
 type UserRepository interface {
-	GetByUsernameAndPassword(username, password string) (*entities.User, error)
+	GetByUsernameAndPassword(username, password string) (*entity.User, error)
 }
 
 type UserGetDetailRepository interface {
-	GetDetail(id uint) (*entities.User, error)
+	GetDetail(id uint) (*entity.User, error)
 }

@@ -1,9 +1,9 @@
 package interfaces
 
 import (
-	"myapp/internal/entities"
+	"myapp/internal/entity"
 )
 
 type PostGetDetailRepository interface {
-	GetDetail(id uint) (*entities.Post, error)
+	GetDetail(id uint) (*entity.Post, error)
 }
