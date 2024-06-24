@@ -45,8 +45,15 @@ func init() {
 	if v := os.Getenv("AUTH_SECRET_KEY"); v != "" {
 		AuthSecretKey = v
 	} else {
+		// テスト時はスキップ
+		if is := os.Getenv("IS_TEST"); is == "1" {
+			return
+		}
 		// localなら.envから読み込む
-		godotenv.Load()
+		err := godotenv.Load()
+		if err != nil {
+			panic(err)
+		}
 		AuthSecretKey = os.Getenv("SECRET_KEY")
 	}
 }
