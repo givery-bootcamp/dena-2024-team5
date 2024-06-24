@@ -2,8 +2,8 @@ import { aspidaClient } from "@/lib/aspidaClient";
 import { loginFormSchema } from "@/lib/zod";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { ZodError } from "zod";
 import { cookies } from "next/headers";
+import { ZodError } from "zod";
 
 class CustomError extends CredentialsSignin {
   code = "custom_error";
@@ -34,13 +34,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           let user = null;
           const { username, password } =
             await loginFormSchema.parseAsync(credentials);
-          const userInfo = await aspidaClient.signin
-            .post({
-              body: { username, password },
-            })
-            .catch((e) => {
-              return null;
-            });
+          const userInfo = await aspidaClient("").signin.post({
+            body: { username, password },
+          });
           // set-cookieの値を読み取ってcookieにセットする
           // これにより次回以降のリクエストで認証情報が送信される
           // set-cookie
@@ -63,7 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               path: cookieDict["Path"],
               domain: cookieDict["Domain"],
               maxAge: cookieDict["Max-Age"]
-                ? parseInt(cookieDict["Max-Age"])
+                ? Number.parseInt(cookieDict["Max-Age"])
                 : undefined,
               sameSite: cookieDict["SameSite"] as "Strict" | "Lax" | "None",
             },
