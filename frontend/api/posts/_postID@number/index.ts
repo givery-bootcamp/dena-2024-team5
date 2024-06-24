@@ -8,4 +8,16 @@ export type Methods = {
     /** OK */
     resBody: Types.Entities_Post
   }
+
+  /** 投稿を更新します。 */
+  put: {
+    status: 204
+    /** リクエストパラメータ */
+    reqBody: Types.Controllers_PostUpdateRequest
+  }
+
+  /** 投稿を削除する */
+  delete: {
+    status: 204
+  }
 }

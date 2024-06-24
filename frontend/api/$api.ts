@@ -13,6 +13,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const PATH3 = '/users/me';
   const GET = 'GET';
   const POST = 'POST';
+  const PUT = 'PUT';
+  const DELETE = 'DELETE';
 
   return {
     posts: {
@@ -32,6 +34,28 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
            */
           $get: (option?: { config?: T | undefined } | undefined) =>
             fetch<Methods_rslgc9['get']['resBody'], BasicHeaders, Methods_rslgc9['get']['status']>(prefix, prefix1, GET, option).json().then(r => r.body),
+          /**
+           * 投稿を更新します。
+           * @param option.body - リクエストパラメータ
+           */
+          put: (option: { body: Methods_rslgc9['put']['reqBody'], config?: T | undefined }) =>
+            fetch<void, BasicHeaders, Methods_rslgc9['put']['status']>(prefix, prefix1, PUT, option).send(),
+          /**
+           * 投稿を更新します。
+           * @param option.body - リクエストパラメータ
+           */
+          $put: (option: { body: Methods_rslgc9['put']['reqBody'], config?: T | undefined }) =>
+            fetch<void, BasicHeaders, Methods_rslgc9['put']['status']>(prefix, prefix1, PUT, option).send().then(r => r.body),
+          /**
+           * 投稿を削除する
+           */
+          delete: (option?: { config?: T | undefined } | undefined) =>
+            fetch<void, BasicHeaders, Methods_rslgc9['delete']['status']>(prefix, prefix1, DELETE, option).send(),
+          /**
+           * 投稿を削除する
+           */
+          $delete: (option?: { config?: T | undefined } | undefined) =>
+            fetch<void, BasicHeaders, Methods_rslgc9['delete']['status']>(prefix, prefix1, DELETE, option).send().then(r => r.body),
           $path: () => `${prefix}${prefix1}`,
         };
       },
