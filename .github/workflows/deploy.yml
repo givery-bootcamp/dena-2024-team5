@@ -109,7 +109,7 @@ jobs:
 
   ecs-update:
     runs-on: ubuntu-latest
-    needs: [backend-ecr-push]
+    needs: [backend-ecr-push, frontend-ecr-push]
 
     steps:
     - name: Checkout code
