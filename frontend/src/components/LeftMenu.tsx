@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PostButton } from "./Buttons";
 
 export default function LeftMenu() {
   return (
@@ -14,6 +15,7 @@ export default function LeftMenu() {
       <Link href="#">Fuga</Link>
       <Link href="#">AAA</Link>
       <Link href="#">BBB</Link>
+      <PostButton />
     </nav>
   );
 }

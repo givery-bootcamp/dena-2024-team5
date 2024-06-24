@@ -13,12 +13,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Send } from "lucide-react";
 
 type Props = {
   session: Session | null;
 };
 
-export function SignInSignOutButton({ session }: Props) {
+export const SignInSignOutButton = ({ session }: Props) => {
   if (session) {
     return <SignOutDialog />;
   }
@@ -27,7 +28,7 @@ export function SignInSignOutButton({ session }: Props) {
       <Link href="/signin">サインイン</Link>
     </Button>
   );
-}
+};
 
 const SignOutDialog = () => {
   return (
@@ -47,5 +48,16 @@ const SignOutDialog = () => {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+};
+
+export const PostButton = () => {
+  return (
+    <Button asChild>
+      <Link href="/posts/new">
+        <Send className="mr-2 h-4 w-4" />
+        ポストする
+      </Link>
+    </Button>
   );
 };

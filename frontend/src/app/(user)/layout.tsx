@@ -18,11 +18,11 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-        <div className="mt-4 md:w-1/5 w-0 mx-auto">
+      <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+        <div className="my-4 w-full mx-4">
           <LeftMenu />
         </div>
-        <div className="md:w-4/5 w-full">
+        <div className="md:w-4/5 w-full max-w-6xl ">
           <main className="flex min-h-screen bg-background">
             <div className="container relative my-4">{children}</div>
           </main>
