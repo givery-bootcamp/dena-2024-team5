@@ -2,8 +2,8 @@ package dependency
 
 import (
 	"myapp/internal/controller"
-	"myapp/internal/repository"
-	"myapp/internal/usecase"
+	r "myapp/internal/repository"
+	u "myapp/internal/usecase"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,26 +15,26 @@ func NewDIContainer() *DIContainer {
 }
 
 func (di *DIContainer) PostGetListController(ctx *gin.Context) {
-	repository := repository.NewPostRepository(controller.DB(ctx))
-	usecase := usecase.NewPostGetListUsecase(repository)
+	repository := r.NewPostRepository(controller.DB(ctx))
+	usecase := u.NewPostGetListUsecase(repository)
 	controller.PostGetList(ctx, usecase)
 }
 
 func (di *DIContainer) PostGetDetailController(ctx *gin.Context) {
-	repository := repository.NewPostRepository(controller.DB(ctx))
-	usecase := usecase.NewPostGetDetailUsecase(repository)
+	repository := r.NewPostRepository(controller.DB(ctx))
+	usecase := u.NewPostGetDetailUsecase(repository)
 	controller.PostGetDetail(ctx, usecase)
 }
 
 func (di *DIContainer) AuthSigninController(ctx *gin.Context) {
-	repository := repository.NewUserRepository(controller.DB(ctx))
-	usecase := usecase.NewAuthSigninUsecase(repository)
+	repository := r.NewUserRepository(controller.DB(ctx))
+	usecase := u.NewAuthSigninUsecase(repository)
 	controller.AuthSignin(ctx, usecase)
 }
 
 func (di *DIContainer) UserCreateController(ctx *gin.Context) {
-	repository := repository.NewUserRepository(controller.DB(ctx))
-	usecase := usecase.NewUserCreateUsecase(repository)
+	repository := r.NewUserRepository(controller.DB(ctx))
+	usecase := u.NewUserCreateUsecase(repository)
 	controller.UserCreate(ctx, usecase)
 }
 
@@ -43,27 +43,35 @@ func (di *DIContainer) AuthSignoutController(ctx *gin.Context) {
 }
 
 func (di *DIContainer) UserGetMeController(ctx *gin.Context) {
-	repository := repository.NewUserRepository(controller.DB(ctx))
-	usecase := usecase.NewUserGetMeUsecase(repository)
+	repository := r.NewUserRepository(controller.DB(ctx))
+	usecase := u.NewUserGetMeUsecase(repository)
 	controller.UserGetMe(ctx, usecase)
 }
 
 func (di *DIContainer) PostNewController(ctx *gin.Context) {
-	repository := repository.NewPostRepository(controller.DB(ctx))
-	usecase := usecase.NewPostNewUsecase(repository)
+	repository := r.NewPostRepository(controller.DB(ctx))
+	usecase := u.NewPostNewUsecase(repository)
 	controller.PostNew(ctx, usecase)
 }
 
 func (di *DIContainer) PostUpdateController(ctx *gin.Context) {
-	repository := repository.NewPostRepository(controller.DB(ctx))
-	postUpdateUsecase := usecase.NewPostUpdateUsecase(repository)
-	postOwnerValidateUsecase := usecase.NewPostOwnerValidateUsecase(repository)
+	repository := r.NewPostRepository(controller.DB(ctx))
+	postUpdateUsecase := u.NewPostUpdateUsecase(repository)
+	postOwnerValidateUsecase := u.NewPostOwnerValidateUsecase(repository)
 	controller.PostUpdate(ctx, postOwnerValidateUsecase, postUpdateUsecase)
 }
 
 func (di *DIContainer) PostDeleteController(ctx *gin.Context) {
-	repository := repository.NewPostRepository(controller.DB(ctx))
-	ownerUsecase := usecase.NewPostOwnerValidateUsecase(repository)
-	deleteUsecase := usecase.NewPostDeleteUsecase(repository)
+	repository := r.NewPostRepository(controller.DB(ctx))
+	ownerUsecase := u.NewPostOwnerValidateUsecase(repository)
+	deleteUsecase := u.NewPostDeleteUsecase(repository)
 	controller.PostDelete(ctx, ownerUsecase, deleteUsecase)
+}
+
+func (di *DIContainer) CommentNewController(ctx *gin.Context) {
+	postRepository := r.NewPostRepository(controller.DB(ctx))
+	postAvailableUsecase := u.NewPostAvailableUsecase(postRepository)
+	commentRepository := r.NewCommentRepository(controller.DB(ctx))
+	commentNewUsecase := u.NewCommentNewUsecase(commentRepository)
+	controller.CommentNew(ctx, postAvailableUsecase, commentNewUsecase)
 }

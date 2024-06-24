@@ -42,7 +42,11 @@ func PostDelete(
 	// Check post owner
 	ok, err = ownerUsecase.Execute(userID, uint(postID))
 	if err != nil {
-		handleError(ctx, http.StatusInternalServerError, err)
+		if errors.Is(err, usecase.RecordNotFoundError) {
+			handleError(ctx, http.StatusNotFound, err)
+		} else {
+			handleError(ctx, http.StatusInternalServerError, err)
+		}
 		return
 	}
 	if !ok {

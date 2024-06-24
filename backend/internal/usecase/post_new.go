@@ -14,6 +14,6 @@ func NewPostNewUsecase(r interfaces.PostNewRepository) *PostNewUsecase {
 	}
 }
 
-func (p *PostNewUsecase) Execute(userId uint, title, body string) error {
-	return p.repository.PostNew(userId, title, body)
+func (p *PostNewUsecase) Execute(userID uint, title, body string) error {
+	return p.repository.PostNew(userID, title, body)
 }

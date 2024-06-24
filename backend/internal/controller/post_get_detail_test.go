@@ -5,14 +5,13 @@ import (
 	"errors"
 	"myapp/internal/controller"
 	"myapp/internal/entity"
-	"myapp/internal/usecase"
+	u "myapp/internal/usecase"
 	"net/http"
 	"strconv"
 	"testing"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type DummyPostGetDetailRepository struct {
@@ -38,7 +37,7 @@ func (p *DummyPostGetDetailRepository) GetDetail(id uint) (*entity.Post, error) 
 				return &post, nil
 			}
 		}
-		return nil, gorm.ErrRecordNotFound
+		return nil, u.RecordNotFoundError
 	}
 }
 
@@ -65,7 +64,7 @@ func TestPostGetDetail(t *testing.T) {
 		},
 	}
 	repository.SetPosts(DummyPostGetDetails)
-	usecase := usecase.NewPostGetDetailUsecase(repository)
+	usecase := u.NewPostGetDetailUsecase(repository)
 
 	app := gin.Default()
 	app.GET("/posts/:postID", func(ctx *gin.Context) {
@@ -80,7 +79,7 @@ func TestPostGetDetail(t *testing.T) {
 	expectedResponse := controller.NewErrResponse(err.Error())
 	controller.TestRequest(t, app, "GET", "/posts/foo", nil, http.StatusBadRequest, expectedResponse)
 	// 不正なIDを指定 (数値だけど対応するPostがない)
-	expectedResponse = controller.NewErrResponse(gorm.ErrRecordNotFound.Error())
+	expectedResponse = controller.NewErrResponse(u.RecordNotFoundError.Error())
 	controller.TestRequest(t, app, "GET", "/posts/3", nil, http.StatusNotFound, expectedResponse)
 
 	// DB落ちてる
