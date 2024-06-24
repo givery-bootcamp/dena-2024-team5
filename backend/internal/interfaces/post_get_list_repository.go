@@ -1,9 +1,9 @@
 package interfaces
 
 import (
-	"myapp/internal/entities"
+	"myapp/internal/entity"
 )
 
 type PostGetListRepository interface {
-	GetList() ([]entities.Post, error)
+	GetList() ([]entity.Post, error)
 }

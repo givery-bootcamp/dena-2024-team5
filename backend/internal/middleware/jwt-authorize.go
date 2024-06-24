@@ -3,8 +3,8 @@ package middleware
 import (
 	"errors"
 	"myapp/internal/config"
-	"myapp/internal/constants"
-	"myapp/internal/controllers"
+	"myapp/internal/constant"
+	"myapp/internal/controller"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +20,7 @@ func JwtAuthorizeMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		tokenString, err := ctx.Cookie("jwt")
 		if err != nil {
-			controllers.HandleErrorAbort(ctx, http.StatusBadRequest, err)
+			controller.HandleErrorAbort(ctx, http.StatusBadRequest, err)
 			return
 		}
 
@@ -34,17 +34,17 @@ func JwtAuthorizeMiddleware() gin.HandlerFunc {
 		})
 
 		if err != nil {
-			controllers.HandleErrorAbort(ctx, http.StatusInternalServerError, errors.New("invalid token"))
+			controller.HandleErrorAbort(ctx, http.StatusInternalServerError, errors.New("invalid token"))
 			return
 		}
 
 		claims, ok := token.Claims.(*JwtClaims)
 		if (!ok) || !token.Valid {
-			controllers.HandleErrorAbort(ctx, http.StatusInternalServerError, errors.New("invalid token"))
+			controller.HandleErrorAbort(ctx, http.StatusInternalServerError, errors.New("invalid token"))
 			return
 		}
 
-		ctx.Set(constants.GIN_CONTEXT_USERID, claims.UserID)
+		ctx.Set(constant.GIN_CONTEXT_USERID, claims.UserID)
 		ctx.Next()
 	}
 }

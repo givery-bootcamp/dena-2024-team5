@@ -1,9 +1,9 @@
 package interfaces
 
 import (
-	"myapp/internal/entities"
+	"myapp/internal/entity"
 )
 
 type UserCreateRepository interface {
-	Create(username, password string) (*entities.User, error)
+	Create(username, password string) (*entity.User, error)
 }

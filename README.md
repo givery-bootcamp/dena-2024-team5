@@ -110,12 +110,12 @@ make swag
 backend/
   internal/ : ソースコード
     config/ : 設定類
-    entities/ : モデル/エンティティ
+    entity/ : モデル/エンティティ
     external/ : 外部環境との接続定義
     interfaces/ : インターフェース
     middleware/ : ginのmiddleware
-    repositories/ : リポジトリ - systemに近い部分の実装
-    usecases/ : ユースケース - ビジネスに近い部分の実装
+    repository/ : リポジトリ - systemに近い部分の実装
+    usecase/ : ユースケース - ビジネスに近い部分の実装
 ```
 
 ### Frontend
