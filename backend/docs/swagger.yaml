@@ -1,6 +1,6 @@
 basePath: /
 definitions:
-  controllers.AuthSigninReq:
+  controller.AuthSigninReq:
     properties:
       password:
         type: string
@@ -10,14 +10,24 @@ definitions:
     - password
     - username
     type: object
-  controllers.ErrorResponse:
+  controller.CommentNewReq:
+    properties:
+      body:
+        type: string
+      postId:
+        type: integer
+    required:
+    - body
+    - postId
+    type: object
+  controller.ErrorResponse:
     properties:
       message:
         type: string
     required:
     - message
     type: object
-  controllers.PostNewReq:
+  controller.PostNewReq:
     properties:
       body:
         type: string
@@ -28,7 +38,7 @@ definitions:
     - body
     - title
     type: object
-  controllers.PostUpdateRequest:
+  controller.PostUpdateRequest:
     properties:
       body:
         type: string
@@ -39,7 +49,7 @@ definitions:
     - body
     - title
     type: object
-  controllers.UserCreateReq:
+  controller.UserCreateReq:
     properties:
       password:
         type: string
@@ -49,7 +59,7 @@ definitions:
     - password
     - username
     type: object
-  entities.Post:
+  entity.Post:
     properties:
       body:
         type: string
@@ -76,7 +86,7 @@ definitions:
     - user_id
     - username
     type: object
-  entities.User:
+  entity.User:
     properties:
       id:
         type: integer
@@ -92,6 +102,32 @@ info:
   title: web-application team 5 API
   version: "1.0"
 paths:
+  /comments:
+    post:
+      consumes:
+      - application/json
+      description: サインインしているユーザーで、指定された投稿に、本文のコメントを作成する
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: commentNew
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CommentNewReq'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: new comment API
+      tags:
+      - comments
   /posts:
     get:
       consumes:
@@ -104,12 +140,12 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/entities.Post'
+              $ref: '#/definitions/entity.Post'
             type: array
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: get list posts
       tags:
       - posts
@@ -123,18 +159,18 @@ paths:
         name: signinPost
         required: true
         schema:
-          $ref: '#/definitions/controllers.PostNewReq'
+          $ref: '#/definitions/controller.PostNewReq'
       responses:
         "204":
           description: No Content
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: new post API
       tags:
       - posts
@@ -147,11 +183,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: delete post API
       tags:
       - posts
@@ -171,19 +207,19 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entities.Post'
+            $ref: '#/definitions/entity.Post'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: get post detail
       tags:
       - posts
@@ -197,7 +233,7 @@ paths:
         name: postUpdate
         required: true
         schema:
-          $ref: '#/definitions/controllers.PostUpdateRequest'
+          $ref: '#/definitions/controller.PostUpdateRequest'
       - description: Post ID
         in: path
         name: postID
@@ -209,19 +245,19 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "403":
           description: Forbidden
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: update post
       tags:
       - posts
@@ -236,22 +272,22 @@ paths:
         name: signinPost
         required: true
         schema:
-          $ref: '#/definitions/controllers.AuthSigninReq'
+          $ref: '#/definitions/controller.AuthSigninReq'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entities.User'
+            $ref: '#/definitions/entity.User'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: singin API
       tags:
       - auth
@@ -266,26 +302,26 @@ paths:
         name: userCreate
         required: true
         schema:
-          $ref: '#/definitions/controllers.UserCreateReq'
+          $ref: '#/definitions/controller.UserCreateReq'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entities.User'
+            $ref: '#/definitions/entity.User'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: Create User API
       tags:
       - users
@@ -298,19 +334,19 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entities.User'
+            $ref: '#/definitions/entity.User'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controllers.ErrorResponse'
+            $ref: '#/definitions/controller.ErrorResponse'
       summary: get user me
       tags:
       - users
