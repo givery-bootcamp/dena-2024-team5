@@ -1,21 +1,26 @@
 "use client";
-import { z } from "zod";
+import { postFormSchema } from "@/lib/zod";
+import { createPost } from "@/utils/createPost";
+import { redirect } from "next/navigation";
 import AutoForm, { AutoFormSubmit } from "./ui/auto-form";
 
-export function PostForm() {
-  const formSchema = z.object({
-    title: z
-      .string({ required_error: "タイトルを入力してください" })
-      .describe("タイトル"),
-    body: z
-      .string({ required_error: "本文を入力してください" })
-      .describe("内容"),
-  });
+type Props = {
+  jwtToken: string;
+};
 
+export const PostForm = ({ jwtToken }: Props) => {
   return (
     <div className="grid gap-8">
       <AutoForm
-        formSchema={formSchema}
+        formSchema={postFormSchema}
+        onSubmit={(formdata) => {
+          try {
+            createPost({ formdata, jwtToken });
+            redirect("/dashboard");
+          } catch (error) {
+            console.error(error);
+          }
+        }}
         fieldConfig={{
           title: {
             inputProps: {
@@ -31,8 +36,8 @@ export function PostForm() {
           },
         }}
       >
-        <AutoFormSubmit className="w-full">投稿</AutoFormSubmit>
+        <AutoFormSubmit className="w-full">投稿する</AutoFormSubmit>
       </AutoForm>
     </div>
   );
-}
+};

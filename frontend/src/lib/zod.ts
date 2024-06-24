@@ -15,3 +15,10 @@ export const loginFormSchema = z.object({
     })
     .describe("パスワード"),
 });
+
+export const postFormSchema = z.object({
+  title: z
+    .string({ required_error: "タイトルを入力してください" })
+    .describe("タイトル"),
+  body: z.string({ required_error: "本文を入力してください" }).describe("内容"),
+});
