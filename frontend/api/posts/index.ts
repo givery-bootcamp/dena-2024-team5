@@ -8,4 +8,11 @@ export type Methods = {
     /** OK */
     resBody: Types.Entities_Post[]
   }
+
+  /** サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する */
+  post: {
+    status: 204
+    /** リクエストパラメータ */
+    reqBody: Types.Controllers_PostNewReq
+  }
 }

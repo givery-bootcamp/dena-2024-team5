@@ -41,8 +41,8 @@ func AuthSignin(ctx *gin.Context, usecase *usecases.AuthSigninUsecase) {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}
-	// samesiteをnonemodeにする
-	ctx.SetSameSite(http.SameSiteNoneMode)
+	// // samesiteをnonemodeにする
+	// ctx.SetSameSite(http.SameSiteNoneMode)
 	ctx.SetCookie("jwt", token, 60*60*24, "/", "localhost", false, false)
 	ctx.JSON(http.StatusOK, result)
 }
