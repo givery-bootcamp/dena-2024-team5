@@ -7,16 +7,16 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const cookieStore = cookies();
   const jwtToken = cookieStore.get("jwt")?.value ?? "";
-  // const postedItems = await aspidaClient(jwtToken).posts.$get();
+  const postedItems = await aspidaClient(jwtToken).posts.$get();
   const session = await auth();
   if (!session) {
     redirect("/");
   }
   return (
     <div className="grid grid-cols-1 gap-4">
-      {/* {postedItems.map((data) => (
+      {postedItems.map((data) => (
         <PostedItem key={data.id} postedItem={data} />
-      ))} */}
+      ))}
     </div>
   );
 }
