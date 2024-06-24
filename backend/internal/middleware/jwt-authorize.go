@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"errors"
+	"myapp/internal/config"
 	"myapp/internal/constants"
 	"myapp/internal/controllers"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
@@ -29,7 +29,7 @@ func JwtAuthorizeMiddleware() gin.HandlerFunc {
 			if signingMethod != "HS256" {
 				return nil, errors.New("invalid signing method")
 			}
-			secretKey := os.Getenv("SECRET_KEY")
+			secretKey := config.AuthSecretKey
 			return []byte(secretKey), nil
 		})
 
