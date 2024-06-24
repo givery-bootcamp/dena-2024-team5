@@ -50,12 +50,12 @@ func CommentNew(
 
 	// postの存在確認
 	ok, err = postAvailableUsecase.Execute(req.PostID)
-	if !ok {
-		handleError(ctx, http.StatusBadRequest, errors.New("invalid post ID"))
-		return
-	}
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
+		return
+	}
+	if !ok {
+		handleError(ctx, http.StatusBadRequest, errors.New("invalid post ID"))
 		return
 	}
 
