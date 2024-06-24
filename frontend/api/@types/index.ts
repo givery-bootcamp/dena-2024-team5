@@ -13,6 +13,11 @@ export type Controllers_PostNewReq = {
   title: string
 }
 
+export type Controllers_PostUpdateRequest = {
+  body: string
+  title: string
+}
+
 export type Controllers_UserCreateReq = {
   password: string
   username: string
