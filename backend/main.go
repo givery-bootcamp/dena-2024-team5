@@ -7,6 +7,7 @@ import (
 	"myapp/internal/middleware"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 // @title web-application team 5 API
@@ -14,6 +15,12 @@ import (
 // @description このswaggerはweb application演習5班のAPI仕様書です。
 // @BasePath /
 func main() {
+	// load .env only local
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error loading .env file")
+	}
+
 	// Initialize database
 	external.SetupDB()
 

@@ -46,7 +46,7 @@ func init() {
 		AuthSecretKey = v
 	} else {
 		// load .env only local
-		err := godotenv.Load()
+		err := godotenv.Load("../../.env")
 		if err != nil {
 			panic("Error loading .env file")
 		}
