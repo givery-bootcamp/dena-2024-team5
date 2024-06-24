@@ -45,8 +45,12 @@ func init() {
 	if v := os.Getenv("AUTH_SECRET_KEY"); v != "" {
 		AuthSecretKey = v
 	} else {
-		// load .env only local
-		err := godotenv.Load("../../.env")
+		// テスト時はスキップ
+		if is := os.Getenv("IS_TEST"); is == "1" {
+			return
+		}
+		// localなら.envから読み込む
+		err := godotenv.Load()
 		if err != nil {
 			panic("Error loading .env file")
 		}

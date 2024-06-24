@@ -97,6 +97,11 @@ swaggerファイルの再生成は以下のコマンドを実行してくださ�
 make swag
 ```
 
+## How to test go
+```
+make test
+```
+
 ### how to write doc
 
 1. 各endpointに対応する関数(controllers層)に対して記述してください。
