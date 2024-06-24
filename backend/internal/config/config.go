@@ -52,7 +52,7 @@ func init() {
 		// localなら.envから読み込む
 		err := godotenv.Load()
 		if err != nil {
-			panic(err)
+			panic("Error loading .env file")
 		}
 		AuthSecretKey = os.Getenv("SECRET_KEY")
 	}
