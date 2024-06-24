@@ -3,6 +3,8 @@ package config
 import (
 	"os"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 var HostName = "127.0.0.1"
@@ -42,5 +44,12 @@ func init() {
 	}
 	if v := os.Getenv("AUTH_SECRET_KEY"); v != "" {
 		AuthSecretKey = v
+	} else {
+		// load .env only local
+		err := godotenv.Load()
+		if err != nil {
+			panic("Error loading .env file")
+		}
+		AuthSecretKey = os.Getenv("SECRET_KEY")
 	}
 }

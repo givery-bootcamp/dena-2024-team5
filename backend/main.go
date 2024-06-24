@@ -14,11 +14,6 @@ import (
 // @description このswaggerはweb application演習5班のAPI仕様書です。
 // @BasePath /
 func main() {
-	// load .env
-	// err := godotenv.Load()
-	// if err != nil {
-	// 	panic("Error loading .env file")
-	// }
 	// Initialize database
 	external.SetupDB()
 
