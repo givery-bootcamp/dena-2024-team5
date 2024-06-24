@@ -7,7 +7,6 @@ import (
 	"myapp/internal/middleware"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 // @title web-application team 5 API
@@ -16,13 +15,13 @@ import (
 // @host localhost:9000
 // @BasePath /
 func main() {
+	// load .env
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	panic("Error loading .env file")
+	// }
 	// Initialize database
 	external.SetupDB()
-	// load .env
-	err := godotenv.Load()
-	if err != nil {
-		panic("Error loading .env file")
-	}
 
 	// Setup webserver
 	app := gin.Default()
