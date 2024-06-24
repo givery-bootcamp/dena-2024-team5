@@ -67,3 +67,11 @@ func (di *DIContainer) PostDeleteController(ctx *gin.Context) {
 	deleteUsecase := u.NewPostDeleteUsecase(repository)
 	controller.PostDelete(ctx, ownerUsecase, deleteUsecase)
 }
+
+func (di *DIContainer) CommentNewController(ctx *gin.Context) {
+	postRepository := r.NewPostRepository(controller.DB(ctx))
+	postAvailableUsecase := u.NewPostAvailableUsecase(postRepository)
+	commentRepository := r.NewCommentRepository(controller.DB(ctx))
+	commentNewUsecase := u.NewCommentNewUsecase(commentRepository)
+	controller.CommentNew(ctx, postAvailableUsecase, commentNewUsecase)
+}
