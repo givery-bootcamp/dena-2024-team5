@@ -19,5 +19,8 @@ func (p *PostOwnerValidateUsecase) Execute(userID, postID uint) (ok bool, err er
 	if err != nil {
 		return false, err
 	}
+	if post == nil {
+		return false, RecordNotFoundError
+	}
 	return post.UserID == userID, nil
 }

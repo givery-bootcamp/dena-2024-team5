@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 // @Summary get post detail
@@ -34,11 +33,11 @@ func PostGetDetail(ctx *gin.Context, usecase *usecase.PostGetDetailUsecase) {
 	}
 	result, err := usecase.Execute(uint(postID))
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			handleError(ctx, http.StatusNotFound, err)
-		} else {
-			handleError(ctx, http.StatusInternalServerError, err)
-		}
+		handleError(ctx, http.StatusInternalServerError, err)
+		return
+	}
+	if result == nil {
+		handleError(ctx, http.StatusNotFound, errors.New("Invalid post ID"))
 		return
 	}
 	ctx.JSON(http.StatusOK, result)

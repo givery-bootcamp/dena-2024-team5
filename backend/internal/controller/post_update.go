@@ -8,7 +8,6 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type PostUpdateRequest struct {
@@ -59,7 +58,7 @@ func PostUpdate(
 
 	isMatched, err := postOwnerValidateUsecase.Execute(userID, uint(postID))
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
+		if errors.Is(err, usecase.RecordNotFoundError) {
 			handleError(ctx, http.StatusNotFound, err)
 		} else {
 			handleError(ctx, http.StatusInternalServerError, err)

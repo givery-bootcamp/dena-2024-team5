@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"myapp/internal/entity"
 	"myapp/internal/repository/model"
 
@@ -35,6 +36,9 @@ func (p *PostRepository) GetDetail(id uint) (*entity.Post, error) {
 	var obj model.Post
 	result := p.Conn.Preload("User").Where("id = ?", id).First(&obj)
 	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
 		return nil, result.Error
 	}
 	return model.ConvertPostModelToEntity(&obj), nil
