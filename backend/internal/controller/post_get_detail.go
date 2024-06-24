@@ -2,7 +2,7 @@ package controller
 
 import (
 	"errors"
-	"myapp/internal/usecase"
+	u "myapp/internal/usecase"
 	"net/http"
 	"strconv"
 
@@ -20,7 +20,7 @@ import (
 // @Failure	404		{object}	controller.ErrorResponse
 // @Failure	500		{object}	controller.ErrorResponse
 // @Router	/posts/{postID}	[get]
-func PostGetDetail(ctx *gin.Context, usecase *usecase.PostGetDetailUsecase) {
+func PostGetDetail(ctx *gin.Context, usecase *u.PostGetDetailUsecase) {
 	if usecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
 		return
@@ -33,11 +33,11 @@ func PostGetDetail(ctx *gin.Context, usecase *usecase.PostGetDetailUsecase) {
 	}
 	result, err := usecase.Execute(uint(postID))
 	if err != nil {
-		handleError(ctx, http.StatusInternalServerError, err)
-		return
-	}
-	if result == nil {
-		handleError(ctx, http.StatusNotFound, errors.New("Invalid post ID"))
+		if errors.Is(err, u.RecordNotFoundError) {
+			handleError(ctx, http.StatusNotFound, err)
+		} else {
+			handleError(ctx, http.StatusInternalServerError, err)
+		}
 		return
 	}
 	ctx.JSON(http.StatusOK, result)
