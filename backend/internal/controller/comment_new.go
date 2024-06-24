@@ -10,8 +10,8 @@ import (
 )
 
 type CommentNewReq struct {
-	PostID uint   `json:"postId"`
-	Body   string `json:"body"`
+	PostID uint   `json:"postId" binding:"required"`
+	Body   string `json:"body" binding:"required"`
 }
 
 // New comment

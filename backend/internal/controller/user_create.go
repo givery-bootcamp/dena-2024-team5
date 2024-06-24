@@ -9,8 +9,8 @@ import (
 )
 
 type UserCreateReq struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }
 
 // User Create
@@ -31,7 +31,7 @@ func UserCreate(ctx *gin.Context, usecase *usecase.UserCreateUsecase) {
 		return
 	}
 	var req UserCreateReq
-	err := ctx.BindJSON(&req)
+	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
