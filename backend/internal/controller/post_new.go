@@ -7,12 +7,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 )
 
 type PostNewReq struct {
-	Title string `json:"title" maxLength:"100" validate:"max=100"`
-	Body  string `json:"body"`
+	Title string `json:"title" binding:"required,max=100" maxLength:"100"`
+	Body  string `json:"body" binding:"required"`
 }
 
 // New post
@@ -31,13 +30,8 @@ func PostNew(ctx *gin.Context, usecase *usecase.PostNewUsecase) {
 		return
 	}
 	var req PostNewReq
-	err := ctx.BindJSON(&req)
+	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
-		handleError(ctx, http.StatusBadRequest, err)
-		return
-	}
-	v := validator.New()
-	if err = v.Struct(req); err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}

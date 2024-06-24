@@ -15,6 +15,46 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/comments": {
+            "post": {
+                "description": "サインインしているユーザーで、指定された投稿に、本文のコメントを作成する",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "new comment API",
+                "parameters": [
+                    {
+                        "description": "リクエストパラメータ",
+                        "name": "commentNew",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.CommentNewReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/posts": {
             "get": {
                 "description": "投稿一覧を取得します",
@@ -34,14 +74,14 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/entities.Post"
+                                "$ref": "#/definitions/entity.Post"
                             }
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -62,7 +102,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.PostNewReq"
+                            "$ref": "#/definitions/controller.PostNewReq"
                         }
                     }
                 ],
@@ -73,13 +113,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -111,25 +151,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entities.Post"
+                            "$ref": "#/definitions/entity.Post"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -150,7 +190,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.PostUpdateRequest"
+                            "$ref": "#/definitions/controller.PostUpdateRequest"
                         }
                     },
                     {
@@ -168,25 +208,25 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -204,13 +244,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -236,7 +276,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.AuthSigninReq"
+                            "$ref": "#/definitions/controller.AuthSigninReq"
                         }
                     }
                 ],
@@ -244,19 +284,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entities.User"
+                            "$ref": "#/definitions/entity.User"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -282,7 +322,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.UserCreateReq"
+                            "$ref": "#/definitions/controller.UserCreateReq"
                         }
                     }
                 ],
@@ -290,25 +330,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entities.User"
+                            "$ref": "#/definitions/entity.User"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -328,25 +368,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entities.User"
+                            "$ref": "#/definitions/entity.User"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controllers.ErrorResponse"
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     }
                 }
@@ -354,7 +394,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "controllers.AuthSigninReq": {
+        "controller.AuthSigninReq": {
             "type": "object",
             "required": [
                 "password",
@@ -369,7 +409,22 @@ const docTemplate = `{
                 }
             }
         },
-        "controllers.ErrorResponse": {
+        "controller.CommentNewReq": {
+            "type": "object",
+            "required": [
+                "body",
+                "postId"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "postId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controller.ErrorResponse": {
             "type": "object",
             "required": [
                 "message"
@@ -380,7 +435,7 @@ const docTemplate = `{
                 }
             }
         },
-        "controllers.PostNewReq": {
+        "controller.PostNewReq": {
             "type": "object",
             "required": [
                 "body",
@@ -396,7 +451,7 @@ const docTemplate = `{
                 }
             }
         },
-        "controllers.PostUpdateRequest": {
+        "controller.PostUpdateRequest": {
             "type": "object",
             "required": [
                 "body",
@@ -412,7 +467,7 @@ const docTemplate = `{
                 }
             }
         },
-        "controllers.UserCreateReq": {
+        "controller.UserCreateReq": {
             "type": "object",
             "required": [
                 "password",
@@ -427,7 +482,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entities.Post": {
+        "entity.Post": {
             "type": "object",
             "required": [
                 "body",
@@ -464,7 +519,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entities.User": {
+        "entity.User": {
             "type": "object",
             "required": [
                 "id",

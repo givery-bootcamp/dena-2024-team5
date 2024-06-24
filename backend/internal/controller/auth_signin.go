@@ -9,8 +9,8 @@ import (
 )
 
 type AuthSigninReq struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }
 
 // Signin
@@ -30,7 +30,7 @@ func AuthSignin(ctx *gin.Context, usecase *usecase.AuthSigninUsecase) {
 		return
 	}
 	var req AuthSigninReq
-	err := ctx.BindJSON(&req)
+	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
