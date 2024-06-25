@@ -51,3 +51,16 @@ func (p *UserRepository) Create(username, password string) (*entity.User, error)
 	}
 	return model.ConvertUserModelToEntity(&newUser), nil
 }
+
+func (p *UserRepository) GetRandomZombie() (*entity.User, error) {
+	var user model.User
+	// nameにzombieを含むユーザーをランダムに取得
+	err := p.Conn.Debug().Where("name like ?", "%zombie%").Order("RAND()").First(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return model.ConvertUserModelToEntity(&user), nil
+}

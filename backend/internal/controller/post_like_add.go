@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"log"
 	"myapp/internal/constant"
 	u "myapp/internal/usecase"
 	"net/http"
@@ -20,8 +21,12 @@ import (
 // @Failure 409 {object} controller.ErrorResponse その投稿に既にいいねしているとき
 // @Failure 500 {object} controller.ErrorResponse
 // @Router /posts/{postID}/like [post]
-func PostLikeAdd(ctx *gin.Context, usecase *u.PostLikeAddUsecase) {
-	if usecase == nil {
+func PostLikeAdd(
+	ctx *gin.Context,
+	postLikeAddUsecase *u.PostLikeAddUsecase,
+	commentZombieNewUsecase *u.CommentNewByZombieUsecase,
+) {
+	if postLikeAddUsecase == nil || commentZombieNewUsecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
 		return
 	}
@@ -42,7 +47,7 @@ func PostLikeAdd(ctx *gin.Context, usecase *u.PostLikeAddUsecase) {
 	}
 	postID := uint(postID64)
 
-	err = usecase.Execute(userID, postID)
+	err = postLikeAddUsecase.Execute(userID, postID)
 	if err != nil {
 		if errors.Is(err, u.RecordConflictError) {
 			handleError(ctx, http.StatusConflict, err)
@@ -51,5 +56,13 @@ func PostLikeAdd(ctx *gin.Context, usecase *u.PostLikeAddUsecase) {
 		}
 		return
 	}
+
 	ctx.Status(http.StatusNoContent)
+
+	err = commentZombieNewUsecase.Execute(postID)
+	if err != nil {
+		log.Printf("failed to comment zombie: %v", err)
+		return
+	}
+	log.Println("commented zombie")
 }
