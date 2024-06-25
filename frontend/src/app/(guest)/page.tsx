@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -7,8 +8,11 @@ export default async function Home() {
     redirect("/dashboard");
   }
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <p>未ログイン</p>
+    <div>
+      <Header />
+      <div className="grid grid-cols-1 gap-4 p-4">
+        <p>未ログイン</p>
+      </div>
     </div>
   );
 }
