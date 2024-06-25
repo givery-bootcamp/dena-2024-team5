@@ -2,16 +2,16 @@ package model
 
 import (
 	"myapp/internal/entity"
-
-	"gorm.io/gorm"
+	"time"
 )
 
 type Like struct {
-	gorm.Model
-	UserID uint
-	User   User
-	PostID uint
-	Post   Post
+	ID        uint `gorm:"primarykey"`
+	CreatedAt time.Time
+	UserID    uint
+	User      User
+	PostID    uint
+	Post      Post
 }
 
 func ConvertLikeModelToEntity(l *Like) *entity.Like {
