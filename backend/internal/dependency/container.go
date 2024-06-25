@@ -89,3 +89,9 @@ func (di *DIContainer) CommentDeleteController(ctx *gin.Context) {
 	commentDeleteUsecase := u.NewCommentDeleteUsecase(commentRepository)
 	controller.CommentDelete(ctx, ownerUsecase, commentDeleteUsecase)
 }
+
+func (di *DIContainer) PostLikeAddController(ctx *gin.Context) {
+	repository := r.NewLikeRepository(controller.DB(ctx))
+	usecase := u.NewPostLikeAddUsecase(repository)
+	controller.PostLikeAdd(ctx, usecase)
+}
