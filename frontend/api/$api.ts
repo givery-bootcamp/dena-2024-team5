@@ -1,5 +1,6 @@
 import type { AspidaClient, BasicHeaders } from 'aspida';
 import type { Methods as Methods_vbicos } from './comments';
+import type { Methods as Methods_1mt0zrm } from './comments/_commentID';
 import type { Methods as Methods_1kz9onh } from './posts';
 import type { Methods as Methods_rslgc9 } from './posts/_postID@number';
 import type { Methods as Methods_1oqkkb0 } from './signin';
@@ -20,6 +21,35 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
 
   return {
     comments: {
+      _commentID: (val1: number | string) => {
+        const prefix1 = `${PATH0}/${val1}`;
+
+        return {
+          /**
+           * サインインしているユーザーで、指定されたコメントを更新する
+           * @param option.body - リクエストパラメータ
+           */
+          put: (option: { body: Methods_1mt0zrm['put']['reqBody'], config?: T | undefined }) =>
+            fetch<void, BasicHeaders, Methods_1mt0zrm['put']['status']>(prefix, prefix1, PUT, option).send(),
+          /**
+           * サインインしているユーザーで、指定されたコメントを更新する
+           * @param option.body - リクエストパラメータ
+           */
+          $put: (option: { body: Methods_1mt0zrm['put']['reqBody'], config?: T | undefined }) =>
+            fetch<void, BasicHeaders, Methods_1mt0zrm['put']['status']>(prefix, prefix1, PUT, option).send().then(r => r.body),
+          /**
+           * サインインしているユーザーで、指定されたコメントを削除する
+           */
+          delete: (option?: { config?: T | undefined } | undefined) =>
+            fetch<void, BasicHeaders, Methods_1mt0zrm['delete']['status']>(prefix, prefix1, DELETE, option).send(),
+          /**
+           * サインインしているユーザーで、指定されたコメントを削除する
+           */
+          $delete: (option?: { config?: T | undefined } | undefined) =>
+            fetch<void, BasicHeaders, Methods_1mt0zrm['delete']['status']>(prefix, prefix1, DELETE, option).send().then(r => r.body),
+          $path: () => `${prefix}${prefix1}`,
+        };
+      },
       /**
        * サインインしているユーザーで、指定された投稿に、本文のコメントを作成する
        * @param option.body - リクエストパラメータ

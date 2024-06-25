@@ -9,6 +9,10 @@ export type Controller_CommentNewReq = {
   postId: number
 }
 
+export type Controller_CommentUpdateReq = {
+  body: string
+}
+
 export type Controller_ErrorResponse = {
   message: string
 }
@@ -28,8 +32,18 @@ export type Controller_UserCreateReq = {
   username: string
 }
 
+export type Entity_Comment = {
+  body: string
+  created_at: string
+  id: number
+  post_id: number
+  updated_at: string
+  user_id: number
+}
+
 export type Entity_Post = {
   body: string
+  comments: Entity_Comment[]
   created_at: string
   id: number
   title: string
