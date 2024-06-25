@@ -357,6 +357,29 @@ paths:
       summary: update post
       tags:
       - posts
+  /posts/{postID}/like:
+    post:
+      description: 投稿に対して、いいねを付与します。
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Post'
+            type: array
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: get list posts
+      tags:
+      - posts
   /signin:
     post:
       consumes:
