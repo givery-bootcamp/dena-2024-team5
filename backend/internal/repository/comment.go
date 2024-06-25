@@ -49,3 +49,8 @@ func (r *CommentRepository) CommentUpdate(commentID uint, body string) error {
 	result := r.Conn.Updates(&comment)
 	return result.Error
 }
+
+func (r *CommentRepository) CommentDelete(commentID uint) error {
+	result := r.Conn.Delete(&model.Comment{}, "id = ?", commentID)
+	return result.Error
+}
