@@ -20,6 +20,13 @@ definitions:
     - body
     - postId
     type: object
+  controller.CommentUpdateReq:
+    properties:
+      body:
+        type: string
+    required:
+    - body
+    type: object
   controller.ErrorResponse:
     properties:
       message:
@@ -126,6 +133,40 @@ paths:
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: new comment API
+      tags:
+      - comments
+  /comments/{commentID}:
+    put:
+      consumes:
+      - application/json
+      description: サインインしているユーザーで、指定されたコメントを更新する
+      parameters:
+      - description: リクエストパラメータ
+        in: body
+        name: commentUpdate
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CommentUpdateReq'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: update comment API
       tags:
       - comments
   /posts:
