@@ -2,7 +2,6 @@ import aspida from "@aspida/fetch";
 import api from "../../api/$api";
 
 const fetchConfig = (token: string) => {
-  console.log({env: process.env.NEXT_PUBLIC_API_BASE_URL})
   return {
     // credentials: "include",
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
