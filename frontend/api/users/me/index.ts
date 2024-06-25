@@ -6,6 +6,6 @@ export type Methods = {
   get: {
     status: 200
     /** OK */
-    resBody: Types.Entities_User
+    resBody: Types.Entity_User
   }
 }
