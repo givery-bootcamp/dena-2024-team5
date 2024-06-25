@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/card";
 import { dateFormatString2DateJa } from "@/utils/date";
 import Link from "next/link";
-import type { Entities_Post } from "../../api/@types/";
+import type { Entity_Post } from "../../api/@types/";
 
 export default async function PostedItem({
   postedItem,
 }: {
-  postedItem: Entities_Post;
+  postedItem: Entity_Post;
 }) {
   return (
     <Card className="w-full">
