@@ -44,10 +44,13 @@ const SignOutDialog = () => {
         </DialogHeader>
         <DialogDescription>サインアウトしますか?</DialogDescription>
         <DialogFooter>
-          <Button variant="destructive" onClick={() => {
-            signOut();
-            router.push("/");
-            }}>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              signOut();
+              router.push("/");
+            }}
+          >
             サインアウト
           </Button>
         </DialogFooter>
