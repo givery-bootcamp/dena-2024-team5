@@ -13,10 +13,13 @@ type Props = {
 
 export const createPost = async ({ formdata, jwtToken }: Props) => {
   try {
-    const res = await aspidaClient(jwtToken).posts.$post({
+    const res = await aspidaClient(jwtToken).posts.post({
       body: formdata,
     });
+    if (res.status !== 204) {
+      throw new Error("投稿に失敗しました...");
+    }
   } catch (error) {
-    console.error(error);
+    throw new Error("投稿に失敗しました...");
   }
 };

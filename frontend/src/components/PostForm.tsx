@@ -16,9 +16,9 @@ export const PostForm = ({ jwtToken }: Props) => {
     <div className="grid gap-8">
       <AutoForm
         formSchema={postFormSchema}
-        onSubmit={(formdata) => {
+        onSubmit={async (formdata) => {
           try {
-            createPost({ formdata, jwtToken });
+            await createPost({ formdata, jwtToken });
             toast({
               description: "投稿に成功しました!",
             });
