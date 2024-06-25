@@ -1,14 +1,17 @@
 "use client";
 import { postFormSchema } from "@/lib/zod";
 import { createPost } from "@/utils/createPost";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import AutoForm, { AutoFormSubmit } from "./ui/auto-form";
+import { useToast } from "./ui/use-toast";
 
 type Props = {
   jwtToken: string;
 };
 
 export const PostForm = ({ jwtToken }: Props) => {
+  const router = useRouter();
+  const { toast } = useToast();
   return (
     <div className="grid gap-8">
       <AutoForm
@@ -16,9 +19,16 @@ export const PostForm = ({ jwtToken }: Props) => {
         onSubmit={(formdata) => {
           try {
             createPost({ formdata, jwtToken });
-            redirect("/dashboard");
+            toast({
+              description: "投稿に成功しました!",
+            });
+            router.push("/dashboard");
           } catch (error) {
             console.error(error);
+            toast({
+              variant: "destructive",
+              description: "投稿に失敗しました...",
+            });
           }
         }}
         fieldConfig={{
