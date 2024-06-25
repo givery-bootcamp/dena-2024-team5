@@ -66,10 +66,38 @@ definitions:
     - password
     - username
     type: object
+  entity.Comment:
+    properties:
+      body:
+        type: string
+      created_at:
+        format: date-time
+        type: string
+      id:
+        type: integer
+      post_id:
+        type: integer
+      updated_at:
+        format: date-time
+        type: string
+      user_id:
+        type: integer
+    required:
+    - body
+    - created_at
+    - id
+    - post_id
+    - updated_at
+    - user_id
+    type: object
   entity.Post:
     properties:
       body:
         type: string
+      comments:
+        items:
+          $ref: '#/definitions/entity.Comment'
+        type: array
       created_at:
         format: date-time
         type: string
@@ -86,6 +114,7 @@ definitions:
         type: string
     required:
     - body
+    - comments
     - created_at
     - id
     - title

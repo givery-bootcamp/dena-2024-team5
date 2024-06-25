@@ -545,10 +545,44 @@ const docTemplate = `{
                 }
             }
         },
+        "entity.Comment": {
+            "type": "object",
+            "required": [
+                "body",
+                "created_at",
+                "id",
+                "post_id",
+                "updated_at",
+                "user_id"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "post_id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "entity.Post": {
             "type": "object",
             "required": [
                 "body",
+                "comments",
                 "created_at",
                 "id",
                 "title",
@@ -559,6 +593,12 @@ const docTemplate = `{
             "properties": {
                 "body": {
                     "type": "string"
+                },
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/entity.Comment"
+                    }
                 },
                 "created_at": {
                     "type": "string",
