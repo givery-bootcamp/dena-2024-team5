@@ -38,6 +38,14 @@ func (r *CommentRepository) CommentNew(userID, postID uint, body string) error {
 		UserID: userID,
 		PostID: postID,
 	}
-	result := c.Conn.Create(&comment)
+	result := r.Conn.Create(&comment)
+	return result.Error
+}
+
+func (r *CommentRepository) CommentUpdate(commentID uint, body string) error {
+	comment := model.Comment{}
+	comment.ID = commentID
+	comment.Body = body
+	result := r.Conn.Updates(&comment)
 	return result.Error
 }
