@@ -74,6 +74,9 @@ importers:
       lucide-react:
         specifier: ^0.379.0
         version: 0.379.0(react@18.3.1)
+      nes.css:
+        specifier: ^2.3.0
+        version: 2.3.0
       next:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1236,6 +1239,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  nes.css@2.3.0:
+    resolution: {integrity: sha512-lCFZs9vj3f5RVdbvTL/kSxiYsOARwSeAdJaMNo+bCgmWOO9x8ay7QpT4yQVKHy3r5Dttzd0uqVdpt3fvvx6EpQ==}
+    engines: {node: 10.x}
 
   next-auth@5.0.0-beta.19:
     resolution: {integrity: sha512-YHu1igcAxZPh8ZB7GIM93dqgY6gcAzq66FOhQFheAdOx1raxNcApt05nNyNCSB6NegSiyJ4XOPsaNow4pfDmsg==}
@@ -2630,6 +2637,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.7: {}
+
+  nes.css@2.3.0: {}
 
   next-auth@5.0.0-beta.19(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
