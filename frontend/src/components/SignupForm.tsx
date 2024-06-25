@@ -1,55 +1,53 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
+"use client";
+import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { signUpFormSchema } from "@/lib/zod";
+import { serversideSignUp } from "@/utils/signup";
+import Link from "next/link";
 
-export function SignupForm() {
+export function SignUpForm() {
   return (
-    <Card className="max-w-md w-full border-0 shadow-none">
+    <Card className="w-full max-w-md border-0 shadow-none">
       <CardHeader>
-        <CardTitle className="text-xl">Sign Up</CardTitle>
-        <CardDescription>個人情報を入力してください</CardDescription>
+        <CardTitle className="text-2xl">SignUp</CardTitle>
+        <CardDescription>
+          ユーザーネームとパスワードを入力してください
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid col-span-2 gap-2">
-              <Label htmlFor="name">名前</Label>
-              <Input id="name" placeholder="username" required />
-            </div>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" />
-          </div>
-          <Button type="submit" className="w-full">
-            アカウント作成
-          </Button>
-        </div>
+      <AutoForm
+        formSchema={signUpFormSchema}
+        onSubmit={(values) => {
+          serversideSignUp(values);
+        }}
+        fieldConfig={{
+          username: {
+            inputProps: {
+              name: "username",
+              placeholder: "ユーザーネーム",
+            },
+          },
+          password: {
+            inputProps: {
+              name: "password",
+              type: "password",
+              placeholder: "••••••••",
+            },
+          },
+        }}
+      >
+        <AutoFormSubmit className="w-full">登録</AutoFormSubmit>
         <div className="mt-4 text-center text-sm">
           アカウントをお持ちの場合{" "}
-          <Link href="/login" className="underline">
+          <Link href="/signin" className="underline">
             ログイン
           </Link>
         </div>
-      </CardContent>
+      </AutoForm>
     </Card>
   );
 }
