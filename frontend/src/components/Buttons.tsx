@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Send } from "lucide-react";
+import { Pen, Send } from "lucide-react";
 
 type Props = {
   session: Session | null;
@@ -70,6 +70,15 @@ export const CommentPostButton = ({ postId }: { postId: number }) => {
         <Send className="mr-2 h-4 w-4" />
         コメントする
       </Link>
+    </Button>
+  );
+};
+
+export const PostEditButton = () => {
+  return (
+    <Button variant="outline">
+      <Pen className="mr-2 h-4 w-4" />
+      編集する
     </Button>
   );
 };
