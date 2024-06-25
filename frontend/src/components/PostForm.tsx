@@ -1,21 +1,36 @@
 "use client";
-import { z } from "zod";
+import { postFormSchema } from "@/lib/zod";
+import { createPost } from "@/utils/createPost";
+import { useRouter } from "next/navigation";
 import AutoForm, { AutoFormSubmit } from "./ui/auto-form";
+import { useToast } from "./ui/use-toast";
 
-export function PostForm() {
-  const formSchema = z.object({
-    title: z
-      .string({ required_error: "タイトルを入力してください" })
-      .describe("タイトル"),
-    body: z
-      .string({ required_error: "本文を入力してください" })
-      .describe("内容"),
-  });
+type Props = {
+  jwtToken: string;
+};
 
+export const PostForm = ({ jwtToken }: Props) => {
+  const router = useRouter();
+  const { toast } = useToast();
   return (
     <div className="grid gap-8">
       <AutoForm
-        formSchema={formSchema}
+        formSchema={postFormSchema}
+        onSubmit={async (formdata) => {
+          try {
+            await createPost({ formdata, jwtToken });
+            toast({
+              description: "投稿に成功しました!",
+            });
+            router.push("/dashboard");
+          } catch (error) {
+            console.error(error);
+            toast({
+              variant: "destructive",
+              description: "投稿に失敗しました...",
+            });
+          }
+        }}
         fieldConfig={{
           title: {
             inputProps: {
@@ -31,8 +46,8 @@ export function PostForm() {
           },
         }}
       >
-        <AutoFormSubmit className="w-full">投稿</AutoFormSubmit>
+        <AutoFormSubmit className="w-full">投稿する</AutoFormSubmit>
       </AutoForm>
     </div>
   );
-}
+};
