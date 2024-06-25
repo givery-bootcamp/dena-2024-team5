@@ -32,15 +32,15 @@ func (p *PostRepository) GetList() ([]entity.Post, error) {
 	return posts, nil
 }
 
-func (p *PostRepository) GetDetail(id uint, includeComment bool) (*entity.Post, error) {
+func (p *PostRepository) GetDetail(postID uint, includeComments bool) (*entity.Post, error) {
 	var obj model.Post
 	var err error
-	if includeComment {
+	if includeComments {
 		err = p.Conn.Preload("Comments", func(db *gorm.DB) *gorm.DB {
 			return db.Order("comments.id ASC")
-		}).Preload("User").Where("id = ?", id).First(&obj).Error
+		}).Preload("User").Where("id = ?", postID).First(&obj).Error
 	} else {
-		err = p.Conn.Preload("User").Where("id = ?", id).First(&obj).Error
+		err = p.Conn.Preload("User").Where("id = ?", postID).First(&obj).Error
 	}
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
