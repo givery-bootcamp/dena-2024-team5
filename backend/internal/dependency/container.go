@@ -82,3 +82,10 @@ func (di *DIContainer) CommentUpdateController(ctx *gin.Context) {
 	commentUpdateUsecase := u.NewCommentUpdateUsecase(commentRepository)
 	controller.CommentUpdate(ctx, ownerUsecase, commentUpdateUsecase)
 }
+
+func (di *DIContainer) CommentDeleteController(ctx *gin.Context) {
+	commentRepository := r.NewCommentRepository(controller.DB(ctx))
+	ownerUsecase := u.NewCommentOwnerValidateUsecase(commentRepository)
+	commentDeleteUsecase := u.NewCommentDeleteUsecase(commentRepository)
+	controller.CommentDelete(ctx, ownerUsecase, commentDeleteUsecase)
+}
