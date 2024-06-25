@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Pen, Send } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   session: Session | null;
@@ -31,6 +32,7 @@ export const SignInSignOutButton = ({ session }: Props) => {
 };
 
 const SignOutDialog = () => {
+  const router = useRouter();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -42,7 +44,10 @@ const SignOutDialog = () => {
         </DialogHeader>
         <DialogDescription>サインアウトしますか?</DialogDescription>
         <DialogFooter>
-          <Button variant="destructive" onClick={() => signOut()}>
+          <Button variant="destructive" onClick={() => {
+            signOut();
+            router.push("/");
+            }}>
             サインアウト
           </Button>
         </DialogFooter>
