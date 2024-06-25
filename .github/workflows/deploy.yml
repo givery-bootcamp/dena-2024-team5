@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'feat/front-cd'
 
 env:
   AWS_REGION: ap-northeast-1
@@ -16,6 +17,7 @@ env:
   BUCKET_PREFIX: team-5
   VITE_API_ENDPOINT_PATH: https://team-5_bk.member0005.track-bootcamp.run
   AUTH_SECRET_KEY: ${{ secrets.AUTH_SECRET_KEY }}
+  NEXT_AUTH_SECRET_KEY: ${{ secrets.NEXT_AUTH_SECRET_KEY }}
 
 jobs:
   frontend-ecr-push:
@@ -59,8 +61,13 @@ jobs:
         ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
         IMAGE_TAG=latest
 
-        docker build -f docker/frontend-cd.Dockerfile -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME_FRONTEND:$IMAGE_TAG .
+        docker build -f docker/frontend-cd.Dockerfile \
+        --build-arg API_BASE_URL=$VITE_API_ENDPOINT_PATH \
+        --build-arg NEXT_AUTH_SECRET_KEY=$NEXT_AUTH_SECRET_KEY \
+        -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME_FRONTEND:$IMAGE_TAG .
         docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME_FRONTEND:$IMAGE_TAG
+      env:
+        NEXT_AUTH_SECRET_KEY: ${{ env.NEXT_AUTH_SECRET_KEY }}
     
   backend-ecr-push:
     runs-on: ubuntu-latest
