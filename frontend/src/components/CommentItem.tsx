@@ -7,8 +7,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { dateFormatString2DateJa } from "@/utils/date";
-import Link from "next/link";
-import { Entity_Comment } from "../../api/@types";
+import type { Entity_Comment } from "../../api/@types";
 
 export const comment_Example: Entity_Comment = {
   body: "コメント",
@@ -32,7 +31,7 @@ export async function CommentItem({
       <CardFooter className="flex justify-between">
         <p className="text-sm">{comment.user_id}</p>
         <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
-        <Button onClick={()=>console.log("削除ボタン")}>
+        <Button onClick={() => console.log("削除ボタン")}>
           削除
           {/* <Link href={`posts/${comment.id}`}>削除</Link> */}
         </Button>
