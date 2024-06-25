@@ -55,6 +55,58 @@ const docTemplate = `{
                 }
             }
         },
+        "/comments/{commentID}": {
+            "put": {
+                "description": "サインインしているユーザーで、指定されたコメントを更新する",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "update comment API",
+                "parameters": [
+                    {
+                        "description": "リクエストパラメータ",
+                        "name": "commentUpdate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.CommentUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/posts": {
             "get": {
                 "description": "投稿一覧を取得します",
@@ -421,6 +473,17 @@ const docTemplate = `{
                 },
                 "postId": {
                     "type": "integer"
+                }
+            }
+        },
+        "controller.CommentUpdateReq": {
+            "type": "object",
+            "required": [
+                "body"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
                 }
             }
         },
