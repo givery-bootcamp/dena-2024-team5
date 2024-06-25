@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"errors"
 	"myapp/internal/entity"
 	"myapp/internal/repository/model"
 
+	"github.com/go-sql-driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -25,7 +25,8 @@ func (r *LikeRepository) AddLike(userID, postID uint) (*entity.Like, error) {
 	}
 	err := r.Conn.Create(&like).Error
 	if err != nil {
-		if errors.Is(err, gorm.ErrDuplicatedKey) {
+		// MySQL code for duplicate entry
+		if mysqlErr, ok := err.(*mysql.MySQLError); ok && mysqlErr.Number == 1062 {
 			return nil, nil
 		}
 		return nil, err
