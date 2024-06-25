@@ -1,3 +1,4 @@
+import { CommentPostButton } from "@/components/Buttons";
 import { CommentItem } from "@/components/CommentItem";
 import { PostDetail } from "@/components/PostDetail";
 import { aspidaClient } from "@/lib/aspidaClient";
@@ -16,6 +17,8 @@ export default async function Home({ params }: { params: { id: string } }) {
     <div className="flex-1 grid gap-4">
       <PostDetail postItem={postedItemsDetail} jwtToken={jwtToken} />
       <div className="border-b px-4" />
+      コメントする：
+      <CommentPostButton postId={postedItemsDetail.id} />
       コメント：
       {comments.map((data) => (
         <CommentItem key={data.id} comment={data} />

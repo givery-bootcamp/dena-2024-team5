@@ -62,6 +62,18 @@ export const PostButton = () => {
   );
 };
 
+export const CommentPostButton = ({ postId }: { postId: number }) => {
+  const href = `/comments/new/${postId.toString()}`;
+  return (
+    <Button asChild>
+      <Link href={href}>
+        <Send className="mr-2 h-4 w-4" />
+        コメントする
+      </Link>
+    </Button>
+  );
+};
+
 export const PostEditButton = () => {
   return (
     <Button variant="outline">
