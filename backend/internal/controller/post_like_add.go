@@ -60,6 +60,8 @@ func PostLikeAdd(
 	ctx.Status(http.StatusNoContent)
 
 	err = commentZombieNewUsecase.Execute(postID)
+
+	// NOTE: インプレゾンビのコメントが成功したかどうかログで確認できるとデバッグ時に分かりやすいかなと思い、残しています。
 	if err != nil {
 		log.Printf("failed to comment zombie: %v", err)
 		return
