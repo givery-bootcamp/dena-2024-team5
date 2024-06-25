@@ -19,11 +19,11 @@ export const CommentForm = ({ jwtToken, postId }: Props) => {
         formSchema={commentFormSchema}
         onSubmit={async (formdata) => {
           try {
-            await createComment({ formdata, jwtToken, postId});
+            await createComment({ formdata, jwtToken, postId });
             toast({
               description: "コメントに成功しました!",
             });
-            router.push("/posts/"+postId.toString());
+            router.push(`/posts/${postId.toString()}`);
           } catch (error) {
             console.error(error);
             toast({

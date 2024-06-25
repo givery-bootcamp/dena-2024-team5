@@ -24,5 +24,7 @@ export const postFormSchema = z.object({
 });
 
 export const commentFormSchema = z.object({
-  body: z.string({ required_error: "コメントを入力してください" }).describe("コメント"),
+  body: z
+    .string({ required_error: "コメントを入力してください" })
+    .describe("コメント"),
 });

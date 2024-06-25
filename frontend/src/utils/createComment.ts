@@ -15,10 +15,10 @@ type Props = {
 export const createComment = async ({ formdata, jwtToken, postId }: Props) => {
   try {
     const res = await aspidaClient(jwtToken).comments.post({
-        body: {
-            body: formdata.body,
-            postId: postId,
-        }
+      body: {
+        body: formdata.body,
+        postId: postId,
+      },
     });
     if (res.status !== 204) {
       throw new Error("コメントに失敗しました...");

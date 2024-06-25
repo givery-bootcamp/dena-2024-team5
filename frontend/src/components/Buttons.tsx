@@ -62,7 +62,7 @@ export const PostButton = () => {
   );
 };
 
-export const CommentPostButton = ({postId}:{postId:number}) => {
+export const CommentPostButton = ({ postId }: { postId: number }) => {
   const href = `/comments/new/${postId.toString()}`;
   return (
     <Button asChild>

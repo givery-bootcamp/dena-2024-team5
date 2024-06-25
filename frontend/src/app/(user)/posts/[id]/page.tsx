@@ -1,8 +1,8 @@
+import { CommentPostButton } from "@/components/Buttons";
 import { CommentItem } from "@/components/CommentItem";
 import { aspidaClient } from "@/lib/aspidaClient";
 import { cookies } from "next/headers";
 import type { Entity_Comment } from "../../../../../api/@types";
-import { CommentPostButton } from "@/components/Buttons";
 
 export default async function Home({ params }: { params: { id: string } }) {
   const cookieStore = cookies();
@@ -15,7 +15,8 @@ export default async function Home({ params }: { params: { id: string } }) {
   return (
     <div>
       投稿詳細画面<div>{postedItemsDetail.id}</div>
-      コメントする：<CommentPostButton postId={postedItemsDetail.id} />
+      コメントする：
+      <CommentPostButton postId={postedItemsDetail.id} />
       コメント：
       {comments.map((data) => (
         <CommentItem key={data.id} comment={data} />
