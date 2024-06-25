@@ -32,14 +32,24 @@ func (p *PostRepository) GetList() ([]entity.Post, error) {
 	return posts, nil
 }
 
-func (p *PostRepository) GetDetail(id uint) (*entity.Post, error) {
+func (p *PostRepository) GetDetail(id uint, includeComment bool) (*entity.Post, error) {
 	var obj model.Post
-	result := p.Conn.Preload("User").Where("id = ?", id).First(&obj)
-	if result.Error != nil {
-		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			return nil, nil
+	if includeComment {
+		if err := p.Conn.Preload("Comments", func(db *gorm.DB) *gorm.DB {
+			return db.Order("comments.id ASC")
+		}).Preload("User").Where("id = ?", id).First(&obj).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return nil, nil
+			}
+			return nil, err
 		}
-		return nil, result.Error
+	} else {
+		if err := p.Conn.Preload("User").Where("id = ?", id).First(&obj).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return nil, nil
+			}
+			return nil, err
+		}
 	}
 	return model.ConvertPostModelToEntity(&obj), nil
 }

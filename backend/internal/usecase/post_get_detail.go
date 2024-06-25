@@ -17,6 +17,6 @@ func NewPostGetDetailUsecase(r interfaces.PostGetDetailRepository) *PostGetDetai
 
 // idに該当するpostがないとき、返り値は (nil, nil) になる。
 // errorはこれ以外の内部エラーが起きたときだけ入る。
-func (p *PostGetDetailUsecase) Execute(id uint) (*entity.Post, error) {
-	return p.repository.GetDetail(id)
+func (p *PostGetDetailUsecase) Execute(id uint, includeComments bool) (*entity.Post, error) {
+	return p.repository.GetDetail(id, includeComments)
 }

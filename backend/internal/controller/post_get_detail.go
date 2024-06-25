@@ -31,7 +31,7 @@ func PostGetDetail(ctx *gin.Context, usecase *u.PostGetDetailUsecase) {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}
-	result, err := usecase.Execute(uint(postID))
+	result, err := usecase.Execute(uint(postID), true)
 	if err != nil {
 		if errors.Is(err, u.RecordNotFoundError) {
 			handleError(ctx, http.StatusNotFound, err)

@@ -15,7 +15,7 @@ func NewPostOwnerValidateUsecase(r interfaces.PostGetDetailRepository) *PostOwne
 }
 
 func (p *PostOwnerValidateUsecase) Execute(userID, postID uint) (ok bool, err error) {
-	post, err := p.repository.GetDetail(postID)
+	post, err := p.repository.GetDetail(postID, false)
 	if err != nil {
 		return false, err
 	}

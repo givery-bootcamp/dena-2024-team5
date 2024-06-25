@@ -15,7 +15,7 @@ func NewPostAvailableUsecase(r interfaces.PostGetDetailRepository) *PostAvailabl
 }
 
 func (p *PostAvailableUsecase) Execute(postID uint) (bool, error) {
-	post, err := p.repository.GetDetail(postID)
+	post, err := p.repository.GetDetail(postID, false)
 	if err != nil {
 		return false, err
 	}
