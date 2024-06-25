@@ -6,14 +6,14 @@ export type Methods = {
   get: {
     status: 200
     /** OK */
-    resBody: Types.Entities_Post
+    resBody: Types.Entity_Post
   }
 
   /** 投稿を更新します。 */
   put: {
     status: 204
     /** リクエストパラメータ */
-    reqBody: Types.Controllers_PostUpdateRequest
+    reqBody: Types.Controller_PostUpdateRequest
   }
 
   /** 投稿を削除する */

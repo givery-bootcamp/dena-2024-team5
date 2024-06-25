@@ -6,8 +6,8 @@ export type Methods = {
   post: {
     status: 200
     /** OK */
-    resBody: Types.Entities_User
+    resBody: Types.Entity_User
     /** リクエストパラメータ */
-    reqBody: Types.Controllers_AuthSigninReq
+    reqBody: Types.Controller_AuthSigninReq
   }
 }

@@ -6,13 +6,13 @@ export type Methods = {
   get: {
     status: 200
     /** OK */
-    resBody: Types.Entities_Post[]
+    resBody: Types.Entity_Post[]
   }
 
   /** サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する */
   post: {
     status: 204
     /** リクエストパラメータ */
-    reqBody: Types.Controllers_PostNewReq
+    reqBody: Types.Controller_PostNewReq
   }
 }
