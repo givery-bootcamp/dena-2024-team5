@@ -15,7 +15,8 @@ import (
 // @Description 投稿に対して、いいねを付与します。
 // @Tags posts
 // @Produce json
-// @Success 200 {object} []entity.Post
+// @Success 204
+// @Failure 400 {object} controller.ErrorResponse
 // @Failure 409 {object} controller.ErrorResponse その投稿に既にいいねしているとき
 // @Failure 500 {object} controller.ErrorResponse
 // @Router /posts/{postID}/like [post]

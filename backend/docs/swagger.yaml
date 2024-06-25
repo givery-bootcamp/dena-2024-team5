@@ -363,12 +363,12 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
           schema:
-            items:
-              $ref: '#/definitions/entity.Post'
-            type: array
+            $ref: '#/definitions/controller.ErrorResponse'
         "409":
           description: Conflict
           schema:

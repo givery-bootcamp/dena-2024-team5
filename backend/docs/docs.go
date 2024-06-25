@@ -358,13 +358,13 @@ const docTemplate = `{
                 ],
                 "summary": "get list posts",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/entity.Post"
-                            }
+                            "$ref": "#/definitions/controller.ErrorResponse"
                         }
                     },
                     "409": {
