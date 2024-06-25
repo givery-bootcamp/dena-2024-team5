@@ -18,6 +18,8 @@ func NewLikeRepository(conn *gorm.DB) *LikeRepository {
 	}
 }
 
+// userID/postIDが一致するいいねが既にあるときは (nil, nil) を返す。
+// それ以外の内部エラーが発生したときは error に値が入る。
 func (r *LikeRepository) AddLike(userID, postID uint) (*entity.Like, error) {
 	like := model.Like{
 		UserID: userID,
