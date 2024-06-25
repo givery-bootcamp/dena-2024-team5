@@ -55,11 +55,10 @@ docker-compose down -v
 host$ docker-compose exec db mysql training
 ```
 
-## How to connect backend/frontend shell
+## How to connect backend shell
 
 ```
 host$ docker-compose exec backend bash
-host$ docker-compose exec frontend bash
 ```
 
 ライブラリをインストールする場合はdockerコンテナ側でコマンドを実行してください。
@@ -70,22 +69,6 @@ e.g.
 host$ docker-compose exec backend bash
 backend$ go get -u gorm.io/gorm
 ```
-
-```
-host$ docker-compose exec frontend bash
-frontend$ npm install something
-```
-
-VS Codeなどで開発する場合、コンテナ側にインストールされたモジュールが参照できないために、エディター上でエラーが表示される場合があります。
-
-その場合はお手数ですが、ホストOS側でもモジュールのインストールをお願いします。
-
-```
-host$ cd frontend
-host$ npm install
-```
-
-[frontend(nodejs)をDocker外で動かすための設定変更](https://github.com/givery-technology/training-app-2023/wiki/Docker%E3%81%AE%E4%B8%AD%E3%81%AENode%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%84%E3%82%84%E3%81%A0%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E4%BA%BA%E5%90%91%E3%81%91%E3%81%AE%E8%84%B1%E7%8D%84%E3%81%AE%E6%89%8B%E5%BC%95%E3%81%8D)
 
 ## OpenAPI(swagger)
 <http://localhost:9000/swagger/index.html>にアクセスすると確認できます。
@@ -106,6 +89,22 @@ make test
 
 1. 各endpointに対応する関数(controllers層)に対して記述してください。
 2. `backend/internal/controllers/post_get_list.go`の`GetList`の書き方を参考にdocを記述してください。
+
+
+## How to develop frontend
+```bash
+host$ cd frontend
+host$ pnpm install
+host$ pnpm dev
+# pnpm入ってない人向け
+host$ npm install -g pnpm
+```
+
+### ローカル用に環境変数
+
+`.env.template`をコピーして、`.env.local`を作成
+
+[frontend(nodejs)をDocker外で動かすための設定変更](https://github.com/givery-technology/training-app-2023/wiki/Docker%E3%81%AE%E4%B8%AD%E3%81%AENode%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%84%E3%82%84%E3%81%A0%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E4%BA%BA%E5%90%91%E3%81%91%E3%81%AE%E8%84%B1%E7%8D%84%E3%81%AE%E6%89%8B%E5%BC%95%E3%81%8D)
 
 
 ## ディレクトリ構成
