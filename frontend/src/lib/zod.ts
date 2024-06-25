@@ -28,3 +28,8 @@ export const commentFormSchema = z.object({
     .string({ required_error: "コメントを入力してください" })
     .describe("コメント"),
 });
+
+export const editPostFormSchema = z.object({
+  title: z.string().describe("タイトル").default(""),
+  body: z.string().describe("内容").default(""),
+});
