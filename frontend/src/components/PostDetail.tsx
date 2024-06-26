@@ -3,14 +3,18 @@ import { isEditModeAtom } from "@/lib/atom";
 import { editPostFormSchema } from "@/lib/zod";
 import { dateFormatString2DateJa } from "@/utils/date";
 import { editPost } from "@/utils/editPost";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
 import { Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
 import type { Entity_Post } from "../../api/@types";
 import { PostEditButton, PostEditCancelButton } from "./Buttons";
 import { PostDeleteDialog } from "./deletePostDialog";
-import AutoForm from "./ui/auto-form";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
 
 type PostDetailProps = {
@@ -18,73 +22,13 @@ type PostDetailProps = {
   jwtToken: string;
 };
 
+type onSubmitType = z.infer<typeof editPostFormSchema>;
+
 export const PostDetail = ({ postItem, jwtToken }: PostDetailProps) => {
-  const [isEditMode, setIsEditMode] = useAtom(isEditModeAtom);
-  const router = useRouter();
-  const { toast } = useToast();
+  const [isEditMode] = useAtom(isEditModeAtom);
+
   if (isEditMode) {
-    return (
-      <div className="flex-1 grid gap-4">
-        <div className="text-right">
-          <p>
-            投稿者:
-            {postItem.username}
-          </p>
-          <p>
-            投稿日時:
-            {dateFormatString2DateJa(postItem.created_at)}
-          </p>
-          <p>
-            更新日時:
-            {dateFormatString2DateJa(postItem.updated_at)}
-          </p>
-        </div>
-        <div className="border-b px-4" />
-        <AutoForm
-          formSchema={editPostFormSchema}
-          onSubmit={async (data) => {
-            try {
-              await editPost({ postId: postItem.id, jwtToken, editData: data });
-              setIsEditMode(false);
-              router.push(`/posts/${postItem.id}`);
-              toast({
-                description: "編集に成功しました!📝",
-              });
-            } catch (error) {
-              console.error(error);
-              toast({
-                variant: "destructive",
-                description: "編集に失敗しました...😭",
-              });
-            }
-          }}
-          fieldConfig={{
-            title: {
-              inputProps: {
-                type: "text",
-                defaultValue: postItem.title,
-                className: "font-bold w-full",
-              },
-            },
-            body: {
-              fieldType: "textarea",
-              inputProps: {
-                defaultValue: postItem.body,
-                className: "h-96 w-full",
-              },
-            },
-          }}
-        >
-          <div className="flex justify-end gap-4">
-            <PostEditCancelButton />
-            <Button type="submit">
-              <Pen className="mr-2 w-4 h-4" />
-              変更を保存
-            </Button>
-          </div>
-        </AutoForm>
-      </div>
-    );
+    return <PostEditForm postItem={postItem} jwtToken={jwtToken} />;
   }
   return (
     <div className="flex-1 grid gap-4">
@@ -110,5 +54,77 @@ export const PostDetail = ({ postItem, jwtToken }: PostDetailProps) => {
         <PostDeleteDialog postId={postItem.id} jwtToken={jwtToken} />
       </div>
     </div>
+  );
+};
+
+const PostEditForm = ({ postItem, jwtToken }: PostDetailProps) => {
+  const [, setIsEditMode] = useAtom(isEditModeAtom);
+  const { toast } = useToast();
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(editPostFormSchema),
+    defaultValues: {
+      title: postItem.title,
+      body: postItem.body,
+    },
+  });
+  const onSubmit = async (data: onSubmitType) => {
+    try {
+      await editPost({ postId: postItem.id, jwtToken, editData: data });
+      setIsEditMode(false);
+      router.push(`/posts/${postItem.id}`);
+      toast({
+        description: "編集に成功しました!📝",
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        description: "編集に失敗しました...😭",
+      });
+    }
+  };
+
+  return (
+    <form className="flex-1 grid gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-4xl font-bold">
+        <Input {...register("title")} />
+      </h1>
+      {errors.title && (
+        <p className="text-red-500 text-sm">{errors.title.message}</p>
+      )}
+      <div className="text-right">
+        <p>
+          投稿者:
+          {postItem.username}
+        </p>
+        <p>
+          投稿日時:
+          {dateFormatString2DateJa(postItem.created_at)}
+        </p>
+        <p>
+          更新日時:
+          {dateFormatString2DateJa(postItem.updated_at)}
+        </p>
+      </div>
+      <div className="border-b px-4" />
+      <div className="grid whitespace-break-spaces min-h-96">
+        <Textarea {...register("body")} className="min-h-64" />
+      </div>
+      {errors.body && (
+        <p className="text-red-500 text-sm">{errors.body.message}</p>
+      )}
+      <div className="flex justify-end gap-4">
+        <PostEditCancelButton />
+        <Button type="submit">
+          <Pen className="mr-2 w-4 h-4" />
+          変更を保存
+        </Button>
+      </div>
+    </form>
   );
 };
