@@ -15,6 +15,7 @@ env:
   ECS_SERVICE: dena-training-2024-team-5
   BUCKET_PREFIX: team-5
   VITE_API_ENDPOINT_PATH: https://team-5_bk.member0005.track-bootcamp.run
+  NEXTAUTH_URL: https://team-5.member0005.track-bootcamp.run
   AUTH_SECRET_KEY: ${{ secrets.AUTH_SECRET_KEY }}
   NEXT_AUTH_SECRET_KEY: ${{ secrets.NEXT_AUTH_SECRET_KEY }}
 
@@ -63,6 +64,7 @@ jobs:
         docker build -f docker/frontend-cd.Dockerfile \
         --build-arg API_BASE_URL=$VITE_API_ENDPOINT_PATH \
         --build-arg NEXT_AUTH_SECRET_KEY=$NEXT_AUTH_SECRET_KEY \
+        --build-arg NEXTAUTH_URL=$NEXTAUTH_URL \
         -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME_FRONTEND:$IMAGE_TAG .
         docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME_FRONTEND:$IMAGE_TAG
       env:
