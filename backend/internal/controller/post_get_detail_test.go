@@ -28,7 +28,7 @@ func (p *DummyPostGetDetailRepository) SetPosts(posts []entity.Post) {
 	p.Posts = posts
 }
 
-func (p *DummyPostGetDetailRepository) GetDetail(id uint, includeComments bool) (*entity.Post, error) {
+func (p *DummyPostGetDetailRepository) GetDetail(id uint, includeCommentsAndLikeCount bool) (*entity.Post, error) {
 	if p.Posts == nil {
 		return nil, errors.New("database broken")
 	} else {

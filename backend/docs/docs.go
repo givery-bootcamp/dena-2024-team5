@@ -659,6 +659,7 @@ const docTemplate = `{
                 "comments",
                 "created_at",
                 "id",
+                "like_count",
                 "title",
                 "updated_at",
                 "user_id",
@@ -679,6 +680,9 @@ const docTemplate = `{
                     "format": "date-time"
                 },
                 "id": {
+                    "type": "integer"
+                },
+                "like_count": {
                     "type": "integer"
                 },
                 "title": {

@@ -11,11 +11,16 @@ type Post struct {
 	Title    string
 	Body     string
 	UserID   uint
-	User     User
 	Comments []Comment
 }
 
-func ConvertPostModelToEntity(p *Post) *entity.Post {
+type PostWith struct {
+	Post
+	UserName  string
+	LikeCount uint
+}
+
+func ConvertPostModelToEntity(p *PostWith) *entity.Post {
 	comments := make([]entity.Comment, len(p.Comments))
 	for i, c := range p.Comments {
 		comments[i] = *ConvertCommentModelToEntity(&c)
@@ -25,8 +30,9 @@ func ConvertPostModelToEntity(p *Post) *entity.Post {
 		Title:     p.Title,
 		Body:      p.Body,
 		UserID:    p.UserID,
-		Username:  p.User.Name,
 		Comments:  comments,
+		Username:  p.UserName,
+		LikeCount: p.LikeCount,
 		CreatedAt: p.CreatedAt,
 		UpdatedAt: p.UpdatedAt,
 	}

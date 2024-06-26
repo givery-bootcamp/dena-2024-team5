@@ -18,9 +18,17 @@ func NewPostRepository(conn *gorm.DB) *PostRepository {
 	}
 }
 
+// いいね数は含むが、コメントは空で返す
 func (p *PostRepository) GetList() ([]entity.Post, error) {
-	var obj []model.Post
-	result := p.Conn.Order("id desc").Preload("User").Find(&obj)
+	var obj []model.PostWith
+	result := p.Conn.
+		Model(&model.Post{}).
+		Select("posts.*, users.name AS user_name, COUNT(likes.id) AS like_count").
+		Joins("LEFT JOIN likes ON posts.id = likes.post_id").
+		Joins("LEFT JOIN users ON posts.user_id = users.id").
+		Group("posts.id").
+		Order("posts.id DESC").
+		Scan(&obj)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -32,15 +40,33 @@ func (p *PostRepository) GetList() ([]entity.Post, error) {
 	return posts, nil
 }
 
-func (p *PostRepository) GetDetail(postID uint, includeComments bool) (*entity.Post, error) {
-	var obj model.Post
-	var err error
-	if includeComments {
-		err = p.Conn.Preload("Comments", func(db *gorm.DB) *gorm.DB {
-			return db.Order("comments.id ASC")
-		}).Preload("User").Where("id = ?", postID).First(&obj).Error
+func (p *PostRepository) GetDetail(postID uint, includeCommentsAndLikeCount bool) (*entity.Post, error) {
+	var (
+		post model.PostWith
+		err  error
+	)
+	if includeCommentsAndLikeCount {
+		err = p.Conn.
+			Model(&model.Post{}).
+			Select("posts.*, users.name AS user_name, COUNT(likes.id) AS like_count").
+			Where("posts.id = ?", postID).
+			Joins("LEFT JOIN likes ON posts.id = likes.post_id").
+			Joins("LEFT JOIN users ON posts.user_id = users.id").
+			Group("posts.id").
+			Scan(&post).Error
+		if err == nil {
+			err = p.Conn.Debug().
+				Model(&model.Comment{}).
+				Where("post_id = ?", postID).
+				Scan(&post.Comments).Error
+		}
 	} else {
-		err = p.Conn.Preload("User").Where("id = ?", postID).First(&obj).Error
+		err = p.Conn.
+			Model(&model.Post{}).
+			Select("posts.*, users.name AS user_name").
+			Joins("LEFT JOIN users ON posts.user_id = users.id").
+			Where("posts.id = ?", postID).
+			Scan(&post).Error
 	}
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -48,7 +74,7 @@ func (p *PostRepository) GetDetail(postID uint, includeComments bool) (*entity.P
 		}
 		return nil, err
 	}
-	return model.ConvertPostModelToEntity(&obj), nil
+	return model.ConvertPostModelToEntity(&post), nil
 }
 
 func (p *PostRepository) PostNew(userID uint, title, body string) error {
