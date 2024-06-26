@@ -3,12 +3,16 @@ package middleware
 import (
 	_ "myapp/docs"
 	"myapp/internal/dependency"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+var clients = make(map[chan string]bool)
+var mu sync.Mutex
 
 func SetupRoutes(app *gin.Engine) {
 	app.GET("/", func(ctx *gin.Context) {
@@ -20,6 +24,7 @@ func SetupRoutes(app *gin.Engine) {
 	app.POST("/signin", container.AuthSigninController)
 	app.POST("/signout", container.AuthSignoutController)
 	app.POST("/users", container.UserCreateController)
+	app.GET("/stream", container.StreamNotificationsController)
 
 	authGroup := app.Group("")
 	authGroup.Use(JwtAuthorizeMiddleware())

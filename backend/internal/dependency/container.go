@@ -89,3 +89,7 @@ func (di *DIContainer) CommentDeleteController(ctx *gin.Context) {
 	commentDeleteUsecase := u.NewCommentDeleteUsecase(commentRepository)
 	controller.CommentDelete(ctx, ownerUsecase, commentDeleteUsecase)
 }
+
+func (di *DIContainer) StreamNotificationsController(ctx *gin.Context) {
+	controller.StreamNotifications(ctx, controller.DB(ctx))
+}
