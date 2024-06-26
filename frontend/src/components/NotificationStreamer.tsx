@@ -1,19 +1,17 @@
 'use client'
 
 import { useToast } from "./ui/use-toast";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function NotificationStreamer() {
   const {toast} = useToast();
-  const [message, setMessage] = useState<string[]>([]);
-  console.log({message})
 
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:9000/stream');
+    const eventSource = new EventSource(`http://localhost:9000/stream`, { withCredentials: true });
     
     eventSource.onmessage = function(event) {
-      setMessage((prev) => [...prev, event.data])
+      console.log({event})
       toast({description: event.data})
     };
 
