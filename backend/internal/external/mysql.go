@@ -7,6 +7,7 @@ import (
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var DB *gorm.DB
@@ -27,5 +28,6 @@ func SetupDB() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+	db.Logger = db.Logger.LogMode(logger.Info)
 	DB = db
 }

@@ -21,7 +21,7 @@ func NewPostRepository(conn *gorm.DB) *PostRepository {
 // いいね数は含むが、コメントは空で返す
 func (p *PostRepository) GetList() ([]entity.Post, error) {
 	var obj []model.PostWith
-	result := p.Conn.Debug().
+	result := p.Conn.
 		Model(&model.Post{}).
 		Select("posts.*, users.name AS user_name, COUNT(likes.id) AS like_count").
 		Joins("LEFT JOIN likes ON posts.id = likes.post_id").
@@ -46,7 +46,7 @@ func (p *PostRepository) GetDetail(postID uint, includeCommentsAndLikeCount bool
 		err  error
 	)
 	if includeCommentsAndLikeCount {
-		err = p.Conn.Debug().
+		err = p.Conn.
 			Model(&model.Post{}).
 			Select("posts.*, users.name AS user_name, COUNT(likes.id) AS like_count").
 			Where("posts.id = ?", postID).
@@ -61,7 +61,7 @@ func (p *PostRepository) GetDetail(postID uint, includeCommentsAndLikeCount bool
 				Scan(&post.Comments).Error
 		}
 	} else {
-		err = p.Conn.Debug().
+		err = p.Conn.
 			Model(&model.Post{}).
 			Select("posts.*, users.name AS user_name").
 			Joins("LEFT JOIN users ON posts.user_id = users.id").
