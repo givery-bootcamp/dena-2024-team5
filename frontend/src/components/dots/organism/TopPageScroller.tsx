@@ -2,9 +2,9 @@
 import TextBlink from "@/components/dots/atom/TextBlink";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import ImgWithWalkMotion from "../atom/ImgWithWalkMotion";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function TopPageScroller() {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
