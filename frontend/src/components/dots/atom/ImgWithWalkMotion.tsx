@@ -2,7 +2,11 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
-export default function ZombiWithWalkMotion() {
+
+type PanelProps = {
+  imgPath: string;
+};
+export default function ImgWithWalkMotion({ imgPath }: PanelProps) {
   gsap.registerPlugin(useGSAP);
   const boxRef = useRef(null);
 
@@ -20,7 +24,7 @@ export default function ZombiWithWalkMotion() {
   return (
     <Image
       ref={boxRef}
-      src="/img/dots/character/character_monster_zombie_brown.svg"
+      src={imgPath}
       width={50}
       height={50}
       alt="zombie"
