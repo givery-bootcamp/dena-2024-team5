@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { isEditModeAtom } from "@/lib/atom";
+import { isCommentEditModeAtom, isEditModeAtom } from "@/lib/atom";
 import { useAtom } from "jotai";
 import { Pen, Send } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -96,6 +96,24 @@ export const PostEditButton = () => {
 
 export const PostEditCancelButton = () => {
   const [_, setIsEditMode] = useAtom(isEditModeAtom);
+  return (
+    <Button variant="outline" onClick={() => setIsEditMode(false)}>
+      キャンセル
+    </Button>
+  );
+};
+
+export const CommentEditButton = () => {
+  const [_, setIsEditMode] = useAtom(isCommentEditModeAtom);
+  return (
+    <Button variant="outline" onClick={() => setIsEditMode(true)}>
+      <Pen className="mr-2 h-4 w-4" />
+      編集する
+    </Button>
+  );
+};
+export const CommentEditCancelButton = () => {
+  const [_, setIsEditMode] = useAtom(isCommentEditModeAtom);
   return (
     <Button variant="outline" onClick={() => setIsEditMode(false)}>
       キャンセル

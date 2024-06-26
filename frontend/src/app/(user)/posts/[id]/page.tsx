@@ -20,7 +20,7 @@ export default async function Home({ params }: { params: { id: string } }) {
       <CommentPostButton postId={postedItemsDetail.id} />
       コメント：
       {comments.map((data) => (
-        <CommentItem key={data.id} comment={data} />
+        <CommentItem key={data.id} comment={data} jwtToken={jwtToken} />
       ))}
     </div>
   );
