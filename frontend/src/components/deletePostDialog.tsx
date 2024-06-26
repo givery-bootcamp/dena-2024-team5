@@ -31,7 +31,7 @@ export const PostDeleteDialog = ({
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="destructive">
-          <Image href="/img/dots/character/character_monster_zombie_brown.svg"></Image>
+          <Image href="/img/dots/character/character_monster_zombie_brown.svg" />
           削除する
         </Button>
       </DialogTrigger>

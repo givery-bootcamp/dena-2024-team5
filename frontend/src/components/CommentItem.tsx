@@ -40,13 +40,12 @@ export function CommentItem({
   }
 
   return (
-
     <div className="nes-balloon from-left">
       {comment.body}
-         <p className="text-sm">{comment.user_id}</p>
-         <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
-         <CommentEditButton commentId={comment.id} />
-         <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+      <p className="text-sm">{comment.user_id}</p>
+      <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
+      <CommentEditButton commentId={comment.id} />
+      <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
     </div>
   );
 }

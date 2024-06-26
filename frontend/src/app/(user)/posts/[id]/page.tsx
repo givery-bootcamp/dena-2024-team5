@@ -14,7 +14,11 @@ export default async function Home({ params }: { params: { id: string } }) {
   const comments: Entity_Comment[] = postedItemsDetail.comments;
   return (
     <div className="flex-1 grid gap-4">
-      <PostDetail postItem={postedItemsDetail} jwtToken={jwtToken} imgPath="/img/dots/character/character_kishi_man_01_red_black.svg" />
+      <PostDetail
+        postItem={postedItemsDetail}
+        jwtToken={jwtToken}
+        imgPath="/img/dots/character/character_kishi_man_01_red_black.svg"
+      />
       <div className="border-b px-4" />
       <CommentPostButton postId={postedItemsDetail.id} />
       {comments.map((data) => (

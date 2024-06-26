@@ -13,7 +13,7 @@ export default function ImgWithJumpMotion({ imgPath }: PanelProps) {
   useGSAP(() => {
     // アニメーションの設定
     gsap.to(boxRef.current, {
-      y: 3, 
+      y: 3,
       duration: 0.25,
       yoyo: true,
       repeat: -1,
