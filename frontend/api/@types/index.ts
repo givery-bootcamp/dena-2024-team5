@@ -46,6 +46,7 @@ export type Entity_Post = {
   comments: Entity_Comment[]
   created_at: string
   id: number
+  like_count: number
   title: string
   updated_at: string
   user_id: number
