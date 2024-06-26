@@ -7,12 +7,12 @@ import (
 
 type CommentNewByZombieUsecase struct {
 	commentRepository interfaces.CommentNewRepository
-	userRepository    interfaces.UserGetRandomZombieRepository
+	userRepository    interfaces.UserGetByNameRepository
 }
 
 func NewCommentNewByZombieUsecase(
 	commentRepository interfaces.CommentNewRepository,
-	userRepository interfaces.UserGetRandomZombieRepository,
+	userRepository interfaces.UserGetByNameRepository,
 ) *CommentNewByZombieUsecase {
 	return &CommentNewByZombieUsecase{
 		commentRepository: commentRepository,
@@ -21,7 +21,8 @@ func NewCommentNewByZombieUsecase(
 }
 
 func (c *CommentNewByZombieUsecase) Execute(postID uint) error {
-	user, err := c.userRepository.GetRandomZombie()
+	name := zombie.RandomZombieName()
+	user, err := c.userRepository.GetByName(name)
 	if err != nil {
 		return err
 	}
