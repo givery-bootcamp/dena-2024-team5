@@ -9,6 +9,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Message struct {
+	UserID    uint   `json:"userId"`
+	PostTitle string `json:"postTitle"`
+	Message   string `json:"message"`
+}
+
 type Broker struct {
 	// Events are pushed to this channel by the main events-gathering routine
 	Notifier chan []byte
@@ -64,11 +70,6 @@ func (broker *Broker) listen() {
 	}
 }
 
-type Message struct {
-	Name    string `json:"name"`
-	Message string `json:"msg"`
-}
-
 func (broker *Broker) Stream(c *gin.Context) {
 	// Get the ResponseWriter and Request from gin.Context
 	w := c.Writer
@@ -116,26 +117,13 @@ func (broker *Broker) Stream(c *gin.Context) {
 	}
 }
 
-func (broker *Broker) BroadcastMessage(c *gin.Context) {
-	// Get the ResponseWriter and Request from gin.Context
-	w := c.Writer
-	r := c.Request
-	// Parse the request body
-	var msg Message
-	err := json.NewDecoder(r.Body).Decode(&msg)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
+func (broker *Broker) BroadcastMessage(msg Message) error {
 	// Send the message to the broker via Notifier channel
 	j, err := json.Marshal(msg)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return err
 	}
 	broker.Notifier <- []byte(j)
-
-	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte("Message sent"))
+	log.Println("Message sent")
+	return nil
 }

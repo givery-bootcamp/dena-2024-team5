@@ -27,7 +27,7 @@ func SetupRoutes(app *gin.Engine) {
 	app.POST("/signout", container.AuthSignoutController)
 	app.POST("/users", container.UserCreateController)
 	app.GET("/stream", broker.Stream)
-	app.POST("/messages", broker.BroadcastMessage)
+	// app.POST("/messages", broker.BroadcastMessage)
 
 	authGroup := app.Group("")
 	authGroup.Use(JwtAuthorizeMiddleware())
