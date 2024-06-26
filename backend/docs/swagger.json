@@ -652,6 +652,7 @@
                 "comments",
                 "created_at",
                 "id",
+                "like_count",
                 "title",
                 "updated_at",
                 "user_id",
@@ -672,6 +673,9 @@
                     "format": "date-time"
                 },
                 "id": {
+                    "type": "integer"
+                },
+                "like_count": {
                     "type": "integer"
                 },
                 "title": {

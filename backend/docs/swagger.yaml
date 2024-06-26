@@ -103,6 +103,8 @@ definitions:
         type: string
       id:
         type: integer
+      like_count:
+        type: integer
       title:
         type: string
       updated_at:
@@ -117,6 +119,7 @@ definitions:
     - comments
     - created_at
     - id
+    - like_count
     - title
     - updated_at
     - user_id
