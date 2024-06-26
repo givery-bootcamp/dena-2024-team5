@@ -11,20 +11,13 @@ export default function TopPageScroller() {
   const boxRef = useRef(null);
   useGSAP(() => {
     // アニメーションの設定
-    ScrollSmoother.create({
-      smooth: 1,
-      effects: true,
-      smoothTouch: 0.1,
-    });
     gsap.fromTo(
       boxRef.current,
-      { x: -100 },
+      { x: -10 },
       {
         x: 500,
         scrollTrigger: {
           trigger: "#left-walk",
-          start: "center center",
-          end: "center center",
           markers: true,
           scrub: true,
         },
@@ -43,7 +36,7 @@ export default function TopPageScroller() {
     <div>
       <TextBlink text="Scrollしてね..." />
       <div id="not-walk" className="w-full h-screen bg-yellow-200" />
-      <div id="left-walk" className="w-full h-500 bg-red-200">
+      <div id="left-walk" className="w-full h-screen bg-red-200">
         <div ref={boxRef}>
           <ImgWithWalkMotion imgPath="/img/dots/character/character_monster_zombie_brown.svg" />
         </div>
