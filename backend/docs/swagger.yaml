@@ -103,6 +103,8 @@ definitions:
         type: string
       id:
         type: integer
+      like_count:
+        type: integer
       title:
         type: string
       updated_at:
@@ -117,6 +119,7 @@ definitions:
     - comments
     - created_at
     - id
+    - like_count
     - title
     - updated_at
     - user_id
@@ -355,6 +358,29 @@ paths:
           schema:
             $ref: '#/definitions/controller.ErrorResponse'
       summary: update post
+      tags:
+      - posts
+  /posts/{postID}/like:
+    post:
+      description: 投稿に対して、いいねを付与します。
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: get list posts
       tags:
       - posts
   /signin:

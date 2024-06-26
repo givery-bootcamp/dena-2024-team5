@@ -9,6 +9,7 @@ type Post struct {
 	UserID    uint      `json:"user_id"`
 	Username  string    `json:"username"`
 	Comments  []Comment `json:"comments"`
+	LikeCount uint      `json:"like_count"`
 	CreatedAt time.Time `json:"created_at" format:"date-time"`
 	UpdatedAt time.Time `json:"updated_at" format:"date-time"`
 }

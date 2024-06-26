@@ -38,24 +38,12 @@ CREATE TABLE IF NOT EXISTS comments(
   FOREIGN KEY (post_id) REFERENCES posts (id)
 );
 
-CREATE TABLE IF NOT EXISTS notifications (
-  id        INT          AUTO_INCREMENT PRIMARY KEY,
-  user_id   INT          NOT NULL,
-  post_id   INT          NOT NULL,
-  message   VARCHAR(255) NOT NULL,
-  created_at DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS likes(
+  id         INT      AUTO_INCREMENT PRIMARY KEY,
+  user_id    INT      NOT NULL,
+  post_id    INT      NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (post_id) REFERENCES posts (id),
+  UNIQUE (user_id, post_id)
 );
-
-DELIMITER //
-CREATE TRIGGER notify_new_comment
-AFTER INSERT ON comments
-FOR EACH ROW
-BEGIN
-  DECLARE msg VARCHAR(255);
-  DECLARE n_user_id INT;
-  DECLARE n_post_id INT;
-  SELECT user_id, id INTO n_user_id, n_post_id FROM posts WHERE id = NEW.post_id;
-  SET msg = CONCAT('New comment on your post ', NEW.post_id, ' by user ', NEW.user_id);
-  INSERT INTO notifications (user_id, post_id, message, created_at) VALUES (n_user_id, n_post_id, msg, NOW());
-END //
-DELIMITER ;

@@ -93,3 +93,12 @@ func (di *DIContainer) CommentDeleteController(ctx *gin.Context) {
 func (di *DIContainer) StreamNotificationsController(ctx *gin.Context) {
 	controller.StreamNotifications(ctx, controller.DB(ctx))
 }
+
+func (di *DIContainer) PostLikeAddController(ctx *gin.Context) {
+	repository := r.NewLikeRepository(controller.DB(ctx))
+	commentRepository := r.NewCommentRepository(controller.DB(ctx))
+	userRepository := r.NewUserRepository(controller.DB(ctx))
+	postLikeAddUsecase := u.NewPostLikeAddUsecase(repository)
+	commentZombieUsecase := u.NewCommentNewByZombieUsecase(commentRepository, userRepository)
+	controller.PostLikeAdd(ctx, postLikeAddUsecase, commentZombieUsecase)
+}

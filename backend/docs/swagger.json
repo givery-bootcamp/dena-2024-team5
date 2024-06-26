@@ -340,6 +340,41 @@
                 }
             }
         },
+        "/posts/{postID}/like": {
+            "post": {
+                "description": "投稿に対して、いいねを付与します。",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "get list posts",
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/signin": {
             "post": {
                 "description": "usernameとpasswordでsigninします。",
@@ -617,6 +652,7 @@
                 "comments",
                 "created_at",
                 "id",
+                "like_count",
                 "title",
                 "updated_at",
                 "user_id",
@@ -637,6 +673,9 @@
                     "format": "date-time"
                 },
                 "id": {
+                    "type": "integer"
+                },
+                "like_count": {
                     "type": "integer"
                 },
                 "title": {

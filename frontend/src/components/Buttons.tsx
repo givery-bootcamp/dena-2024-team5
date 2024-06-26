@@ -13,7 +13,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Send } from "lucide-react";
+import { isEditModeAtom } from "@/lib/atom";
+import { useAtom } from "jotai";
+import { Pen, Send } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   session: Session | null;
@@ -31,6 +34,7 @@ export const SignInSignOutButton = ({ session }: Props) => {
 };
 
 const SignOutDialog = () => {
+  const router = useRouter();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -42,7 +46,13 @@ const SignOutDialog = () => {
         </DialogHeader>
         <DialogDescription>サインアウトしますか?</DialogDescription>
         <DialogFooter>
-          <Button variant="destructive" onClick={() => signOut()}>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              signOut();
+              router.push("/");
+            }}
+          >
             サインアウト
           </Button>
         </DialogFooter>
@@ -58,6 +68,37 @@ export const PostButton = () => {
         <Send className="mr-2 h-4 w-4" />
         ポストする
       </Link>
+    </Button>
+  );
+};
+
+export const CommentPostButton = ({ postId }: { postId: number }) => {
+  const href = `/comments/new/${postId.toString()}`;
+  return (
+    <Button asChild>
+      <Link href={href}>
+        <Send className="mr-2 h-4 w-4" />
+        コメントする
+      </Link>
+    </Button>
+  );
+};
+
+export const PostEditButton = () => {
+  const [_, setIsEditMode] = useAtom(isEditModeAtom);
+  return (
+    <Button variant="outline" onClick={() => setIsEditMode(true)}>
+      <Pen className="mr-2 h-4 w-4" />
+      編集する
+    </Button>
+  );
+};
+
+export const PostEditCancelButton = () => {
+  const [_, setIsEditMode] = useAtom(isEditModeAtom);
+  return (
+    <Button variant="outline" onClick={() => setIsEditMode(false)}>
+      キャンセル
     </Button>
   );
 };

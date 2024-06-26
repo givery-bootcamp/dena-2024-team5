@@ -2,6 +2,7 @@ import type { AspidaClient, BasicHeaders } from 'aspida';
 import type { Methods as Methods_vbicos } from './comments';
 import type { Methods as Methods_1mt0zrm } from './comments/_commentID';
 import type { Methods as Methods_1kz9onh } from './posts';
+import type { Methods as Methods_jlcona } from './posts/_postID/like';
 import type { Methods as Methods_rslgc9 } from './posts/_postID@number';
 import type { Methods as Methods_1oqkkb0 } from './signin';
 import type { Methods as Methods_1xhiioa } from './users';
@@ -11,9 +12,10 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (baseURL === undefined ? '/' : baseURL).replace(/\/$/, '');
   const PATH0 = '/comments';
   const PATH1 = '/posts';
-  const PATH2 = '/signin';
-  const PATH3 = '/users';
-  const PATH4 = '/users/me';
+  const PATH2 = '/like';
+  const PATH3 = '/signin';
+  const PATH4 = '/users';
+  const PATH5 = '/users/me';
   const GET = 'GET';
   const POST = 'POST';
   const PUT = 'PUT';
@@ -65,7 +67,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       $path: () => `${prefix}${PATH0}`,
     },
     posts: {
-      _postID: (val1: number) => {
+      _postID: (val1: number | string) => {
+        const prefix1 = `${PATH1}/${val1}`;
+
+        return {
+          like: {
+            /**
+             * 投稿に対して、いいねを付与します。
+             */
+            post: (option?: { config?: T | undefined } | undefined) =>
+              fetch<void, BasicHeaders, Methods_jlcona['post']['status']>(prefix, `${prefix1}${PATH2}`, POST, option).send(),
+            /**
+             * 投稿に対して、いいねを付与します。
+             */
+            $post: (option?: { config?: T | undefined } | undefined) =>
+              fetch<void, BasicHeaders, Methods_jlcona['post']['status']>(prefix, `${prefix1}${PATH2}`, POST, option).send().then(r => r.body),
+            $path: () => `${prefix}${prefix1}${PATH2}`,
+          },
+        };
+      },
+      _postID_number: (val1: number) => {
         const prefix1 = `${PATH1}/${val1}`;
 
         return {
@@ -139,15 +160,15 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @returns OK
        */
       post: (option: { body: Methods_1oqkkb0['post']['reqBody'], config?: T | undefined }) =>
-        fetch<Methods_1oqkkb0['post']['resBody'], BasicHeaders, Methods_1oqkkb0['post']['status']>(prefix, PATH2, POST, option).json(),
+        fetch<Methods_1oqkkb0['post']['resBody'], BasicHeaders, Methods_1oqkkb0['post']['status']>(prefix, PATH3, POST, option).json(),
       /**
        * usernameとpasswordでsigninします。
        * @param option.body - リクエストパラメータ
        * @returns OK
        */
       $post: (option: { body: Methods_1oqkkb0['post']['reqBody'], config?: T | undefined }) =>
-        fetch<Methods_1oqkkb0['post']['resBody'], BasicHeaders, Methods_1oqkkb0['post']['status']>(prefix, PATH2, POST, option).json().then(r => r.body),
-      $path: () => `${prefix}${PATH2}`,
+        fetch<Methods_1oqkkb0['post']['resBody'], BasicHeaders, Methods_1oqkkb0['post']['status']>(prefix, PATH3, POST, option).json().then(r => r.body),
+      $path: () => `${prefix}${PATH3}`,
     },
     users: {
       me: {
@@ -156,14 +177,14 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
          * @returns OK
          */
         get: (option?: { config?: T | undefined } | undefined) =>
-          fetch<Methods_jzr18p['get']['resBody'], BasicHeaders, Methods_jzr18p['get']['status']>(prefix, PATH4, GET, option).json(),
+          fetch<Methods_jzr18p['get']['resBody'], BasicHeaders, Methods_jzr18p['get']['status']>(prefix, PATH5, GET, option).json(),
         /**
          * ログインしているユーザーの情報を取得します
          * @returns OK
          */
         $get: (option?: { config?: T | undefined } | undefined) =>
-          fetch<Methods_jzr18p['get']['resBody'], BasicHeaders, Methods_jzr18p['get']['status']>(prefix, PATH4, GET, option).json().then(r => r.body),
-        $path: () => `${prefix}${PATH4}`,
+          fetch<Methods_jzr18p['get']['resBody'], BasicHeaders, Methods_jzr18p['get']['status']>(prefix, PATH5, GET, option).json().then(r => r.body),
+        $path: () => `${prefix}${PATH5}`,
       },
       /**
        * usernameとpasswordでuserを作成します。
@@ -171,15 +192,15 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * @returns OK
        */
       post: (option: { body: Methods_1xhiioa['post']['reqBody'], config?: T | undefined }) =>
-        fetch<Methods_1xhiioa['post']['resBody'], BasicHeaders, Methods_1xhiioa['post']['status']>(prefix, PATH3, POST, option).json(),
+        fetch<Methods_1xhiioa['post']['resBody'], BasicHeaders, Methods_1xhiioa['post']['status']>(prefix, PATH4, POST, option).json(),
       /**
        * usernameとpasswordでuserを作成します。
        * @param option.body - リクエストパラメータ
        * @returns OK
        */
       $post: (option: { body: Methods_1xhiioa['post']['reqBody'], config?: T | undefined }) =>
-        fetch<Methods_1xhiioa['post']['resBody'], BasicHeaders, Methods_1xhiioa['post']['status']>(prefix, PATH3, POST, option).json().then(r => r.body),
-      $path: () => `${prefix}${PATH3}`,
+        fetch<Methods_1xhiioa['post']['resBody'], BasicHeaders, Methods_1xhiioa['post']['status']>(prefix, PATH4, POST, option).json().then(r => r.body),
+      $path: () => `${prefix}${PATH4}`,
     },
   };
 };
