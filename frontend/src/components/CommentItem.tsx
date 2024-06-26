@@ -1,10 +1,5 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
+
 import { isCommentEditModeAtom } from "@/lib/atom";
 import { editCommentFormSchema } from "@/lib/zod";
 import { dateFormatString2DateJa } from "@/utils/date";
@@ -45,17 +40,14 @@ export function CommentItem({
   }
 
   return (
-    <Card className="w-full">
-      <CardContent>
-        <CardDescription className="">{comment.body}</CardDescription>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <p className="text-sm">{comment.user_id}</p>
-        <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
-        <CommentEditButton commentId={comment.id} />
-        <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
-      </CardFooter>
-    </Card>
+
+    <div className="nes-balloon from-left">
+      {comment.body}
+         <p className="text-sm">{comment.user_id}</p>
+         <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
+         <CommentEditButton commentId={comment.id} />
+         <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+    </div>
   );
 }
 

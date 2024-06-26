@@ -5,7 +5,7 @@ import { dateFormatString2DateJa } from "@/utils/date";
 import { editPost } from "@/utils/editPost";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
-import { Pen } from "lucide-react";
+import { Columns, Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -16,24 +16,30 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
+import ImgWithJumpMotion from "./dots/atom/imgWithJumpMotion";
 
 type PostDetailProps = {
   postItem: Entity_Post;
   jwtToken: string;
+  imgPath: string;
 };
 
 type onSubmitType = z.infer<typeof editPostFormSchema>;
 
-export const PostDetail = ({ postItem, jwtToken }: PostDetailProps) => {
+export const PostDetail = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
   const [isEditMode] = useAtom(isEditModeAtom);
 
   if (isEditMode) {
-    return <PostEditForm postItem={postItem} jwtToken={jwtToken} />;
+    return <PostEditForm postItem={postItem} jwtToken={jwtToken} imgPath={imgPath} />;
   }
   return (
     <div className="flex-1 grid gap-4">
-      <h1 className="text-4xl font-bold">{postItem.title}</h1>
-      <div className="text-right">
+      {/* <h1 className="text-4xl font-bold">{postItem.title}</h1> */}
+        <center>
+        <ImgWithJumpMotion imgPath={imgPath}></ImgWithJumpMotion>
+        <div className="nes-balloon from-left">
+          {postItem.title}
+        </div>
         <p>
           投稿者:
           {postItem.username}
@@ -46,9 +52,9 @@ export const PostDetail = ({ postItem, jwtToken }: PostDetailProps) => {
           更新日時:
           {dateFormatString2DateJa(postItem.updated_at)}
         </p>
-      </div>
+        </center>
       <div className="border-b px-4" />
-      <p className="whitespace-break-spaces min-h-96">{postItem.body}</p>
+      <p className="whitespace-break-spaces min-h-96 nes-container is-dark">{postItem.body}</p>
       <div className="flex justify-end gap-4">
         <PostEditButton />
         <PostDeleteDialog postId={postItem.id} jwtToken={jwtToken} />
@@ -57,7 +63,7 @@ export const PostDetail = ({ postItem, jwtToken }: PostDetailProps) => {
   );
 };
 
-const PostEditForm = ({ postItem, jwtToken }: PostDetailProps) => {
+const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
   const [, setIsEditMode] = useAtom(isEditModeAtom);
   const { toast } = useToast();
   const router = useRouter();
