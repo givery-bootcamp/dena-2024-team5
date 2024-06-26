@@ -1,6 +1,6 @@
 "use client";
-import type { Metadata } from "next";
 import WalkPeople from "@/components/dots/organism/WalkPeople";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "404",
@@ -108,27 +108,6 @@ export default function Page() {
         <p className="text-2xl">404ページ</p>
       </div>
       <WalkPeople />
-      <section>
-        <button
-          type="button"
-          className="nes-btn is-primary"
-          onClick={() => {
-            document.getElementById("dialog-default").showModal();
-          }}
-        >
-          Open dialog
-        </button>
-        <dialog className="nes-dialog" id="dialog-default">
-          <form method="dialog">
-            <p className="title">Dialog</p>
-            <p>Alert: this is a dialog.</p>
-            <menu className="dialog-menu">
-              <button className="nes-btn">Cancel</button>
-              <button className="nes-btn is-primary">Confirm</button>
-            </menu>
-          </form>
-        </dialog>
-      </section>
     </main>
   );
 }

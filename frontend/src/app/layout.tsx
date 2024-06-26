@@ -5,8 +5,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 
-import Favicon from "/public/images/Metadata/favicon.ico";
-
 const inter = DotGothic16({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -38,6 +36,6 @@ export default function RootLayout({
           <Toaster />
         </ThemeProvider>
       </body>
-    </html>  
+    </html>
   );
 }

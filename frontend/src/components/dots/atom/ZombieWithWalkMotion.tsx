@@ -1,6 +1,6 @@
-import Image from "next/image";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import Image from "next/image";
 import { useRef } from "react";
 export default function ZombiWithWalkMotion() {
   gsap.registerPlugin(useGSAP);

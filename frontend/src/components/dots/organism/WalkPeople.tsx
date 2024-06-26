@@ -1,5 +1,5 @@
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { useRef } from "react";
 import ZombiWithWalkMotion from "../atom/ZombieWithWalkMotion";
 import ElementWithComment from "../molecule/ElementWithComment";
