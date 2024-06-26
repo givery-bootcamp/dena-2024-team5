@@ -74,7 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
-main {
-  background: url("/img/dots/bg/pattern_kabosu_02.png") repeat;
-  background-size: 10%;
+
+@layer components {
+  .map-tile {
+    @apply bg-map-tile bg-repeat bg-[length:10%]
+  }
 }
