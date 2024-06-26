@@ -3,6 +3,7 @@ package middleware
 import (
 	_ "myapp/docs"
 	"myapp/internal/dependency"
+	"myapp/internal/util/channel"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,7 @@ var clients = make(map[chan string]bool)
 var mu sync.Mutex
 
 func SetupRoutes(app *gin.Engine) {
+	broker := channel.NewServer()
 	app.GET("/", func(ctx *gin.Context) {
 		ctx.String(200, "It works")
 	})
@@ -24,7 +26,8 @@ func SetupRoutes(app *gin.Engine) {
 	app.POST("/signin", container.AuthSigninController)
 	app.POST("/signout", container.AuthSignoutController)
 	app.POST("/users", container.UserCreateController)
-	app.GET("/stream", container.StreamNotificationsController)
+	app.GET("/stream", broker.Stream)
+	app.POST("/messages", broker.BroadcastMessage)
 
 	authGroup := app.Group("")
 	authGroup.Use(JwtAuthorizeMiddleware())

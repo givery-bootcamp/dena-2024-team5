@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Broker struct {
@@ -67,7 +69,11 @@ type Message struct {
 	Message string `json:"msg"`
 }
 
-func (broker *Broker) Stream(w http.ResponseWriter, r *http.Request) {
+func (broker *Broker) Stream(c *gin.Context) {
+	// Get the ResponseWriter and Request from gin.Context
+	w := c.Writer
+	r := c.Request
+
 	// Check if the ResponseWriter supports flushing.
 	flusher, ok := w.(http.Flusher)
 	if !ok {
@@ -81,8 +87,7 @@ func (broker *Broker) Stream(w http.ResponseWriter, r *http.Request) {
 	// Signal the broker that we have a new connection
 	broker.newClients <- messageChan
 
-	// Remove this client from the map of connected clients
-	// when this handler exits.
+	// Remove this client from the map of connected clients when this handler exits.
 	defer func() {
 		broker.closingClients <- messageChan
 	}()
@@ -105,13 +110,16 @@ func (broker *Broker) Stream(w http.ResponseWriter, r *http.Request) {
 			// Write to the ResponseWriter
 			// Server Sent Events compatible
 			fmt.Fprintf(w, "data: %s\n\n", msg)
-			// Flush the data immediatly instead of buffering it for later.
+			// Flush the data immediately instead of buffering it for later.
 			flusher.Flush()
 		}
 	}
 }
 
-func (broker *Broker) BroadcastMessage(w http.ResponseWriter, r *http.Request) {
+func (broker *Broker) BroadcastMessage(c *gin.Context) {
+	// Get the ResponseWriter and Request from gin.Context
+	w := c.Writer
+	r := c.Request
 	// Parse the request body
 	var msg Message
 	err := json.NewDecoder(r.Body).Decode(&msg)
