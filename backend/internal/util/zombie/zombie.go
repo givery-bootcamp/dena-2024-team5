@@ -44,7 +44,5 @@ func RandomZombieComment() string {
 		"استمر في العمل الجيد!",
 		"أنت بطل!",
 	}
-
-	comment := zombieComments[rand.IntN(len(zombieComments))]
-	return comment
+	return zombieComments[rand.IntN(len(zombieComments))]
 }
