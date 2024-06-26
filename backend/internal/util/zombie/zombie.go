@@ -1,9 +1,25 @@
 package zombie
 
 import (
-	"math/rand"
-	"time"
+	"math/rand/v2"
 )
+
+func RandomZombieName() string {
+	var zombieNames = []string{
+		"zombie_user1",
+		"zombie_user2",
+		"zombie_user3",
+		"zombie_user4",
+		"zombie_user5",
+		"zombie_user6",
+		"zombie_user7",
+		"zombie_user8",
+		"zombie_user9",
+		"zombie_user10",
+	}
+	name := zombieNames[rand.IntN(len(zombieNames))]
+	return name
+}
 
 func RandomZombieComment() string {
 	var zombieComments = []string{
@@ -29,7 +45,6 @@ func RandomZombieComment() string {
 		"أنت بطل!",
 	}
 
-	rand.New(rand.NewSource(time.Now().UnixNano()))
-	comment := zombieComments[rand.Intn(len(zombieComments))]
+	comment := zombieComments[rand.IntN(len(zombieComments))]
 	return comment
 }
