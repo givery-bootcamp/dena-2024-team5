@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import TopPageScroller from "@/components/dots/organism/TopPageScroller";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -7,10 +8,8 @@ export default async function Home() {
     redirect("/dashboard");
   }
   return (
-    <div>
-      <div className="grid grid-cols-1 gap-4 p-4">
-        <p>未ログイン</p>
-      </div>
-    </div>
+    <main className="map-tile w-screen">
+      <TopPageScroller />
+    </main>
   );
 }
