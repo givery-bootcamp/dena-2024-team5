@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"myapp/internal/config"
 	"myapp/internal/constant"
 	"myapp/internal/controller"
@@ -19,6 +20,7 @@ type JwtClaims struct {
 func JwtAuthorizeMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		tokenString, err := ctx.Cookie("jwt")
+		fmt.Println("tokenString=", tokenString)
 		if err != nil {
 			controller.HandleErrorAbort(ctx, http.StatusBadRequest, err)
 			return

@@ -1,41 +1,46 @@
 package channel
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
+	"myapp/internal/constant"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Message struct {
-	UserID    uint   `json:"userId"`
-	PostTitle string `json:"postTitle"`
-	Message   string `json:"message"`
+	UserID  uint   `json:"userId"`
+	PostID  uint   `json:"postId"`
+	Message string `json:"message"`
+}
+
+type MessageChan struct {
+	Channel chan Message
+	UserID  uint
 }
 
 type Broker struct {
 	// Events are pushed to this channel by the main events-gathering routine
-	Notifier chan []byte
+	Notifier chan Message
 
 	// New client connections are pushed to this channel
-	newClients chan chan []byte
+	newClients chan MessageChan
 
 	// Closed client connections are pushed to this channel
-	closingClients chan chan []byte
+	closingClients chan chan Message
 
 	// Client connections registry
-	clients map[chan []byte]bool
+	clients map[chan Message]uint
 }
 
 func NewServer() (broker *Broker) {
 	// Instantiate a broker
 	broker = &Broker{
-		Notifier:       make(chan []byte, 1),
-		newClients:     make(chan chan []byte),
-		closingClients: make(chan chan []byte),
-		clients:        make(map[chan []byte]bool),
+		Notifier:       make(chan Message, 1),
+		newClients:     make(chan MessageChan),
+		closingClients: make(chan chan Message),
+		clients:        make(map[chan Message]uint),
 	}
 
 	// Set it running - listening and broadcasting events
@@ -51,7 +56,8 @@ func (broker *Broker) listen() {
 
 			// A new client has connected.
 			// Register their message channel
-			broker.clients[s] = true
+			fmt.Println("s=", s)
+			broker.clients[s.Channel] = s.UserID
 			log.Printf("Client added. %d registered clients", len(broker.clients))
 		case s := <-broker.closingClients:
 
@@ -63,7 +69,13 @@ func (broker *Broker) listen() {
 
 			// We got a new event from the outside!
 			// Send event to all connected clients
-			for clientMessageChan := range broker.clients {
+			fmt.Println("broker.Notifier")
+			fmt.Println(broker.clients)
+			for clientMessageChan, userId := range broker.clients {
+				fmt.Println("userID", userId, event.UserID)
+				if userId != event.UserID {
+					continue
+				}
 				clientMessageChan <- event
 			}
 		}
@@ -75,6 +87,13 @@ func (broker *Broker) Stream(c *gin.Context) {
 	w := c.Writer
 	r := c.Request
 
+	// jwtからユーザーID取る
+	userID, ok := c.Value(constant.GIN_CONTEXT_USERID).(uint)
+	if !ok {
+		log.Println("user id not found")
+		return
+	}
+	fmt.Println("userID", userID)
 	// Check if the ResponseWriter supports flushing.
 	flusher, ok := w.(http.Flusher)
 	if !ok {
@@ -83,10 +102,13 @@ func (broker *Broker) Stream(c *gin.Context) {
 	}
 
 	// Each connection registers its own message channel with the Broker's connections registry
-	messageChan := make(chan []byte)
+	messageChan := make(chan Message)
 
 	// Signal the broker that we have a new connection
-	broker.newClients <- messageChan
+	broker.newClients <- MessageChan{
+		Channel: messageChan,
+		UserID:  userID,
+	}
 
 	// Remove this client from the map of connected clients when this handler exits.
 	defer func() {
@@ -97,6 +119,7 @@ func (broker *Broker) Stream(c *gin.Context) {
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Connection", "keep-alive")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 	for {
 		select {
@@ -110,20 +133,16 @@ func (broker *Broker) Stream(c *gin.Context) {
 		case msg := <-messageChan:
 			// Write to the ResponseWriter
 			// Server Sent Events compatible
-			fmt.Fprintf(w, "data: %s\n\n", msg)
+			fmt.Fprintf(w, "data: %v\n\n", msg)
 			// Flush the data immediately instead of buffering it for later.
 			flusher.Flush()
 		}
 	}
 }
 
-func (broker *Broker) BroadcastMessage(msg Message) error {
+func (broker *Broker) SendNotification(msg Message) error {
 	// Send the message to the broker via Notifier channel
-	j, err := json.Marshal(msg)
-	if err != nil {
-		return err
-	}
-	broker.Notifier <- []byte(j)
+	broker.Notifier <- msg
 	log.Println("Message sent")
 	return nil
 }

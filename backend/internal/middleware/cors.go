@@ -1,9 +1,10 @@
 package middleware
 
 import (
+	myConfig "myapp/internal/config"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	myConfig "myapp/internal/config"
 )
 
 func Cors() gin.HandlerFunc {

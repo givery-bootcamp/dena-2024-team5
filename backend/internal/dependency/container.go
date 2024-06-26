@@ -72,7 +72,7 @@ func (di *DIContainer) CommentNewController(ctx *gin.Context) {
 	postRepository := r.NewPostRepository(controller.DB(ctx))
 	postAvailableUsecase := u.NewPostAvailableUsecase(postRepository)
 	commentRepository := r.NewCommentRepository(controller.DB(ctx))
-	commentNewUsecase := u.NewCommentNewUsecase(commentRepository)
+	commentNewUsecase := u.NewCommentNewUsecase(commentRepository, postRepository)
 	controller.CommentNew(ctx, postAvailableUsecase, commentNewUsecase)
 }
 
@@ -88,10 +88,6 @@ func (di *DIContainer) CommentDeleteController(ctx *gin.Context) {
 	ownerUsecase := u.NewCommentOwnerValidateUsecase(commentRepository)
 	commentDeleteUsecase := u.NewCommentDeleteUsecase(commentRepository)
 	controller.CommentDelete(ctx, ownerUsecase, commentDeleteUsecase)
-}
-
-func (di *DIContainer) StreamNotificationsController(ctx *gin.Context) {
-	controller.StreamNotifications(ctx, controller.DB(ctx))
 }
 
 func (di *DIContainer) PostLikeAddController(ctx *gin.Context) {

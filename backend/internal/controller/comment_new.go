@@ -4,6 +4,7 @@ import (
 	"errors"
 	"myapp/internal/constant"
 	"myapp/internal/usecase"
+	"myapp/internal/util/channel"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -59,7 +60,13 @@ func CommentNew(
 		return
 	}
 
-	err = commentNewUsecase.Execute(userID, req.PostID, req.Body)
+	broker, ok := ctx.MustGet(constant.NOTIFICATION_BROKER_KEY).(*channel.Broker)
+	if !ok {
+		ctx.JSON(500, gin.H{"error": "internal server error"})
+		return
+	}
+
+	err = commentNewUsecase.Execute(broker, userID, req.PostID, req.Body)
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
 		return
