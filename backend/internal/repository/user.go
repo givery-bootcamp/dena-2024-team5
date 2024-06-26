@@ -54,7 +54,6 @@ func (p *UserRepository) Create(username, password string) (*entity.User, error)
 
 func (p *UserRepository) GetByName(name string) (*entity.User, error) {
 	var user model.User
-	// nameにzombieを含むユーザーをランダムに取得
 	err := p.Conn.Where("name = ?", name).First(&user).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
