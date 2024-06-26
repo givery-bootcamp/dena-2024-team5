@@ -15,7 +15,6 @@ import { Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-// import { cookies } from "next/headers";
 import type { Entity_Comment } from "../../api/@types";
 import { CommentEditButton, CommentEditCancelButton } from "./Buttons";
 import { CommentDeleteDialog } from "./deleteCommentDialog";
@@ -39,7 +38,7 @@ export function CommentItem({
 }) {
   // const cookieStore = cookies();
   // const jwtToken = cookieStore.get("jwt")?.value ?? "";
-  const [isEditMode] = useAtom(isCommentEditModeAtom);
+  const [isEditMode] = useAtom(isCommentEditModeAtom(comment.id));
 
   if (isEditMode) {
     return <CommentEditForm commentEntity={comment} jwtToken={jwtToken} />;
@@ -53,7 +52,7 @@ export function CommentItem({
       <CardFooter className="flex justify-between">
         <p className="text-sm">{comment.user_id}</p>
         <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
-        <CommentEditButton />
+        <CommentEditButton commentId={comment.id} />
         <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
       </CardFooter>
     </Card>
@@ -61,7 +60,7 @@ export function CommentItem({
 }
 
 const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
-  const [, setIsEditMode] = useAtom(isCommentEditModeAtom);
+  const [, setIsEditMode] = useAtom(isCommentEditModeAtom(commentEntity.id));
   const { toast } = useToast();
   const router = useRouter();
   const {
@@ -100,7 +99,7 @@ const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
         <p className="text-red-500 text-sm">{errors.body.message}</p>
       )}
       <div className="flex justify-end gap-4">
-        <CommentEditCancelButton />
+        <CommentEditCancelButton commentId={commentEntity.id} />
         <Button type="submit">
           <Pen className="mr-2 w-4 h-4" />
           変更を保存

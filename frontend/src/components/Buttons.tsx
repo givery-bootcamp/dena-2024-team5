@@ -103,8 +103,8 @@ export const PostEditCancelButton = () => {
   );
 };
 
-export const CommentEditButton = () => {
-  const [_, setIsEditMode] = useAtom(isCommentEditModeAtom);
+export const CommentEditButton = ({ commentId }: { commentId: number }) => {
+  const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
     <Button variant="outline" onClick={() => setIsEditMode(true)}>
       <Pen className="mr-2 h-4 w-4" />
@@ -112,8 +112,10 @@ export const CommentEditButton = () => {
     </Button>
   );
 };
-export const CommentEditCancelButton = () => {
-  const [_, setIsEditMode] = useAtom(isCommentEditModeAtom);
+export const CommentEditCancelButton = ({
+  commentId,
+}: { commentId: number }) => {
+  const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
     <Button variant="outline" onClick={() => setIsEditMode(false)}>
       キャンセル
