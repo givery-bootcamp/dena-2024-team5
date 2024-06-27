@@ -14,10 +14,7 @@ export default async function Home() {
   return (
     <main className="map-tile w-screen overflow-x-hidden">
       <KirakiraConsole text="ドットゾンビ" />
-      <div
-        id="not-walk"
-        className="w-full grid place-content-center h-screen border-2 border-red-900"
-      >
+      <div id="not-walk" className="w-full grid place-content-center h-screen ">
         <TextBlink text="Scrollしてね..." />
       </div>
 
