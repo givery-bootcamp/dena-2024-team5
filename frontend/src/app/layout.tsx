@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { DotGothic16 } from "next/font/google";
 import "nes.css/css/nes.min.css";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = DotGothic16({ weight: "400", subsets: ["latin"] });
@@ -26,15 +25,15 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        > */}
+        {children}
+        <Toaster />
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
