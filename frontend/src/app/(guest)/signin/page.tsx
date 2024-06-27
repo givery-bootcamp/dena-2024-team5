@@ -8,7 +8,7 @@ export default async function LoginPage() {
     redirect("/dashboard");
   }
   return (
-    <div className="flex justify-center items-center w-full min-h-screen">
+    <div className="flex justify-center items-center w-full min-h-screen map-tile">
       <LoginForm />
     </div>
   );

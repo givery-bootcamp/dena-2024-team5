@@ -1,5 +1,9 @@
 import { auth } from "@/auth";
-import TopPageScroller from "@/components/dots/organism/TopPageScroller";
+import TextBlink from "@/components/dots/atom/TextBlink";
+import KirakiraConsole from "@/components/dots/atom/kirakiraConsole";
+import GameDescription from "@/components/dots/organism/top/GameDescripion";
+import GameTitle from "@/components/dots/organism/top/GameTitle";
+import SiginInSignUpCard from "@/components/dots/organism/top/SiginInSingUpCard";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -8,8 +12,19 @@ export default async function Home() {
     redirect("/dashboard");
   }
   return (
-    <main className="map-tile w-screen">
-      <TopPageScroller />
+    <main className="map-tile w-screen overflow-x-hidden">
+      <KirakiraConsole text="ドットゾンビ" />
+      <div
+        id="not-walk"
+        className="w-full grid place-content-center h-screen border-2 border-red-900"
+      >
+        <TextBlink text="Scrollしてね..." />
+      </div>
+
+      <GameDescription />
+      {/* <KnockDownZombies /> */}
+      <GameTitle />
+      <SiginInSignUpCard />
     </main>
   );
 }
