@@ -4,7 +4,7 @@ import (
 	_ "myapp/docs"
 	"myapp/internal/constant"
 	"myapp/internal/dependency"
-	"myapp/internal/util/channel"
+	"myapp/internal/sse"
 
 	"github.com/gin-gonic/gin"
 
@@ -41,7 +41,7 @@ func SetupRoutes(app *gin.Engine) {
 		authGroup.GET("/users/me", container.UserGetMeController)
 		authGroup.GET("/stream", func(ctx *gin.Context) {
 			// TODO: jwtからUserIDを取得する
-			broker, ok := ctx.MustGet(constant.NOTIFICATION_BROKER_KEY).(*channel.Broker)
+			broker, ok := ctx.MustGet(constant.NOTIFICATION_BROKER_KEY).(*sse.Broker)
 			if !ok {
 				ctx.JSON(500, gin.H{"error": "internal server error"})
 				return

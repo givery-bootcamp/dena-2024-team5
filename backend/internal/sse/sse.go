@@ -1,4 +1,4 @@
-package channel
+package sse
 
 import (
 	"fmt"
@@ -9,38 +9,37 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Message struct {
+type Messager struct {
 	UserID  uint   `json:"userId"`
-	PostID  uint   `json:"postId"`
 	Message string `json:"message"`
 }
 
 type MessageChan struct {
-	Channel chan Message
+	Channel chan Messager
 	UserID  uint
 }
 
 type Broker struct {
 	// Events are pushed to this channel by the main events-gathering routine
-	Notifier chan Message
+	Notifier chan Messager
 
 	// New client connections are pushed to this channel
 	newClients chan MessageChan
 
 	// Closed client connections are pushed to this channel
-	closingClients chan chan Message
+	closingClients chan chan Messager
 
 	// Client connections registry
-	clients map[chan Message]uint
+	clients map[chan Messager]uint
 }
 
 func NewServer() (broker *Broker) {
 	// Instantiate a broker
 	broker = &Broker{
-		Notifier:       make(chan Message, 1),
+		Notifier:       make(chan Messager, 1),
 		newClients:     make(chan MessageChan),
-		closingClients: make(chan chan Message),
-		clients:        make(map[chan Message]uint),
+		closingClients: make(chan chan Messager),
+		clients:        make(map[chan Messager]uint),
 	}
 
 	// Set it running - listening and broadcasting events
@@ -56,7 +55,6 @@ func (broker *Broker) listen() {
 
 			// A new client has connected.
 			// Register their message channel
-			fmt.Println("s=", s)
 			broker.clients[s.Channel] = s.UserID
 			log.Printf("Client added. %d registered clients", len(broker.clients))
 		case s := <-broker.closingClients:
@@ -69,8 +67,6 @@ func (broker *Broker) listen() {
 
 			// We got a new event from the outside!
 			// Send event to all connected clients
-			fmt.Println("broker.Notifier")
-			fmt.Println(broker.clients)
 			for clientMessageChan, userId := range broker.clients {
 				fmt.Println("userID", userId, event.UserID)
 				if userId != event.UserID {
@@ -93,7 +89,6 @@ func (broker *Broker) Stream(c *gin.Context) {
 		log.Println("user id not found")
 		return
 	}
-	fmt.Println("userID", userID)
 	// Check if the ResponseWriter supports flushing.
 	flusher, ok := w.(http.Flusher)
 	if !ok {
@@ -102,7 +97,7 @@ func (broker *Broker) Stream(c *gin.Context) {
 	}
 
 	// Each connection registers its own message channel with the Broker's connections registry
-	messageChan := make(chan Message)
+	messageChan := make(chan Messager)
 
 	// Signal the broker that we have a new connection
 	broker.newClients <- MessageChan{
@@ -128,17 +123,17 @@ func (broker *Broker) Stream(c *gin.Context) {
 			return
 
 		// Listen for incoming messages from messageChan
-		case msg := <-messageChan:
+		case msgr := <-messageChan:
 			// Write to the ResponseWriter
 			// Server Sent Events compatible
-			fmt.Fprintf(w, "data: %v\n\n", msg)
+			fmt.Fprintf(w, "data: %s\n\n", msgr.Message)
 			// Flush the data immediately instead of buffering it for later.
 			flusher.Flush()
 		}
 	}
 }
 
-func (broker *Broker) SendNotification(msg Message) error {
+func (broker *Broker) SendNotification(msg Messager) error {
 	// Send the message to the broker via Notifier channel
 	broker.Notifier <- msg
 	log.Println("Message sent")

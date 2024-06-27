@@ -5,7 +5,7 @@ import (
 	"myapp/internal/config"
 	"myapp/internal/external"
 	"myapp/internal/middleware"
-	"myapp/internal/util/channel"
+	"myapp/internal/sse"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +18,7 @@ func main() {
 	// Initialize database
 	external.SetupDB()
 
-	broker := channel.NewServer()
+	broker := sse.NewServer()
 
 	// Setup webserver
 	app := gin.Default()

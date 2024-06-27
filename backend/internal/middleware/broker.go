@@ -2,12 +2,12 @@ package middleware
 
 import (
 	"myapp/internal/constant"
-	"myapp/internal/util/channel"
+	"myapp/internal/sse"
 
 	"github.com/gin-gonic/gin"
 )
 
-func NotificationBroker(broker *channel.Broker) gin.HandlerFunc {
+func NotificationBroker(broker *sse.Broker) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		ctx.Set(constant.NOTIFICATION_BROKER_KEY, broker)
 		ctx.Next()
