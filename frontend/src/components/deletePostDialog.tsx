@@ -1,7 +1,7 @@
 "use client";
 
 import { deletePost } from "@/utils/deletePost";
-import { Image, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import {
@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { useToast } from "./ui/use-toast";
+import Image from "next/image";
 
 type PostDeleteButtonProps = {
   postId: number;
@@ -30,10 +31,10 @@ export const PostDeleteDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="nesError">
-          <Image href="/img/dots/character/character_monster_zombie_brown.svg" />
-          削除する
-        </Button>
+        {/* <Button variant="nesError"> */}
+          <Image src="/img/dots/character/kokubankeshi_01.svg" alt="image" width="90" height="30" />
+          {/* 削除 */}
+        {/* </Button> */}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

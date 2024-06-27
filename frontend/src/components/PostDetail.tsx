@@ -41,6 +41,7 @@ export const PostDetail = ({
   return (
     <div className="flex-1 grid gap-4">
       {/* <h1 className="text-4xl font-bold">{postItem.title}</h1> */}
+      <div className="flex justify-center">
       <center className="flex justify-center">
         <div>
           {postItem.username}
@@ -48,17 +49,17 @@ export const PostDetail = ({
         </div>
         <div className="nes-balloon from-left">{postItem.title}</div>
       </center>
-      {/* <p>
-          {postItem.username}
-        </p> */}
+      <div className="grid items-end">
       <p>
-        投稿日時:
+        投稿:
         {dateFormatString2DateJa(postItem.created_at)}
       </p>
       <p>
-        更新日時:
+        更新:
         {dateFormatString2DateJa(postItem.updated_at)}
       </p>
+      </div>
+      </div>
       <div className="border-b px-4" />
       <p className="whitespace-break-spaces min-h-96 nes-container is-dark">
         {postItem.body}
