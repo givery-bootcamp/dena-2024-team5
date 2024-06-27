@@ -80,7 +80,7 @@ func PostLikeAdd(
 		log.Printf("failed to comment zombie: %v", err)
 		return
 	}
-	message := fmt.Sprintf("「%s」にコメントが追加されました。", post.Title)
+	message := fmt.Sprintf("🧟「%s」にコメントが追加されました。", post.Title)
 	err = notificationMessageUsecase.Execute(post.UserID, message)
 	if err != nil {
 		// NOTE: メッセージの通知のエラーログ
