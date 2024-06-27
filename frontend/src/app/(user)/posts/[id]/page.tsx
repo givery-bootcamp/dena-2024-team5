@@ -12,6 +12,7 @@ export default async function Home({ params }: { params: { id: string } }) {
     .posts._postID_number(Number(params.id))
     .$get();
   const comments: Entity_Comment[] = postedItemsDetail.comments;
+  const meId = await (await aspidaClient(jwtToken).users.me.$get()).id;
   return (
     <div className="flex-1 grid gap-4">
       <PostDetail
@@ -22,7 +23,12 @@ export default async function Home({ params }: { params: { id: string } }) {
       <div className="border-b px-4" />
       <CommentPostButton postId={postedItemsDetail.id} />
       {comments.map((data) => (
-        <CommentItem key={data.id} comment={data} jwtToken={jwtToken} />
+        <CommentItem
+          key={data.id}
+          comment={data}
+          jwtToken={jwtToken}
+          meId={meId}
+        />
       ))}
     </div>
   );
