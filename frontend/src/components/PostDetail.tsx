@@ -59,7 +59,7 @@ export const PostDetail = ({
         </div>
       </div>
       <div className="border-b px-4" />
-      <div className="whitespace-break-spaces min-h-96 nes-container is-dark">
+      <div className="whitespace-break-spaces min-h-32 nes-container is-dark">
         {postItem.body}
         <div className="absolute bottom-0 right-0 flex">
           <PostEditButton />
@@ -135,8 +135,8 @@ const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
         </p>
       </div>
       <div className="border-b px-4" />
-      <div className="grid whitespace-break-spaces min-h-96">
-        <Textarea {...register("body")} className="min-h-64" />
+      <div className="grid whitespace-break-spaces min-h-32">
+        <Textarea {...register("body")} className="min-h-24" />
       </div>
       {errors.body && (
         <p className="text-red-500 text-sm">{errors.body.message}</p>

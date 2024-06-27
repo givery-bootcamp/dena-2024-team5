@@ -15,7 +15,7 @@ import type { z } from "zod";
 import type { Entity_Comment } from "../../api/@types";
 import { CommentEditButton, CommentEditCancelButton } from "./Buttons";
 import { CommentDeleteDialog } from "./deleteCommentDialog";
-import ImgWithJumpMotion from "./dots/atom/imgWithJumpMotion";
+import ImgWithLeft2RightMotion from "./dots/atom/imgWithLeft2Right";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
@@ -27,7 +27,7 @@ type CommentDetailProps = {
 
 type onSubmitType = z.infer<typeof editCommentFormSchema>;
 
-export async function CommentItem({
+export function CommentItem({
   comment,
   jwtToken,
   meId,
@@ -44,14 +44,21 @@ export async function CommentItem({
 
   return (
     <div className="flex justify-center">
-      <ImgWithJumpMotion imgPath={userId2ImagePath(comment.user_id, meId)} />
-      {/* <Image src="/img/dots/character/character_monster_zombie_brown.svg" height="50" width="50" alt="character" ></Image> */}
+      {/* <ImgWithJumpMotion imgPath={userId2ImagePath(comment.user_id, meId)} /> */}
+      <ImgWithLeft2RightMotion
+        imgPath={userId2ImagePath(comment.user_id, meId)}
+      />
       <div className="nes-container is-dark w-full">
         {comment.body}
-        <p className="text-sm">{comment.user_id}</p>
-        <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
-        <CommentEditButton commentId={comment.id} />
-        <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+        {/* <p className="text-sm">{comment.user_id}</p> */}
+        {/* <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p> */}
+        <div className="absolute bottom-0 right-0 flex">
+          <p className="text-sm">
+            {dateFormatString2DateJa(comment.created_at)}
+          </p>
+          <CommentEditButton commentId={comment.id} />
+          <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+        </div>
       </div>
     </div>
   );
