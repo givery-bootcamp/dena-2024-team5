@@ -13,17 +13,18 @@ export default async function Home() {
   if (!session) {
     redirect("/");
   }
+  console.log(session);
   try {
     const postedItems = await aspidaClient(jwtToken).posts.$get();
     return (
-      <div className="flex flex-col gap-4 p-4 container">
-        <div className="grid grid-cols-1 gap-4">
+      <div className="flex-1 flex-col gap-4 p-4 container">
+        <div className="grid md:grid-cols-2 gap-4">
           {postedItems.map((data) => (
             <PostedItem key={data.id} postedItem={data} jwtToken={jwtToken} />
           ))}
         </div>
-        <div className="flex justify-center">
-          <div className="flex-1 nes-container bg-white max-w-4xl">
+        <div className="flex justify-center gap-4 mt-4 items-center">
+          <div className="flex-1 nes-container items-center is-dark bg-white max-w-4xl">
             <PostForm jwtToken={jwtToken} />
           </div>
           <SignInSignOutButton session={session} />
@@ -33,7 +34,7 @@ export default async function Home() {
   } catch (error) {
     console.error(error);
     return (
-      <div className="flex-1 justify-center container gap-4">
+      <div className="justify-center container gap-4">
         <div className="nes-container is-dark with-title">
           <p className="title">Error</p>
           <p>データ取得に失敗しました…</p>
