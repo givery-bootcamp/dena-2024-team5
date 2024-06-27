@@ -1,4 +1,5 @@
 "use client";
+import { vhToPx, vwToPx } from "@/lib/viewportToPixel";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,9 +17,9 @@ export default function GameDescription() {
     () => {
       //scrolleTrgerを利用して横向きに文字を動かす
       //
-      gsap.set("h2", { x: 2000 });
+      gsap.set("h2", { x: vwToPx(100) });
       gsap.set(".zombie-waiwai", { opacity: 0, x: 0 });
-      gsap.set("#kishi", { opacity: 1, y: -1000 });
+      gsap.set("#kishi", { opacity: 1, y: vhToPx(-100) });
       tl.current = gsap
         .timeline({
           scrollTrigger: {
@@ -31,7 +32,7 @@ export default function GameDescription() {
           },
         })
         .to("#desc-1", {
-          x: -2400,
+          x: vwToPx(-150),
           duration: 5,
         })
         .to(
@@ -46,19 +47,19 @@ export default function GameDescription() {
         .to(
           ".zombie-waiwai",
           {
-            x: 2000,
+            x: vwToPx(200),
             // stagger: 0.1,
           },
           "-=2",
         )
         .to("#desc-2", {
-          x: -2400,
+          x: vwToPx(-500),
           duration: 5,
         })
         .to(
           "#kishi",
           {
-            y: 0,
+            y: vhToPx(0),
             duration: 3,
           },
           "-=7",
@@ -66,7 +67,7 @@ export default function GameDescription() {
         .to(
           "#kishi",
           {
-            y: 800,
+            y: vhToPx(300),
             duration: 2,
           },
           "-=2",
@@ -83,7 +84,7 @@ export default function GameDescription() {
   );
 
   return (
-    <div ref={container} className="h-[100vh]">
+    <div ref={container} className="h-[100vw]">
       <h2 className="text-8xl font-bold w-[24em] bg-sky-50" id="desc-1">
         2024年、人類はインプレゾンビの危機に瀕していた。
       </h2>
