@@ -8,8 +8,7 @@ type CommentNewUsecase struct {
 	repository interfaces.CommentNewRepository
 }
 
-func NewCommentNewUsecase(
-	r interfaces.CommentNewRepository) *CommentNewUsecase {
+func NewCommentNewUsecase(r interfaces.CommentNewRepository) *CommentNewUsecase {
 	return &CommentNewUsecase{
 		repository: r,
 	}
