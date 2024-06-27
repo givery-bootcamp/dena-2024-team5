@@ -41,15 +41,23 @@ export const PostDetail = ({
   return (
     <div className="flex-1 grid gap-4">
       {/* <h1 className="text-4xl font-bold">{postItem.title}</h1> */}
-      <div className="flex justify-center">
+      <div>
       <center className="flex justify-center">
-        <div>
+      <ImgWithJumpMotion imgPath={imgPath} />
+      <div className="grid" >
+            <p className="text-6xl">
           {postItem.username}
-          <ImgWithJumpMotion imgPath={imgPath} />
-        </div>
-        <div className="nes-balloon from-left">{postItem.title}</div>
+          </p>
+          <div>    
+            <i className="nes-icon  heart"></i>
+            <i className="nes-icon is-half heart"></i>
+            <i className="nes-icon is-transparent heart"></i>
+            <i className="nes-icon heart is-empty"></i>
+            </div>
+          </div>
       </center>
       <div className="grid items-end">
+      <div className="nes-container is-dark">{postItem.title}</div>
       <p>
         投稿:
         {dateFormatString2DateJa(postItem.created_at)}

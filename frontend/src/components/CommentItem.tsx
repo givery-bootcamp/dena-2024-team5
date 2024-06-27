@@ -16,6 +16,8 @@ import { CommentDeleteDialog } from "./deleteCommentDialog";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
+import Image from "next/image";
+import ImgWithJumpMotion from "./dots/atom/imgWithJumpMotion";
 
 type CommentDetailProps = {
   commentEntity: Entity_Comment;
@@ -40,12 +42,16 @@ export function CommentItem({
   }
 
   return (
-    <div className="nes-balloon from-left">
+    <div className="flex justify-center">
+      <ImgWithJumpMotion imgPath="/img/dots/character/character_monster_zombie_brown.svg"></ImgWithJumpMotion>
+    {/* <Image src="/img/dots/character/character_monster_zombie_brown.svg" height="50" width="50" alt="character" ></Image> */}
+    <div className="nes-container is-dark w-full">
       {comment.body}
       <p className="text-sm">{comment.user_id}</p>
       <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p>
       <CommentEditButton commentId={comment.id} />
       <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+    </div>
     </div>
   );
 }

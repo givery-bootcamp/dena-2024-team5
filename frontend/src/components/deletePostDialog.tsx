@@ -30,12 +30,14 @@ export const PostDeleteDialog = ({
   const { toast } = useToast();
   return (
     <Dialog>
+      <div className="grid items-end">
       <DialogTrigger asChild>
         {/* <Button variant="nesError"> */}
           <Image src="/img/dots/character/kokubankeshi_01.svg" alt="image" width="90" height="30" />
-          {/* 削除 */}
         {/* </Button> */}
       </DialogTrigger>
+      削除
+      </div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>確認</DialogTitle>
