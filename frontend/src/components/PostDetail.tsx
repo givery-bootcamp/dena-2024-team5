@@ -41,22 +41,31 @@ export const PostDetail = ({
   return (
     <div className="flex-1 grid gap-4">
       {/* <h1 className="text-4xl font-bold">{postItem.title}</h1> */}
-      <center>
-        <ImgWithJumpMotion imgPath={imgPath} />
-        <div className="nes-balloon from-left">{postItem.title}</div>
-        <p>
-          投稿者:
-          {postItem.username}
-        </p>
-        <p>
-          投稿日時:
-          {dateFormatString2DateJa(postItem.created_at)}
-        </p>
-        <p>
-          更新日時:
-          {dateFormatString2DateJa(postItem.updated_at)}
-        </p>
-      </center>
+      <div>
+        <center className="flex justify-center">
+          <ImgWithJumpMotion imgPath={imgPath} />
+          <div className="grid">
+            <p className="text-6xl">{postItem.username}</p>
+            <div>
+              <i className="nes-icon  heart" />
+              <i className="nes-icon is-half heart" />
+              <i className="nes-icon is-transparent heart" />
+              <i className="nes-icon heart is-empty" />
+            </div>
+          </div>
+        </center>
+        <div className="grid items-end">
+          <div className="nes-container is-dark">{postItem.title}</div>
+          <p>
+            投稿:
+            {dateFormatString2DateJa(postItem.created_at)}
+          </p>
+          <p>
+            更新:
+            {dateFormatString2DateJa(postItem.updated_at)}
+          </p>
+        </div>
+      </div>
       <div className="border-b px-4" />
       <p className="whitespace-break-spaces min-h-96 nes-container is-dark">
         {postItem.body}
