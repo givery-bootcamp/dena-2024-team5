@@ -1,7 +1,7 @@
 "use client";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
 export default function GameTitle() {
@@ -10,40 +10,35 @@ export default function GameTitle() {
   const tl = useRef<GSAPTimeline | null>(null);
   useGSAP(
     () => {
-      //HTMLElement内で取得されたclassNameがboxの要素を全て取得
-      // 複数のアニメーションを作るなら、refはHTMLDivElementで取得した方が良いかも
       const boxes: HTMLElement[] = gsap.utils.toArray("span");
 
-      // 座標の初期値は、CSSで設定した地点(x:0, y:0)
+      //初期値
       gsap.set(boxes[0], { x: -100, backgroundColor: "red" });
       gsap.set(boxes[1], { y: -100, backgroundColor: "blue" });
       gsap.set(boxes[2], { y: +100, backgroundColor: "green" });
       gsap.set(boxes[3], { x: +100, backgroundColor: "yellow" });
-      gsap.set(boxes[4], { x: +100, backgroundColor: "brown" });
-      gsap.set(boxes[5], { x: +100, backgroundColor: "pink" });
+      gsap.set(boxes[4], { y: +100, backgroundColor: "brown" });
+      gsap.set(boxes[5], { y: -100, backgroundColor: "pink" });
 
-      // タイムラインを使ってアニメーションを作成
+      // 1つずつ移動
       tl.current = gsap
         .timeline({
           // この要素が出てきた時に発火
           scrollTrigger: {
             trigger: container.current,
             start: "top center",
+            end: "bottom center",
             scrub: true,
-            markers: true,
+            // markers: true,
             pin: true,
           },
         })
-        .to(boxes[0], { x: 0, opacity: 1, duration: 1 })
-        .to(boxes[1], { y: 0, opacity: 1, duration: 1 })
-        .to(boxes[2], { y: 0, opacity: 1, duration: 1 })
-        .to(boxes[3], { x: 0, opacity: 1, duration: 1 })
-        .to(boxes[4], { x: 0, opacity: 1, duration: 1 })
-        .to(boxes[5], { x: 0, opacity: 1, duration: 1 })
-        .to(boxes, { y: +100, opacity: 0, duration: 1 });
-
-      // オープニングアニメーションなので使わなくなった要素は非表示にする
-      // .to(boxes, { display: "none", duration: 0 });
+        .to(boxes[0], { x: 0, opacity: 1, duration: 1, ease: "expo.out" })
+        .to(boxes[1], { y: 0, opacity: 1, duration: 1, ease: "expo.out" })
+        .to(boxes[2], { y: 0, opacity: 1, duration: 1, ease: "expo.out" })
+        .to(boxes[3], { x: 0, opacity: 1, duration: 1, ease: "expo.out" })
+        .to(boxes[4], { y: 0, opacity: 1, duration: 1, ease: "expo.out" })
+        .to(boxes[5], { y: 0, opacity: 1, duration: 1, ease: "expo.out" });
     },
     { scope: container },
   );
