@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { isCommentEditModeAtom, isEditModeAtom } from "@/lib/atom";
 import { useAtom } from "jotai";
-import { Pen, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import Image from "next/image";
 
 type Props = {
@@ -85,10 +85,16 @@ export const CommentPostButton = ({ postId }: { postId: number }) => {
 export const PostEditButton = () => {
   const [_, setIsEditMode] = useAtom(isEditModeAtom);
   return (
-    <div onClick={() => setIsEditMode(true)} >
-      <Image src="/img/dots/character/chalk_white.svg" alt="edit" width="20" height="20" className="rotate-45"></Image>
+    <Button onClick={() => setIsEditMode(true)} variant="nesPrimary">
+      <Image
+        src="/img/dots/character/chalk_white.svg"
+        alt="edit"
+        width="15"
+        height="15"
+        className="rotate-45"
+      />
       <p>編集</p>
-    </div>
+    </Button>
   );
 };
 
@@ -104,10 +110,16 @@ export const PostEditCancelButton = () => {
 export const CommentEditButton = ({ commentId }: { commentId: number }) => {
   const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
-    <div onClick={() => setIsEditMode(true)}>
-    <Image src="/img/dots/character/chalk_white.svg" alt="edit" width="10" height="10" className="rotate-45"></Image>
+    <Button onClick={() => setIsEditMode(true)}>
+      <Image
+        src="/img/dots/character/chalk_white.svg"
+        alt="edit"
+        width="10"
+        height="10"
+        className="rotate-45"
+      />
       {/* <Pen className="mr-2 h-4 w-4" /> */}
-    </div>
+    </Button>
   );
 };
 export const CommentEditCancelButton = ({
