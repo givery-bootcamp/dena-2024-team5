@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Entity_Post } from "../../api/@types";
 import { PostEditButton, PostEditCancelButton } from "./Buttons";
+import { LikeButton } from "./LikeButton";
 import { PostDeleteDialog } from "./deletePostDialog";
 import ImgWithJumpMotion from "./dots/atom/imgWithJumpMotion";
 import { Button } from "./ui/button";
@@ -44,35 +45,36 @@ export const PostDetail = ({
       <div>
         <center className="flex justify-center">
           <ImgWithJumpMotion imgPath={imgPath} />
-          <div className="grid">
-            <p className="text-6xl">{postItem.username}</p>
-            <div>
-              <i className="nes-icon  heart" />
-              <i className="nes-icon is-half heart" />
-              <i className="nes-icon is-transparent heart" />
-              <i className="nes-icon heart is-empty" />
-            </div>
+          <div className="flex items-center">
+            <div className="text-6xl">{postItem.username}</div>
+            <LikeButton
+              postId={postItem.id}
+              likeCount={postItem.like_count}
+              jwtToken={jwtToken}
+            />
           </div>
         </center>
         <div className="grid items-end">
           <div className="nes-container is-dark">{postItem.title}</div>
-          <p>
-            投稿:
-            {dateFormatString2DateJa(postItem.created_at)}
-          </p>
-          <p>
-            更新:
-            {dateFormatString2DateJa(postItem.updated_at)}
-          </p>
         </div>
       </div>
       <div className="border-b px-4" />
-      <p className="whitespace-break-spaces min-h-96 nes-container is-dark">
+      <div className="whitespace-break-spaces min-h-96 nes-container is-dark">
         {postItem.body}
-      </p>
+        <div className="absolute bottom-0 right-0 flex">
+          <PostEditButton />
+          <PostDeleteDialog postId={postItem.id} jwtToken={jwtToken} />
+        </div>
+      </div>
       <div className="flex justify-end gap-4">
-        <PostEditButton />
-        <PostDeleteDialog postId={postItem.id} jwtToken={jwtToken} />
+        <p>
+          投稿:
+          {dateFormatString2DateJa(postItem.created_at)}
+        </p>
+        <p>
+          更新:
+          {dateFormatString2DateJa(postItem.updated_at)}
+        </p>
       </div>
     </div>
   );

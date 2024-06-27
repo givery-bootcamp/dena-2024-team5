@@ -33,7 +33,7 @@ export const CommentDeleteDialog = ({
       <DialogTrigger asChild>
         {/* <Button variant="nesError"> */}
         <Image
-          src="/img/dots/character/kokubankeshi_01.svg"
+          src="/img/dots/item/kokubankeshi_01.svg"
           alt="image"
           width="30"
           height="10"

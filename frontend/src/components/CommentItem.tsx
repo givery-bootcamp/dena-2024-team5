@@ -4,10 +4,12 @@ import { isCommentEditModeAtom } from "@/lib/atom";
 import { editCommentFormSchema } from "@/lib/zod";
 import { dateFormatString2DateJa } from "@/utils/date";
 import { editComment } from "@/utils/editComment";
+import userId2ImagePath from "@/utils/userId2Image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
 import { Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Entity_Comment } from "../../api/@types";
@@ -25,15 +27,15 @@ type CommentDetailProps = {
 
 type onSubmitType = z.infer<typeof editCommentFormSchema>;
 
-export function CommentItem({
+export async function CommentItem({
   comment,
   jwtToken,
+  meId,
 }: {
   comment: Entity_Comment;
   jwtToken: string;
+  meId: number;
 }) {
-  // const cookieStore = cookies();
-  // const jwtToken = cookieStore.get("jwt")?.value ?? "";
   const [isEditMode] = useAtom(isCommentEditModeAtom(comment.id));
 
   if (isEditMode) {
@@ -42,7 +44,7 @@ export function CommentItem({
 
   return (
     <div className="flex justify-center">
-      <ImgWithJumpMotion imgPath="/img/dots/character/character_monster_zombie_brown.svg" />
+      <ImgWithJumpMotion imgPath={userId2ImagePath(comment.user_id, meId)} />
       {/* <Image src="/img/dots/character/character_monster_zombie_brown.svg" height="50" width="50" alt="character" ></Image> */}
       <div className="nes-container is-dark w-full">
         {comment.body}

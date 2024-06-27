@@ -87,7 +87,7 @@ export const PostEditButton = () => {
   return (
     <Button onClick={() => setIsEditMode(true)} variant="nesPrimary">
       <Image
-        src="/img/dots/character/chalk_white.svg"
+        src="/img/dots/item/chalk_white.svg"
         alt="edit"
         width="15"
         height="15"
@@ -112,7 +112,7 @@ export const CommentEditButton = ({ commentId }: { commentId: number }) => {
   return (
     <Button onClick={() => setIsEditMode(true)}>
       <Image
-        src="/img/dots/character/chalk_white.svg"
+        src="/img/dots/item/chalk_white.svg"
         alt="edit"
         width="10"
         height="10"
