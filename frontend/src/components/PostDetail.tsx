@@ -41,22 +41,24 @@ export const PostDetail = ({
   return (
     <div className="flex-1 grid gap-4">
       {/* <h1 className="text-4xl font-bold">{postItem.title}</h1> */}
-      <center>
-        <ImgWithJumpMotion imgPath={imgPath} />
-        <div className="nes-balloon from-left">{postItem.title}</div>
-        <p>
-          投稿者:
+      <center className="flex justify-center">
+        <div>
           {postItem.username}
-        </p>
-        <p>
-          投稿日時:
-          {dateFormatString2DateJa(postItem.created_at)}
-        </p>
-        <p>
-          更新日時:
-          {dateFormatString2DateJa(postItem.updated_at)}
-        </p>
+          <ImgWithJumpMotion imgPath={imgPath} />
+        </div>
+        <div className="nes-balloon from-left">{postItem.title}</div>
       </center>
+      {/* <p>
+          {postItem.username}
+        </p> */}
+      <p>
+        投稿日時:
+        {dateFormatString2DateJa(postItem.created_at)}
+      </p>
+      <p>
+        更新日時:
+        {dateFormatString2DateJa(postItem.updated_at)}
+      </p>
       <div className="border-b px-4" />
       <p className="whitespace-break-spaces min-h-96 nes-container is-dark">
         {postItem.body}
