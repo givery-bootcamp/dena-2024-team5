@@ -132,7 +132,7 @@ const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
       )}
       <div className="flex justify-end gap-4">
         <PostEditCancelButton />
-        <Button type="submit">
+        <Button variant="nesPrimary" type="submit">
           <Pen className="mr-2 w-4 h-4" />
           変更を保存
         </Button>

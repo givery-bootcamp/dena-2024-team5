@@ -29,7 +29,7 @@ export default async function PostedItem({
         <p className="text-sm">
           {dateFormatString2DateJa(postedItem.created_at)}
         </p>
-        <Button asChild>
+        <Button variant="nesPrimary" asChild>
           <Link href={`posts/${postedItem.id}`}>詳細</Link>
         </Button>
       </CardFooter>
