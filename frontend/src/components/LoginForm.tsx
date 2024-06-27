@@ -14,7 +14,7 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md border-0 shadow-none">
       <CardHeader>
-        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardTitle className="text-4xl text-center">Login</CardTitle>
         <CardDescription>
           ユーザーネームとパスワードを入力してください
         </CardDescription>
@@ -29,6 +29,7 @@ export function LoginForm() {
             inputProps: {
               name: "username",
               placeholder: "ユーザーネーム",
+              className: "nes-input",
             },
           },
           password: {

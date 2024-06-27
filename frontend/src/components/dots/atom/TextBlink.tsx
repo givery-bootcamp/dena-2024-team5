@@ -1,3 +1,4 @@
+"use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
@@ -22,7 +23,7 @@ export default function TextBlink({ text }: PanelProps) {
 
   return (
     <div className="grid place-items-center">
-      <p className="text-5xl" ref={boxRef}>
+      <p className="text-6xl" ref={boxRef}>
         {text}
       </p>
     </div>
