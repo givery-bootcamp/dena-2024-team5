@@ -19,7 +19,7 @@ export default async function Home() {
       <div className="flex flex-col gap-4 p-4 container">
         <div className="grid grid-cols-1 gap-4">
           {postedItems.map((data) => (
-            <PostedItem key={data.id} postedItem={data} />
+            <PostedItem key={data.id} postedItem={data} jwtToken={jwtToken} />
           ))}
         </div>
         <div className="flex justify-center">
