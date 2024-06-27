@@ -14,13 +14,15 @@ export default async function Home({ params }: { params: { id: string } }) {
   const comments: Entity_Comment[] = postedItemsDetail.comments;
   return (
     <div className="flex-1 grid gap-4">
-      <PostDetail postItem={postedItemsDetail} jwtToken={jwtToken} />
+      <PostDetail
+        postItem={postedItemsDetail}
+        jwtToken={jwtToken}
+        imgPath="/img/dots/character/character_kishi_man_01_red_black.svg"
+      />
       <div className="border-b px-4" />
-      コメントする：
       <CommentPostButton postId={postedItemsDetail.id} />
-      コメント：
       {comments.map((data) => (
-        <CommentItem key={data.id} comment={data} />
+        <CommentItem key={data.id} comment={data} jwtToken={jwtToken} />
       ))}
     </div>
   );

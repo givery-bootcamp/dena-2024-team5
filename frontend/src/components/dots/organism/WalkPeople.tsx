@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
-import ZombiWithWalkMotion from "../atom/ZombieWithWalkMotion";
+import ImgWithWalkMotion from "../atom/ImgWithWalkMotion";
 import ElementWithComment from "../molecule/ElementWithComment";
 export default function WalkPeople() {
   gsap.registerPlugin(useGSAP);
@@ -20,7 +20,12 @@ export default function WalkPeople() {
 
   return (
     <div ref={boxRef}>
-      <ElementWithComment comment="ゾンビ" element={<ZombiWithWalkMotion />} />
+      <ElementWithComment
+        comment="ゾンビ"
+        element={
+          <ImgWithWalkMotion imgPath="/img/dots/character/character_monster_zombie_brown.svg" />
+        }
+      />
     </div>
   );
 }

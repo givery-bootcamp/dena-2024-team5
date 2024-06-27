@@ -49,3 +49,7 @@ export const editPostFormSchema = z.object({
   title: z.string().describe("タイトル").min(1, "タイトルを入力してください"),
   body: z.string().describe("内容").min(1, "内容を入力してください"),
 });
+
+export const editCommentFormSchema = z.object({
+  body: z.string().describe("コメント").min(1, "コメントを入力してください"),
+});

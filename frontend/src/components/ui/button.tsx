@@ -18,6 +18,12 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        nesNormal: "nes-btn",
+        nesPrimary: "nes-btn is-primary",
+        nesSuccess: "nes-btn is-success",
+        nesWarning: "nes-btn is-warning",
+        nesError: "nes-btn is-error",
+        nesDisabled: "nes-btn is-disabled",
       },
       size: {
         default: "h-10 px-4 py-2",

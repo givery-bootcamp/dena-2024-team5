@@ -1,7 +1,7 @@
 "use client";
 
 import { deletePost } from "@/utils/deletePost";
-import { Trash } from "lucide-react";
+import { Image, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import {
@@ -31,7 +31,7 @@ export const PostDeleteDialog = ({
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="destructive">
-          <Trash className="mr-2 h-4 w-4" />
+          <Image href="/img/dots/character/character_monster_zombie_brown.svg" />
           削除する
         </Button>
       </DialogTrigger>
