@@ -6,9 +6,9 @@ import { useToast } from "./ui/use-toast";
 export function NotificationStreamer() {
   const { toast } = useToast();
 
-
   useEffect(() => {
-    const eventSource = new EventSource("http://localhost:9000/stream", {
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const eventSource = new EventSource(`${baseUrl}/stream`, {
       withCredentials: true,
     });
 
