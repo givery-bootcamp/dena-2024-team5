@@ -30,7 +30,7 @@ export const CommentDeleteDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="destructive">
+        <Button variant="nesError">
           <Trash className="mr-2 h-4 w-4" />
           削除する
         </Button>
@@ -43,7 +43,7 @@ export const CommentDeleteDialog = ({
         <DialogFooter>
           <DialogClose>
             <Button
-              variant="destructive"
+              variant="nesError"
               onClick={async () => {
                 try {
                   await deleteComment({ commentId, jwtToken });
@@ -65,7 +65,7 @@ export const CommentDeleteDialog = ({
             </Button>
           </DialogClose>
           <DialogClose>
-            <Button variant="outline">キャンセル</Button>
+            <Button variant="nesNormal">キャンセル</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

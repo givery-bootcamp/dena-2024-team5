@@ -16,7 +16,6 @@ import {
 import { isCommentEditModeAtom, isEditModeAtom } from "@/lib/atom";
 import { useAtom } from "jotai";
 import { Pen, Send } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 type Props = {
   session: Session | null;
@@ -34,11 +33,10 @@ export const SignInSignOutButton = ({ session }: Props) => {
 };
 
 const SignOutDialog = () => {
-  const router = useRouter();
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>サインアウト</Button>
+        <Button variant="nesNormal">サインアウト</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -47,10 +45,9 @@ const SignOutDialog = () => {
         <DialogDescription>サインアウトしますか?</DialogDescription>
         <DialogFooter>
           <Button
-            variant="destructive"
+            variant="nesError"
             onClick={() => {
-              signOut();
-              router.push("/");
+              signOut({ callbackUrl: "/" });
             }}
           >
             サインアウト
@@ -63,7 +60,7 @@ const SignOutDialog = () => {
 
 export const PostButton = () => {
   return (
-    <Button asChild>
+    <Button variant="nesPrimary" asChild>
       <Link href="/posts/new">
         <Send className="mr-2 h-4 w-4" />
         ポストする
@@ -75,7 +72,7 @@ export const PostButton = () => {
 export const CommentPostButton = ({ postId }: { postId: number }) => {
   const href = `/comments/new/${postId.toString()}`;
   return (
-    <Button asChild>
+    <Button variant="nesPrimary" asChild>
       <Link href={href}>
         <Send className="mr-2 h-4 w-4" />
         コメントする
@@ -87,7 +84,7 @@ export const CommentPostButton = ({ postId }: { postId: number }) => {
 export const PostEditButton = () => {
   const [_, setIsEditMode] = useAtom(isEditModeAtom);
   return (
-    <Button variant="outline" onClick={() => setIsEditMode(true)}>
+    <Button variant="nesNormal" onClick={() => setIsEditMode(true)}>
       <Pen className="mr-2 h-4 w-4" />
       編集する
     </Button>
@@ -97,7 +94,7 @@ export const PostEditButton = () => {
 export const PostEditCancelButton = () => {
   const [_, setIsEditMode] = useAtom(isEditModeAtom);
   return (
-    <Button variant="outline" onClick={() => setIsEditMode(false)}>
+    <Button variant="nesNormal" onClick={() => setIsEditMode(false)}>
       キャンセル
     </Button>
   );
@@ -106,7 +103,7 @@ export const PostEditCancelButton = () => {
 export const CommentEditButton = ({ commentId }: { commentId: number }) => {
   const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
-    <Button variant="outline" onClick={() => setIsEditMode(true)}>
+    <Button variant="nesNormal" onClick={() => setIsEditMode(true)}>
       <Pen className="mr-2 h-4 w-4" />
       編集する
     </Button>
@@ -117,7 +114,7 @@ export const CommentEditCancelButton = ({
 }: { commentId: number }) => {
   const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
-    <Button variant="outline" onClick={() => setIsEditMode(false)}>
+    <Button variant="nesNormal" onClick={() => setIsEditMode(false)}>
       キャンセル
     </Button>
   );

@@ -30,7 +30,7 @@ export const PostDeleteDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="destructive">
+        <Button variant="nesError">
           <Image href="/img/dots/character/character_monster_zombie_brown.svg" />
           削除する
         </Button>
@@ -43,7 +43,7 @@ export const PostDeleteDialog = ({
         <DialogFooter>
           <DialogClose>
             <Button
-              variant="destructive"
+              variant="nesError"
               onClick={async () => {
                 try {
                   await deletePost({ postId, jwtToken });
@@ -65,7 +65,7 @@ export const PostDeleteDialog = ({
             </Button>
           </DialogClose>
           <DialogClose>
-            <Button variant="outline">キャンセル</Button>
+            <Button variant="nesNormal">キャンセル</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

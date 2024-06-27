@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import Link from "next/link";
 import { SignInSignOutButton } from "./Buttons";
-import { ModeToggle } from "./ThemeChanger";
 
 export default async function Header() {
   const session = await auth();
@@ -12,7 +11,7 @@ export default async function Header() {
       </Link>
       <div className="flex items-center space-x-4">
         <SignInSignOutButton session={session} />
-        <ModeToggle />
+        {/* <ModeToggle /> */}
       </div>
     </header>
   );
