@@ -5,6 +5,7 @@ import (
 	"myapp/internal/config"
 	"myapp/internal/external"
 	"myapp/internal/middleware"
+	"myapp/internal/sse"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,10 +18,13 @@ func main() {
 	// Initialize database
 	external.SetupDB()
 
+	broker := sse.NewServer()
+
 	// Setup webserver
 	app := gin.Default()
 	app.Use(middleware.Transaction())
 	app.Use(middleware.Cors())
+	app.Use(middleware.NotificationBroker(broker))
 	middleware.SetupRoutes(app)
 	app.Run(fmt.Sprintf("%s:%d", config.HostName, config.Port))
 }

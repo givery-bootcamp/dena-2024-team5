@@ -1,8 +1,10 @@
 package dependency
 
 import (
+	"myapp/internal/constant"
 	"myapp/internal/controller"
 	r "myapp/internal/repository"
+	"myapp/internal/sse"
 	u "myapp/internal/usecase"
 
 	"github.com/gin-gonic/gin"
@@ -69,11 +71,20 @@ func (di *DIContainer) PostDeleteController(ctx *gin.Context) {
 }
 
 func (di *DIContainer) CommentNewController(ctx *gin.Context) {
-	postRepository := r.NewPostRepository(controller.DB(ctx))
-	postAvailableUsecase := u.NewPostAvailableUsecase(postRepository)
+	broker, ok := ctx.MustGet(constant.NOTIFICATION_BROKER_KEY).(*sse.Broker)
+	if !ok {
+		ctx.JSON(500, gin.H{"error": "internal server error"})
+		return
+	}
+
 	commentRepository := r.NewCommentRepository(controller.DB(ctx))
+	postRepository := r.NewPostRepository(controller.DB(ctx))
+
 	commentNewUsecase := u.NewCommentNewUsecase(commentRepository)
-	controller.CommentNew(ctx, postAvailableUsecase, commentNewUsecase)
+	notificationMessageUsecase := u.NewNotificationMessageUsecase(broker)
+	postGetDetailUsecase := u.NewPostGetDetailUsecase(postRepository)
+
+	controller.CommentNew(ctx, commentNewUsecase, notificationMessageUsecase, postGetDetailUsecase)
 }
 
 func (di *DIContainer) CommentUpdateController(ctx *gin.Context) {
@@ -91,10 +102,21 @@ func (di *DIContainer) CommentDeleteController(ctx *gin.Context) {
 }
 
 func (di *DIContainer) PostLikeAddController(ctx *gin.Context) {
-	repository := r.NewLikeRepository(controller.DB(ctx))
+	broker, ok := ctx.MustGet(constant.NOTIFICATION_BROKER_KEY).(*sse.Broker)
+	if !ok {
+		ctx.JSON(500, gin.H{"error": "internal server error"})
+		return
+	}
+
+	likeRepository := r.NewLikeRepository(controller.DB(ctx))
 	commentRepository := r.NewCommentRepository(controller.DB(ctx))
+	postRepository := r.NewPostRepository(controller.DB(ctx))
 	userRepository := r.NewUserRepository(controller.DB(ctx))
-	postLikeAddUsecase := u.NewPostLikeAddUsecase(repository)
+
+	postLikeAddUsecase := u.NewPostLikeAddUsecase(likeRepository)
 	commentZombieUsecase := u.NewCommentNewByZombieUsecase(commentRepository, userRepository)
-	controller.PostLikeAdd(ctx, postLikeAddUsecase, commentZombieUsecase)
+	notificationMessageUsecase := u.NewNotificationMessageUsecase(broker)
+	postGetDetailUsecase := u.NewPostGetDetailUsecase(postRepository)
+
+	controller.PostLikeAdd(ctx, postLikeAddUsecase, commentZombieUsecase, notificationMessageUsecase, postGetDetailUsecase)
 }

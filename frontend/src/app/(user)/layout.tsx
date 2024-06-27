@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { NotificationStreamer } from "@/components/NotificationStreamer";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <>
       <Header />
+      <NotificationStreamer />
       {/* <div className="grid w-full container max-w-6xl items-start gap-8 my-4 mx-auto md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]"> */}
       {/* <div className="w-full">
           <LeftMenu />

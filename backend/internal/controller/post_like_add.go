@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"myapp/internal/constant"
 	u "myapp/internal/usecase"
@@ -15,6 +16,7 @@ import (
 // @Summary get list posts
 // @Description 投稿に対して、いいねを付与します。
 // @Tags posts
+// @Param	postID	path	int		true	"Post ID"
 // @Produce json
 // @Success 204
 // @Failure 400 {object} controller.ErrorResponse
@@ -25,6 +27,8 @@ func PostLikeAdd(
 	ctx *gin.Context,
 	postLikeAddUsecase *u.PostLikeAddUsecase,
 	commentZombieNewUsecase *u.CommentNewByZombieUsecase,
+	notificationMessageUsecase *u.NotificationMessageUsecase,
+	postGetDetailUsecase *u.PostGetDetailUsecase,
 ) {
 	if postLikeAddUsecase == nil || commentZombieNewUsecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
@@ -47,6 +51,17 @@ func PostLikeAdd(
 	}
 	postID := uint(postID64)
 
+	// postの存在確認
+	post, err := postGetDetailUsecase.Execute(postID, false)
+	if err != nil {
+		handleError(ctx, http.StatusInternalServerError, err)
+		return
+	}
+	if post == nil {
+		handleError(ctx, http.StatusBadRequest, errors.New("invalid post ID"))
+		return
+	}
+
 	err = postLikeAddUsecase.Execute(userID, postID)
 	if err != nil {
 		if errors.Is(err, u.RecordConflictError) {
@@ -60,11 +75,18 @@ func PostLikeAdd(
 	ctx.Status(http.StatusNoContent)
 
 	err = commentZombieNewUsecase.Execute(postID)
-
 	// NOTE: インプレゾンビのコメントが成功したかどうかログで確認できるとデバッグ時に分かりやすいかなと思い、残しています。
 	if err != nil {
 		log.Printf("failed to comment zombie: %v", err)
 		return
 	}
+	message := fmt.Sprintf("🧟「%s」にコメントが追加されました。", post.Title)
+	err = notificationMessageUsecase.Execute(post.UserID, message)
+	if err != nil {
+		// NOTE: メッセージの通知のエラーログ
+		log.Printf("failed to notify message: %v", err)
+		return
+	}
+
 	log.Println("commented zombie")
 }

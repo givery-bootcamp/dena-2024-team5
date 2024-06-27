@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"myapp/internal/constant"
 	"myapp/internal/usecase"
 	"net/http"
@@ -26,10 +27,11 @@ type CommentNewReq struct {
 // @Router /comments [post]
 func CommentNew(
 	ctx *gin.Context,
-	postAvailableUsecase *usecase.PostAvailableUsecase,
 	commentNewUsecase *usecase.CommentNewUsecase,
+	notificationMessageUsecase *usecase.NotificationMessageUsecase,
+	postGetDetailUsecase *usecase.PostGetDetailUsecase,
 ) {
-	if commentNewUsecase == nil {
+	if commentNewUsecase == nil || notificationMessageUsecase == nil || postGetDetailUsecase == nil {
 		handleError(ctx, http.StatusInternalServerError, errors.New("ぬるぽ"))
 		return
 	}
@@ -49,17 +51,23 @@ func CommentNew(
 	}
 
 	// postの存在確認
-	ok, err = postAvailableUsecase.Execute(req.PostID)
+	post, err := postGetDetailUsecase.Execute(req.PostID, false)
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
 		return
 	}
-	if !ok {
+	if post == nil {
 		handleError(ctx, http.StatusBadRequest, errors.New("invalid post ID"))
 		return
 	}
 
 	err = commentNewUsecase.Execute(userID, req.PostID, req.Body)
+	if err != nil {
+		handleError(ctx, http.StatusInternalServerError, err)
+		return
+	}
+	message := fmt.Sprintf("「%s」にコメントが追加されました。", post.Title)
+	err = notificationMessageUsecase.Execute(post.UserID, message)
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
 		return

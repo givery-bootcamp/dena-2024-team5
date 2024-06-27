@@ -363,6 +363,12 @@ paths:
   /posts/{postID}/like:
     post:
       description: 投稿に対して、いいねを付与します。
+      parameters:
+      - description: Post ID
+        in: path
+        name: postID
+        required: true
+        type: integer
       produces:
       - application/json
       responses:

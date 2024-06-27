@@ -62,7 +62,7 @@ jobs:
         IMAGE_TAG=latest
 
         docker build -f docker/frontend-cd.Dockerfile \
-        --build-arg API_BASE_URL=$VITE_API_ENDPOINT_PATH \
+        --build-arg NEXT_PUBLIC_API_BASE_URL=$VITE_API_ENDPOINT_PATH \
         --build-arg NEXT_AUTH_SECRET_KEY=$NEXT_AUTH_SECRET_KEY \
         --build-arg NEXTAUTH_URL=$NEXTAUTH_URL \
         -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY_NAME_FRONTEND:$IMAGE_TAG .

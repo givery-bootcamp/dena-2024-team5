@@ -2,7 +2,9 @@ package middleware
 
 import (
 	_ "myapp/docs"
+	"myapp/internal/constant"
 	"myapp/internal/dependency"
+	"myapp/internal/sse"
 
 	"github.com/gin-gonic/gin"
 
@@ -11,6 +13,7 @@ import (
 )
 
 func SetupRoutes(app *gin.Engine) {
+
 	app.GET("/", func(ctx *gin.Context) {
 		ctx.String(200, "It works")
 	})
@@ -36,5 +39,15 @@ func SetupRoutes(app *gin.Engine) {
 		authGroup.DELETE("/comments/:commentID", container.CommentDeleteController)
 
 		authGroup.GET("/users/me", container.UserGetMeController)
+		authGroup.GET("/stream", func(ctx *gin.Context) {
+			// TODO: jwtからUserIDを取得する
+			broker, ok := ctx.MustGet(constant.NOTIFICATION_BROKER_KEY).(*sse.Broker)
+			if !ok {
+				ctx.JSON(500, gin.H{"error": "internal server error"})
+				return
+			}
+			broker.Stream(ctx)
+
+		})
 	}
 }

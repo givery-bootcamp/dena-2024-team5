@@ -25,6 +25,3 @@ INSERT INTO comments (user_id, post_id, body) VALUES (1, 1, '最初のコメン�
 INSERT INTO comments (user_id, post_id, body) VALUES (2, 2, 'コメント2');
 
 INSERT INTO likes (user_id, post_id) VALUES (1, 1);
-INSERT INTO likes (user_id, post_id) VALUES (1, 2);
-INSERT INTO likes (user_id, post_id) VALUES (2, 1);
-INSERT INTO likes (user_id, post_id) VALUES (2, 3);
