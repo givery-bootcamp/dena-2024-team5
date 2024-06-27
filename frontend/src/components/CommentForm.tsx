@@ -41,6 +41,7 @@ export const CommentForm = ({ jwtToken, postId }: Props) => {
           },
         }}
       >
+        {/* TODO nesPrimaryに変える */}
         <AutoFormSubmit className="w-full">投稿する</AutoFormSubmit>
       </AutoForm>
     </div>

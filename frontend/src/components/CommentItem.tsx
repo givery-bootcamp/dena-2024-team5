@@ -91,7 +91,7 @@ const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
       )}
       <div className="flex justify-end gap-4">
         <CommentEditCancelButton commentId={commentEntity.id} />
-        <Button type="submit">
+        <Button variant="nesPrimary" type="submit">
           <Pen className="mr-2 w-4 h-4" />
           変更を保存
         </Button>
