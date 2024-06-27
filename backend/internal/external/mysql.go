@@ -2,6 +2,7 @@ package external
 
 import (
 	"fmt"
+	"log"
 	"myapp/internal/config"
 	"os"
 
@@ -25,7 +26,7 @@ func SetupDB() {
 	dsn := fmt.Sprintf("%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", username, host, port, dbname)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{TranslateError: true})
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		os.Exit(1)
 	}
 	db.Logger = db.Logger.LogMode(logger.Info)
