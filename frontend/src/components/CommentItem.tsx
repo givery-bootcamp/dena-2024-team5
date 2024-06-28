@@ -12,14 +12,11 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Entity_Comment } from "../../api/@types";
-import { CommentEditButton } from "./Buttons";
 import { CommentEditCancelButton } from "./Buttons";
 import RandomwalkCharacterWithComment from "./dots/organism/RandomWalkCharacterWithComment";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
-import ImgWithLeft2RightMotion from "./dots/atom/imgWithLeft2Right";
-import { CommentDeleteDialog } from "./deleteCommentDialog";
 
 type CommentDetailProps = {
   commentEntity: Entity_Comment;

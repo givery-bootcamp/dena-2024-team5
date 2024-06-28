@@ -22,9 +22,9 @@ export default function RandomwalkCharacterWithComment({
   useGSAP(() => {
     // アニメーションの設定
     gsap.to(boxRef.current, {
-      x: (Math.random()-0.5) * 900,
-      y: (Math.random()-0.5) * 400,
-      duration: Math.max(Math.random()*2, 1),
+      x: (Math.random() - 0.5) * 900,
+      y: (Math.random() - 0.5) * 400,
+      duration: Math.max(Math.random() * 2, 1),
       yoyo: true,
       repeat: -1,
       ease: "power1.inOut",
