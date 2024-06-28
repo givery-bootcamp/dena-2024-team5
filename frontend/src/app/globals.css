@@ -71,12 +71,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
 }
 
 @layer components {
   .map-tile {
-    @apply bg-map-tile bg-repeat bg-[length:10%]
+    @apply bg-map-tile bg-repeat bg-[length:10%];
   }
 }

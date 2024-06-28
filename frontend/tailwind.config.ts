@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config = {
   darkMode: ["class"],
@@ -77,7 +78,19 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          "grid-cols-auto-fill": (value) => ({
+            gridTemplateColumns: `repeat(auto-fill, minmax(${value}, 1fr))`,
+          }),
+        },
+        { values: theme("spacing") },
+      );
+    }),
+  ],
 } satisfies Config;
 
 export default config;

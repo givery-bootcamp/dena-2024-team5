@@ -1,7 +1,8 @@
 import { auth } from "@/auth";
 import { SignInSignOutButton } from "@/components/Buttons";
-import { PostForm } from "@/components/PostForm";
-import PostedItem from "@/components/PostedItem";
+import DashboardBackgroundLayer from "@/components/dots/organism/dashboard/DashBoardBackgroundLayer";
+import DashboardFooterLayer from "@/components/dots/organism/dashboard/DashboardFooterLayer";
+import DashboardPeopleLayer from "@/components/dots/organism/dashboard/DashboardPeopleLayer";
 import { aspidaClient } from "@/lib/aspidaClient";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -17,17 +18,15 @@ export default async function Home() {
   try {
     const postedItems = await aspidaClient(jwtToken).posts.$get();
     return (
-      <div className="flex-1 flex-col gap-4 p-4 container">
-        <div className="grid md:grid-cols-2 gap-4">
-          {postedItems.map((data) => (
-            <PostedItem key={data.id} postedItem={data} jwtToken={jwtToken} />
-          ))}
+      <div className="relative   h-[200vh] w-screen overflow-x-hidden">
+        <div className="absolute inset-0 bg-gray-200 z-10">
+          <DashboardBackgroundLayer />
         </div>
-        <div className="flex justify-center gap-4 mt-4 items-center">
-          <div className="flex-1 nes-container items-center is-dark bg-white max-w-4xl">
-            <PostForm jwtToken={jwtToken} />
-          </div>
-          <SignInSignOutButton session={session} />
+        <div className="absolute inset-0 z-20 ">
+          <DashboardPeopleLayer postedItems={postedItems} jwtToken={jwtToken} />
+        </div>
+        <div className="fixed bottom-0 left-0 w-full z-30 bg-red-300">
+          <DashboardFooterLayer jwtToken={jwtToken} session={session} />
         </div>
       </div>
     );

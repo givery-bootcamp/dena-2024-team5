@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { NotificationStreamer } from "@/components/NotificationStreamer";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -17,7 +16,6 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-      <Header />
       <NotificationStreamer />
       <div className="flex flex-col min-h-screen">
         <main className="flex-1 map-tile">{children}</main>
