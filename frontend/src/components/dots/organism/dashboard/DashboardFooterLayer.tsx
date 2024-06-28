@@ -1,4 +1,4 @@
-import { SignInSignOutButton } from "@/components/Buttons";
+import { AudioButton, SignInSignOutButton } from "@/components/Buttons";
 import { PostForm } from "@/components/PostForm";
 import type { Session } from "next-auth";
 type PanelProps = {
@@ -16,7 +16,10 @@ export default function DashboardFooterLayer({
       <div className="flex-1 nes-container items-center is-dark bg-white max-w-4xl">
         <PostForm jwtToken={jwtToken} />
       </div>
-      <SignInSignOutButton session={session} />
+      <div className="grid">
+        <SignInSignOutButton session={session} />
+        <AudioButton />
+      </div>
     </div>
   );
 }
