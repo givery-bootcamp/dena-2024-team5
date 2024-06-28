@@ -1,13 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 export default function SiginInSignUpCard() {
-  const router = useRouter();
-
   return (
-    <div className="p-12 pt-0">
-      <div className=" h-full nes-container is-dark with-title is-centered">
+    <div className="p-12 pt-0 ">
+      <div className="h-full nes-container is-dark with-title is-centered">
         <div className="title">
           <p className="text-3xl">世界に入る方法を選んでください</p>
         </div>
@@ -15,7 +12,7 @@ export default function SiginInSignUpCard() {
           <Link
             href="signin"
             type="button"
-            className="nes-btn is-success text-xl"
+            className="nes-btn is-success text-xl z-10"
           >
             サインイン
           </Link>
@@ -28,6 +25,8 @@ export default function SiginInSignUpCard() {
           </Link>
         </div>
       </div>
+      {/* スクロール調整用↓ */}
+      <div className="h-40" />
     </div>
   );
 }

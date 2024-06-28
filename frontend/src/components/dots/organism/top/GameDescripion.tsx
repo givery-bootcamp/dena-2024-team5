@@ -25,8 +25,8 @@ export default function GameDescription() {
           scrollTrigger: {
             trigger: container.current,
             start: "top center",
-            end: "bottom top",
-            // markers: true,
+            end: "bottom bottom",
+            markers: true,
             scrub: true,
             pin: true,
           },
@@ -84,7 +84,7 @@ export default function GameDescription() {
   );
 
   return (
-    <div ref={container} className="h-[100vw]">
+    <div ref={container} className="h-[100vh] bg-gray-600">
       <h2 className="text-8xl font-bold w-[24em] bg-sky-50" id="desc-1">
         2024年、人類はインプレゾンビの危機に瀕していた。
       </h2>

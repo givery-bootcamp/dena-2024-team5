@@ -17,7 +17,7 @@ export default async function Home() {
       <div id="not-walk" className="w-full grid place-content-center h-screen ">
         <TextBlink text="Scrollしてね..." />
       </div>
-      <GameDescription />
+      {/* <GameDescription /> */}
       <GameTitle />
       <SiginInSignUpCard />
     </main>

@@ -44,7 +44,7 @@ export default function GameTitle() {
   );
 
   return (
-    <div className="h-[50vh]" ref={container}>
+    <div className="h-60 bg-red-400" ref={container}>
       <div className=" p-20" id="show-title">
         <h1 className="flex justify-center text-8xl font-bold blink">
           <span id="title-1">ド</span>
