@@ -13,7 +13,6 @@ export default function DashboardFooterLayer({
 }: PanelProps) {
   return (
     <div className="flex justify-center gap-4 items-center">
-      フッター
       <div className="flex-1 nes-container items-center is-dark bg-white max-w-3xl">
         <PostForm jwtToken={jwtToken} />
       </div>
