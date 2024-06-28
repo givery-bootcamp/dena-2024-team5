@@ -1,53 +1,75 @@
 "use client";
-import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { signUpFormSchema } from "@/lib/zod";
 import { serversideSignUp } from "@/utils/signup";
-import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { useToast } from "./ui/use-toast";
 
-export function SignUpForm() {
+type onSubmitType = z.infer<typeof signUpFormSchema>;
+
+export const SignupForm = () => {
+  const { toast } = useToast();
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signUpFormSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  const onSubmit = async (formdata: onSubmitType) => {
+    try {
+      await serversideSignUp(formdata);
+      toast({
+        description: "あなたはゆうしゃとしてとうろくされました！",
+      });
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        description: "ゆうしゃになれませんでした…",
+      });
+    }
+  };
+
   return (
-    <Card className="w-full max-w-md border-0 shadow-none">
-      <CardHeader>
-        <CardTitle className="text-2xl">SignUp</CardTitle>
-        <CardDescription>
-          ユーザーネームとパスワードを入力してください
-        </CardDescription>
-      </CardHeader>
-      <AutoForm
-        formSchema={signUpFormSchema}
-        onSubmit={(values) => {
-          serversideSignUp(values);
-        }}
-        fieldConfig={{
-          username: {
-            inputProps: {
-              name: "username",
-              placeholder: "ユーザーネーム",
-            },
-          },
-          password: {
-            inputProps: {
-              name: "password",
-              type: "password",
-              placeholder: "••••••••",
-            },
-          },
-        }}
-      >
-        <AutoFormSubmit className="w-full">登録</AutoFormSubmit>
-        <div className="mt-4 text-center text-sm">
-          アカウントをお持ちの場合{" "}
-          <Link href="/signin" className="underline">
-            ログイン
-          </Link>
-        </div>
-      </AutoForm>
-    </Card>
+    <form className="flex-1 grid gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <span className="text-sm">ゆうしゃの名前</span>
+      <Input {...register("username")} className="nes-input" />
+      {errors.username && (
+        <p className="text-red-500 text-sm">{errors.username.message}</p>
+      )}
+      <span className="text-sm">ふっかつのじゅもん</span>
+      <Input
+        {...register("password")}
+        type="password"
+        className="nes-textarea"
+      />
+      {errors.password && (
+        <p className="text-red-500 text-sm">{errors.password.message}</p>
+      )}
+      <span className="text-sm">ふっかつのじゅもんを再入力</span>
+      <Input
+        {...register("confirmPassword")}
+        type="password"
+        className="nes-textarea"
+      />
+      {errors.confirmPassword && (
+        <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
+      )}
+      <Button type="submit" variant="nesWarning">
+        ゆうしゃになる
+      </Button>
+    </form>
   );
-}
+};
