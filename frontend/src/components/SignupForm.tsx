@@ -1,5 +1,6 @@
 "use client";
 import { signUpFormSchema } from "@/lib/zod";
+import { serversideSignIn } from "@/utils/signIn";
 import { serversideSignUp } from "@/utils/signup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -28,11 +29,15 @@ export const SignupForm = () => {
   });
   const onSubmit = async (formdata: onSubmitType) => {
     try {
+      const user = formdata.username;
+      const password = formdata.password;
+      const logindata = { username: user, password: password };
       await serversideSignUp(formdata);
+      await serversideSignIn(logindata);
       toast({
         description: "あなたはゆうしゃとしてとうろくされました！",
       });
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
       toast({

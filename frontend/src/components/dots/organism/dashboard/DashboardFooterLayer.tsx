@@ -1,4 +1,5 @@
 import { AudioButton, SignInSignOutButton } from "@/components/Buttons";
+import { MyAvatar } from "@/components/MyAvatar";
 import { PostForm } from "@/components/PostForm";
 import { Button } from "@/components/ui/button";
 import type { Session } from "next-auth";
@@ -12,8 +13,8 @@ export default function DashboardFooterLayer({
   session,
 }: PanelProps) {
   return (
-    <div className="flex justify-center gap-4 items-center">
-      フッター
+    <div className="flex justify-center gap-4 items-center my-4">
+      <MyAvatar session={session} />
       <div className="flex-1 nes-container items-center is-dark bg-white max-w-3xl">
         <PostForm jwtToken={jwtToken} />
       </div>
