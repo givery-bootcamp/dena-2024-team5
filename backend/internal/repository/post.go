@@ -23,58 +23,57 @@ func (p *PostRepository) GetList() ([]entity.Post, error) {
 	var obj []model.PostWith
 	result := p.Conn.
 		Model(&model.Post{}).
-		Select("posts.*, users.name AS user_name, COUNT(likes.id) AS like_count").
+		Preload("User").
+		Select("posts.*, COUNT(likes.id) AS like_count").
 		Joins("LEFT JOIN likes ON posts.id = likes.post_id").
-		Joins("LEFT JOIN users ON posts.user_id = users.id").
 		Group("posts.id").
 		Order("posts.id DESC").
-		Scan(&obj)
+		Find(&obj)
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
 	posts := make([]entity.Post, len(obj))
 	for i, o := range obj {
-		posts[i] = *model.ConvertPostModelToEntity(&o)
+		posts[i] = *model.ConvertPostWithModelToEntity(&o)
 	}
 	return posts, nil
 }
 
 func (p *PostRepository) GetDetail(postID uint, includeCommentsAndLikeCount bool) (*entity.Post, error) {
-	var (
-		post model.PostWith
-		err  error
-	)
 	if includeCommentsAndLikeCount {
-		err = p.Conn.
+		var post model.PostWith
+		err := p.Conn.
 			Model(&model.Post{}).
-			Select("posts.*, users.name AS user_name, COUNT(likes.id) AS like_count").
-			Where("posts.id = ?", postID).
+			Preload("User").
+			Select("posts.*, COUNT(likes.id) AS like_count").
 			Joins("LEFT JOIN likes ON posts.id = likes.post_id").
-			Joins("LEFT JOIN users ON posts.user_id = users.id").
-			Group("posts.id").
-			Scan(&post).Error
-		if err == nil {
-			err = p.Conn.Debug().
-				Model(&model.Comment{}).
-				Where("post_id = ?", postID).
-				Scan(&post.Comments).Error
-		}
-	} else {
-		err = p.Conn.
-			Model(&model.Post{}).
-			Select("posts.*, users.name AS user_name").
-			Joins("LEFT JOIN users ON posts.user_id = users.id").
 			Where("posts.id = ?", postID).
-			Scan(&post).Error
-	}
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
+			Group("posts.id").
+			Preload("Comments.User").
+			Find(&post).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return nil, nil
+			}
+			return nil, err
 		}
-		return nil, err
+		return model.ConvertPostWithModelToEntity(&post), nil
+	} else {
+		var post model.Post
+		err := p.Conn.
+			Model(&model.Post{}).
+			Preload("User").
+			Where("posts.id = ?", postID).
+			Find(&post).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return nil, nil
+			}
+			return nil, err
+		}
+		return model.ConvertPostModelToEntity(&post), nil
 	}
-	return model.ConvertPostModelToEntity(&post), nil
 }
 
 func (p *PostRepository) PostNew(userID uint, title, body string) error {
