@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import TextBlink from "@/components/dots/atom/TextBlink";
 import KirakiraConsole from "@/components/dots/atom/kirakiraConsole";
+import Credits from "@/components/dots/organism/top/Credits";
 import GameDescription from "@/components/dots/organism/top/GameDescripion";
 import GameTitle from "@/components/dots/organism/top/GameTitle";
 import { SiginInSignUpCard } from "@/components/dots/organism/top/SiginInSingUpCard";
@@ -20,8 +21,7 @@ export default async function Home() {
       <GameDescription />
       <GameTitle />
       <SiginInSignUpCard />
-      音楽：魔王魂
-      {/* <Credits /> */}
+      <Credits />
     </main>
   );
 }
