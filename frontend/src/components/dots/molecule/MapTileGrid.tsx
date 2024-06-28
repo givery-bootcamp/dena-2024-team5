@@ -1,5 +1,5 @@
-import MapTile from "../atom/MapTile";
 import { v4 as uuidv4 } from "uuid";
+import MapTile from "../atom/MapTile";
 
 export default function MapTileGrid() {
   const tileTypes: string[] = [
