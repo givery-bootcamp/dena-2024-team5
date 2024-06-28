@@ -1,4 +1,3 @@
-import { CommentPostButton } from "@/components/Buttons";
 import { CommentItem } from "@/components/CommentItem";
 import { PostDetail } from "@/components/PostDetail";
 import { aspidaClient } from "@/lib/aspidaClient";
@@ -20,9 +19,9 @@ export default async function Home({ params }: { params: { id: string } }) {
         jwtToken={jwtToken}
         imgPath="/img/dots/character/character_kishi_man_01_red_black.svg"
       />
-      <div className="border-b px-4" />
-      <CommentPostButton postId={postedItemsDetail.id} />
-      <div className="grid grid-cols-2">
+      {/* <div className="border-b px-4" /> */}
+      {/* <CommentPostButton postId={postedItemsDetail.id} /> */}
+      <div className="grid grid-cols-3">
         {comments.map((data) => (
           <CommentItem
             key={data.id}
