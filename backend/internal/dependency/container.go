@@ -51,8 +51,9 @@ func (di *DIContainer) UserGetMeController(ctx *gin.Context) {
 }
 
 func (di *DIContainer) PostNewController(ctx *gin.Context) {
-	repository := r.NewPostRepository(controller.DB(ctx))
-	usecase := u.NewPostNewUsecase(repository)
+	postRepository := r.NewPostRepository(controller.DB(ctx))
+	imageRepository := r.NewImageRepository(controller.S3Client(ctx))
+	usecase := u.NewPostNewUsecase(postRepository, imageRepository)
 	controller.PostNew(ctx, usecase)
 }
 

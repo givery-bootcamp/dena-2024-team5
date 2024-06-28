@@ -77,11 +77,12 @@ func (p *PostRepository) GetDetail(postID uint, includeCommentsAndLikeCount bool
 	return model.ConvertPostModelToEntity(&post), nil
 }
 
-func (p *PostRepository) PostNew(userID uint, title, body string) error {
+func (p *PostRepository) PostNew(userID uint, title, body, imageUrl string) error {
 	post := model.Post{
-		Title:  title,
-		Body:   body,
-		UserID: userID,
+		Title:    title,
+		Body:     body,
+		UserID:   userID,
+		ImageUrl: imageUrl,
 	}
 	result := p.Conn.Create(&post)
 	return result.Error
