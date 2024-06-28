@@ -1,5 +1,5 @@
-import { PostForm } from "@/components/PostForm";
 import { SignInSignOutButton } from "@/components/Buttons";
+import { PostForm } from "@/components/PostForm";
 import type { Session } from "next-auth";
 type PanelProps = {
   jwtToken: string;
