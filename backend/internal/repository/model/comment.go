@@ -20,6 +20,7 @@ func ConvertCommentModelToEntity(c *Comment) *entity.Comment {
 		ID:        c.ID,
 		Body:      c.Body,
 		UserID:    c.UserID,
+		UserType:  c.User.UserType,
 		PostID:    c.PostID,
 		CreatedAt: c.CreatedAt,
 		UpdatedAt: c.UpdatedAt,

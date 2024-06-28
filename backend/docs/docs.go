@@ -636,7 +636,8 @@ const docTemplate = `{
                 "id",
                 "post_id",
                 "updated_at",
-                "user_id"
+                "user_id",
+                "user_type"
             ],
             "properties": {
                 "body": {
@@ -658,6 +659,9 @@ const docTemplate = `{
                 },
                 "user_id": {
                     "type": "integer"
+                },
+                "user_type": {
+                    "$ref": "#/definitions/entity.UserType"
                 }
             }
         },
@@ -713,16 +717,31 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
+                "user_type",
                 "username"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
+                "user_type": {
+                    "$ref": "#/definitions/entity.UserType"
+                },
                 "username": {
                     "type": "string"
                 }
             }
+        },
+        "entity.UserType": {
+            "type": "string",
+            "enum": [
+                "normal",
+                "zombie"
+            ],
+            "x-enum-varnames": [
+                "NormalUser",
+                "ZombieUser"
+            ]
         }
     }
 }`
