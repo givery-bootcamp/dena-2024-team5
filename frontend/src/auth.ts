@@ -62,7 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             await loginFormSchema.parseAsync(credentials);
           const passwordHash = saltAndHash(password);
           const userInfo = await aspidaClient("").signin.post({
-            body: { username: username, password: passwordHash },
+            body: { username, password: passwordHash },
           });
           // set-cookieの値を読み取ってcookieにセットする
           // これにより次回以降のリクエストで認証情報が送信される
