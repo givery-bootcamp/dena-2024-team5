@@ -44,8 +44,8 @@ export default function GameTitle() {
   );
 
   return (
-    <div className="h-screen" ref={container}>
-      <div className="h-[200vh] p-20" id="show-title">
+    <div className="w-full overflow-y-hidden" ref={container}>
+      <div className=" p-20" id="show-title">
         <h1 className="flex justify-center text-8xl font-bold blink">
           <span id="title-1">ド</span>
           <span id="title-2">ッ</span>

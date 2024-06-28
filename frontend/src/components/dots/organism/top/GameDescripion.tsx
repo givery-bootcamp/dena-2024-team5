@@ -25,14 +25,15 @@ export default function GameDescription() {
           scrollTrigger: {
             trigger: container.current,
             start: "top center",
-            end: "bottom top",
+            end: "bottom center",
+            pinSpacing: false,
             // markers: true,
             scrub: true,
             pin: true,
           },
         })
         .to("#desc-1", {
-          x: vwToPx(-150),
+          x: vwToPx(-200),
           duration: 5,
         })
         .to(
@@ -47,7 +48,7 @@ export default function GameDescription() {
         .to(
           ".zombie-waiwai",
           {
-            x: vwToPx(200),
+            x: vwToPx(250),
             // stagger: 0.1,
           },
           "-=2",
@@ -84,7 +85,7 @@ export default function GameDescription() {
   );
 
   return (
-    <div ref={container} className="h-[100vw]">
+    <div ref={container} className="h-[300vh] ">
       <h2 className="text-8xl font-bold w-[24em] bg-sky-50" id="desc-1">
         2024年、人類はインプレゾンビの危機に瀕していた。
       </h2>

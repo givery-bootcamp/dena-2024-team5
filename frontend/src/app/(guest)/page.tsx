@@ -12,16 +12,15 @@ export default async function Home() {
     redirect("/dashboard");
   }
   return (
-    <main className="map-tile w-screen overflow-x-hidden">
+    <main className="map-tile w-screen overflow-x-hidden h-full">
       <KirakiraConsole text="ドットゾンビ" />
       <div id="not-walk" className="w-full grid place-content-center h-screen ">
         <TextBlink text="Scrollしてね..." />
       </div>
-
       <GameDescription />
-      {/* <KnockDownZombies /> */}
       <GameTitle />
       <SiginInSignUpCard />
+      {/* <Credits /> */}
     </main>
   );
 }
