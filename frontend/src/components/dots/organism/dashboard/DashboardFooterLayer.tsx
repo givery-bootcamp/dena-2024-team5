@@ -1,4 +1,4 @@
-import { SignInSignOutButton } from "@/components/Buttons";
+import { AudioButton, SignInSignOutButton } from "@/components/Buttons";
 import { PostForm } from "@/components/PostForm";
 import { Button } from "@/components/ui/button";
 import type { Session } from "next-auth";
@@ -21,7 +21,10 @@ export default function DashboardFooterLayer({
         <Button variant="nesPrimary" type="submit" form="post-form">
           投稿
         </Button>
-        <SignInSignOutButton session={session} />
+        <div className="grid">
+          <SignInSignOutButton session={session} />
+        </div>
+        <AudioButton />
       </div>
     </div>
   );

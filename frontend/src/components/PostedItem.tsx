@@ -1,16 +1,21 @@
+"use client";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import type { Entity_Post } from "../../api/@types/";
 import { LikeButton } from "./LikeButton";
-import { AvatarImage } from "./ui/avatar";
+import ImgWithWalkMotion from "./dots/atom/ImgWithWalkMotion";
 
 type Props = {
   postedItem: Entity_Post;
   jwtToken: string;
+  isMe: boolean;
 };
 
-export default async function PostedItem({ postedItem, jwtToken }: Props) {
+export default function PostedItem({ postedItem, jwtToken, isMe }: Props) {
+  const imgPath = isMe
+    ? "/img/dots/character/character_kishi_man_01_red_black.svg"
+    : "/img/dots/character/character_madoshi_01_purple.svg";
   return (
     <Card className="bg-transparent outline-none border-none shadow-none">
       <Link href={`posts/${postedItem.id}`} className="hover:no-underline">
@@ -26,10 +31,7 @@ export default async function PostedItem({ postedItem, jwtToken }: Props) {
           className="hover:no-underline transion"
         >
           <Avatar>
-            <AvatarImage
-              src="/img/dots/character/character_kishi_man_01_red_black.svg"
-              className="w-14 h-14"
-            />
+            <ImgWithWalkMotion imgPath={imgPath} />
           </Avatar>
         </Link>
         <div className="flex gap-4 items-center">
