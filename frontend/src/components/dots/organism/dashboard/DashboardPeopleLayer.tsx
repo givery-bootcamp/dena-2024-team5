@@ -24,24 +24,62 @@ export default function DashboardPeopleLayer({
       const boxes: HTMLElement[] = gsap.utils.toArray(".npc");
 
       for (const box of boxes) {
+        // a
+        gsap.set(box, {
+          x: (Math.random() - 0.5) * vwToPx(40),
+          y: (Math.random() - 0.5) * vhToPx(60),
+        });
         // 一定間隔でx軸方向への移動、y軸方向への移動、停止をランダムに繰り返す
         gsap
           .timeline({ repeat: -1, yoyo: true })
           // x軸方向への移動
           .to(box, {
-            x: (Math.random() - 0.5) * vhToPx(100),
-            duration: Math.random() * 10,
+            x: (Math.random() - 0.5) * vwToPx(80),
+            duration: Math.max(Math.random() * 10, 2),
             ease: "power1.inOut",
           })
           // y軸方向へ移動
           .to(box, {
-            y: (Math.random() - 0.5) * vwToPx(100),
-            duration: Math.random() * 10,
+            y: (Math.random() - 0.5) * vhToPx(80),
+            duration: Math.max(Math.random() * 10, 2),
             ease: "power1.inOut",
           })
           // 停止
           .to(box, {
-            duration: Math.random() * 10,
+            duration: Math.max(Math.random() * 10, 2),
+          })
+
+          // x軸方向への移動
+          .to(box, {
+            x: (Math.random() - 0.5) * vwToPx(80),
+            duration: Math.max(Math.random() * 10, 2),
+            ease: "power1.inOut",
+          })
+          // y軸方向へ移動
+          .to(box, {
+            y: (Math.random() - 0.5) * vhToPx(80),
+            duration: Math.max(Math.random() * 10, 2),
+            ease: "power1.inOut",
+          })
+          // 停止
+          .to(box, {
+            duration: Math.max(Math.random() * 10, 2),
+          })
+          // x軸方向への移動
+          .to(box, {
+            x: (Math.random() - 0.5) * vwToPx(80),
+            duration: Math.max(Math.random() * 10, 2),
+            ease: "power1.inOut",
+          })
+          // y軸方向へ移動
+          .to(box, {
+            y: (Math.random() - 0.5) * vhToPx(80),
+            duration: Math.max(Math.random() * 10, 2),
+            ease: "power1.inOut",
+          })
+          // 停止
+          .to(box, {
+            duration: Math.max(Math.random() * 10, 2),
           });
       }
     },
@@ -51,9 +89,9 @@ export default function DashboardPeopleLayer({
 
   return (
     <div className="flex-1 flex-col gap-4 container">
-      <div className="grid md:grid-cols-2 gap-4" ref={peopleContainer}>
+      <div className="relative" ref={peopleContainer}>
         {postedItems.map((data) => (
-          <div className="npc" key={data.id}>
+          <div className="npc absolute top-1/2 left-1/2" key={data.id}>
             <PostedItem
               postedItem={data}
               jwtToken={jwtToken}
