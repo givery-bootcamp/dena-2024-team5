@@ -36,13 +36,13 @@ export const CommentForm = ({ jwtToken, postId }: Props) => {
           body: {
             fieldType: "textarea",
             inputProps: {
-              placeholder: "なにか書いてくださいお願いしますほんとうにお願い",
+              placeholder: "あなたは正しい",
             },
           },
         }}
       >
         {/* TODO nesPrimaryに変える */}
-        <AutoFormSubmit className="w-full">投稿する</AutoFormSubmit>
+        <AutoFormSubmit className="w-full">応援する</AutoFormSubmit>
       </AutoForm>
     </div>
   );

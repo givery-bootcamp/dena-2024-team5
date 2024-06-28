@@ -10,11 +10,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Entity_Post } from "../../api/@types";
-import {
-  CommentPostButton,
-  PostEditButton,
-  PostEditCancelButton,
-} from "./Buttons";
+import { PostEditButton, PostEditCancelButton } from "./Buttons";
 import { LikeButton } from "./LikeButton";
 import { PostDeleteDialog } from "./deletePostDialog";
 import ImgWithJumpMotion from "./dots/atom/imgWithJumpMotion";
@@ -56,8 +52,8 @@ export const PostDetail = ({
               likeCount={postItem.like_count}
               jwtToken={jwtToken}
             />
-            <div className="min-w-40" />
-            <CommentPostButton postId={postItem.id} />
+            {/* <div className="min-w-40" /> */}
+            {/* <CommentPostButton postId={postItem.id} /> */}
           </div>
         </center>
         <div className="grid items-end">
