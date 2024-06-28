@@ -12,7 +12,7 @@ type Props = {
 
 export default async function PostedItem({ postedItem, jwtToken }: Props) {
   return (
-    <Card className="bg-transparent outline-none border-none">
+    <Card className="bg-transparent outline-none border-none shadow-none">
       <Link href={`posts/${postedItem.id}`} className="hover:no-underline">
         <CardHeader>
           <CardTitle className="nes-balloon from-left">
