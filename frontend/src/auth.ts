@@ -1,6 +1,7 @@
 import { aspidaClient } from "@/lib/aspidaClient";
 import { loginFormSchema } from "@/lib/zod";
-import NextAuth, { CredentialsSignin } from "next-auth";
+import NextAuth, { CredentialsSignin, type DefaultSession } from "next-auth";
+import "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
@@ -22,8 +23,31 @@ interface CookieObject {
   options: CookieOptions;
 }
 
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      username: string;
+    } & DefaultSession["user"];
+  }
+  interface User {
+    username: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    userId: string;
+    username: string;
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
+  debug: process.env.NODE_ENV === "development",
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       credentials: {
@@ -42,7 +66,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // これにより次回以降のリクエストで認証情報が送信される
           const cookie = userInfo.headers["set-cookie"];
           const cookieRegex = /([^=;\s]+)=([^;]*)/g;
-          let match: RegExpExecArray | null;
           const cookieDict: { [key: string]: string } = {};
 
           while (true) {
@@ -69,12 +92,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           cookies().set(cookieObj);
 
           if (userInfo) {
-            user = userInfo.body;
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            user = userInfo.body as { id: any; username: string };
+            user.id = user.id.toString();
           }
           if (!user) {
             throw new Error("No user found");
           }
-          return { id: user.id.toString(), username: user.username };
+          return user;
         } catch (error) {
           if (error instanceof ZodError) {
             return null;
@@ -86,5 +111,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   pages: {
     signIn: "/login",
+  },
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.userId = user.id ?? "";
+        token.username = user.username;
+      }
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user.id = token.userId;
+      session.user.username = token.username;
+      return session;
+    },
   },
 });
