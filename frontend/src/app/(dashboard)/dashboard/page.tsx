@@ -14,7 +14,6 @@ export default async function Home() {
   if (!session) {
     redirect("/");
   }
-  console.log(session);
   try {
     const postedItems = await aspidaClient(jwtToken).posts.$get();
     return (
@@ -23,7 +22,11 @@ export default async function Home() {
           <DashboardBackgroundLayer />
         </div>
         <div className="absolute inset-0 z-20 ">
-          <DashboardPeopleLayer postedItems={postedItems} jwtToken={jwtToken} />
+          <DashboardPeopleLayer
+            postedItems={postedItems}
+            session={session}
+            jwtToken={jwtToken}
+          />
         </div>
         <div className="fixed bottom-0 left-0 w-full z-30 bg-red-300">
           <DashboardFooterLayer jwtToken={jwtToken} session={session} />
