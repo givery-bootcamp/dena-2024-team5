@@ -9,9 +9,7 @@ type Props = {
 
 export const deletePost = async ({ postId, jwtToken }: Props) => {
   try {
-    const res = await aspidaClient(jwtToken)
-      .posts._postID_number(postId)
-      .delete();
+    const res = await aspidaClient(jwtToken).posts._postID(postId).delete();
     if (res.status !== 204) {
       throw new Error("削除に失敗しました...");
     }
