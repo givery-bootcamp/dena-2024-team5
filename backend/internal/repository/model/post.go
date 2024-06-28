@@ -10,9 +10,9 @@ type Post struct {
 	gorm.Model
 	Title    string
 	Body     string
+	ImageUrl string
 	UserID   uint
 	User     User
-	ImageUrl string
 	Comments []Comment
 }
 
@@ -25,9 +25,10 @@ func ConvertPostModelToEntity(p *Post) *entity.Post {
 		ID:        p.ID,
 		Title:     p.Title,
 		Body:      p.Body,
+		ImageUrl:  p.ImageUrl,
 		UserID:    p.UserID,
-		Comments:  []entity.Comment{},
 		Username:  p.User.Name,
+		Comments:  []entity.Comment{},
 		CreatedAt: p.CreatedAt,
 		UpdatedAt: p.UpdatedAt,
 	}
@@ -49,8 +50,8 @@ func ConvertPostWithModelToEntity(p *PostWith) *entity.Post {
 		Body:      p.Body,
 		ImageUrl:  p.ImageUrl,
 		UserID:    p.UserID,
-		Comments:  comments,
 		Username:  p.User.Name,
+		Comments:  comments,
 		LikeCount: p.LikeCount,
 		CreatedAt: p.CreatedAt,
 		UpdatedAt: p.UpdatedAt,
