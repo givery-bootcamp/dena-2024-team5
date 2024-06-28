@@ -76,7 +76,7 @@ export const CommentPostButton = ({ postId }: { postId: number }) => {
     <Button variant="nesPrimary" asChild>
       <Link href={href}>
         <Send className="mr-2 h-4 w-4" />
-        コメントする
+        ゆうしゃを応援する
       </Link>
     </Button>
   );
