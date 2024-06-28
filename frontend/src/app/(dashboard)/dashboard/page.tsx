@@ -18,7 +18,7 @@ export default async function Home() {
   try {
     const postedItems = await aspidaClient(jwtToken).posts.$get();
     return (
-      <div className="relative   h-[200vh] w-screen overflow-x-hidden">
+      <div className="relative   h-[100vh] w-screen overflow-x-hidden overflow-y-hidden">
         <div className="absolute inset-0 bg-gray-200 z-10">
           <DashboardBackgroundLayer />
         </div>

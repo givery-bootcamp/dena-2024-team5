@@ -9,20 +9,8 @@ export default function MapTileGrid() {
     "ki",
     "hachiue",
     "shiro",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
-    "default",
+    // defaultを大量に用意
+    ...Array.from({ length: 100 }, () => "default"),
   ];
 
   const generateRandomTiles = (count: number): string[] => {
@@ -31,8 +19,8 @@ export default function MapTileGrid() {
       return tileTypes[randomIndex];
     });
   };
-  const tiles = generateRandomTiles(1000).map((type) => (
-    <MapTile key={type} mapType={type} />
+  const tiles = generateRandomTiles(1000).map((type, index) => (
+    <MapTile key={`${type}_${index}`} mapType={type} />
   ));
 
   return (
@@ -41,7 +29,7 @@ export default function MapTileGrid() {
         {`
           .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 4em);
+            grid-template-columns: repeat(auto-fill, 3em);
           }
         `}
       </style>
