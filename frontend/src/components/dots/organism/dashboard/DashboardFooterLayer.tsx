@@ -21,10 +21,8 @@ export default function DashboardFooterLayer({
         <Button variant="nesPrimary" type="submit" form="post-form">
           投稿
         </Button>
-        <div className="grid">
-          <SignInSignOutButton session={session} />
-        </div>
         <AudioButton />
+        <SignInSignOutButton session={session} />
       </div>
     </div>
   );

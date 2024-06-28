@@ -143,5 +143,9 @@ export const AudioButton = () => {
   // const audio = new Audio("/audio/maou_bgm_orchestra20.mp3");
   const [isAudioOn] = useAtom(isAudioOnAtom);
 
-  return <Button onClick={() => setIsAudioOn(!isAudioOn)}>BGM on/off</Button>;
+  return (
+    <Button onClick={() => setIsAudioOn(!isAudioOn)} variant="nesNormal">
+      BGM on/off
+    </Button>
+  );
 };
