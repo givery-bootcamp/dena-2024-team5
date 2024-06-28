@@ -28,7 +28,7 @@ export default async function Home() {
             jwtToken={jwtToken}
           />
         </div>
-        <div className="fixed bottom-0 left-0 w-full z-30">
+        <div className="fixed bottom-0 left-0 w-full z-30 bg-transparent">
           <DashboardFooterLayer jwtToken={jwtToken} session={session} />
         </div>
       </div>
