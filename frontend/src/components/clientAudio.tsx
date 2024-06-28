@@ -6,7 +6,7 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 export const ClientAudio = ({ src }: { src: string }) => {
   const [isAudioOn] = useAtom(isAudioOnAtom);
-  return <ReactPlayer url={src} playing={isAudioOn} />;
+  return <ReactPlayer url={src} playing={isAudioOn} volume={0.1} />;
 };
 
 export function audioOn() {
