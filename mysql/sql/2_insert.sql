@@ -1,8 +1,8 @@
 INSERT INTO hello_worlds (lang, message) VALUES ('en', 'Hello World');
 INSERT INTO hello_worlds (lang, message) VALUES ('ja', 'こんにちは 世界');
 
-INSERT INTO users (name, password) VALUES ('taro', 'ed07535c8da6cd09a852bb4efcc7e818db829a387b47a505b586a4b6926473d6');
-INSERT INTO users (name, password) VALUES ('hanako', 'c44d3aceb5c0859e1d6358e74668fe23990d298be5c70c3cdee875a754f58262');
+INSERT INTO users (name, password) VALUES ('taro', 'efc3f7adeb1e349982d436f60af403240d2462968a2dbcf79af393ba8c976961');
+INSERT INTO users (name, password) VALUES ('hanako', '46930b8ad838366669fb97db1e36f67ec637c03b89a887dde11ceb41a7c0cb6b');
 INSERT INTO users (name, password, user_type)
 VALUES
     ('zombie_user1', 'password', 'zombie'),
