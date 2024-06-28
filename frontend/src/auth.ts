@@ -58,9 +58,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         try {
           let user = null;
-          const { username, password } = await loginFormSchema.parseAsync(
-            credentials
-          );
+          const { username, password } =
+            await loginFormSchema.parseAsync(credentials);
           const passwordHash = saltAndHash(password);
           const userInfo = await aspidaClient("").signin.post({
             body: { username: username, password: passwordHash },
