@@ -13,7 +13,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { isCommentEditModeAtom, isEditModeAtom } from "@/lib/atom";
+import {
+  isAudioOnAtom,
+  isCommentEditModeAtom,
+  isEditModeAtom,
+} from "@/lib/atom";
 import { useAtom } from "jotai";
 import { Send } from "lucide-react";
 import Image from "next/image";
@@ -132,4 +136,12 @@ export const CommentEditCancelButton = ({
       キャンセル
     </Button>
   );
+};
+
+export const AudioButton = () => {
+  const [_, setIsAudioOn] = useAtom(isAudioOnAtom);
+  // const audio = new Audio("/audio/maou_bgm_orchestra20.mp3");
+  const [isAudioOn] = useAtom(isAudioOnAtom);
+
+  return <Button onClick={() => setIsAudioOn(!isAudioOn)}>BGM on/off</Button>;
 };

@@ -1,4 +1,5 @@
 import { NotificationStreamer } from "@/components/NotificationStreamer";
+import { ClientAudio } from "@/components/clientAudio";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <div className="flex-1 relative">{children}</div>
         </main>
       </div>
+      <ClientAudio src="/audio/maou_bgm_orchestra20.mp3" />
       {/* </div> */}
     </>
   );
