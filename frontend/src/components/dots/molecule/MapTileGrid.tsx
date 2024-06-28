@@ -1,5 +1,5 @@
-// components/TileGrid.tsx
 import MapTile from "../atom/MapTile";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MapTileGrid() {
   const tileTypes: string[] = [
@@ -9,18 +9,21 @@ export default function MapTileGrid() {
     "ki",
     "hachiue",
     "shiro",
-    // defaultを大量に用意
+    // defaultを大量に用意して過疎化する
     ...Array.from({ length: 100 }, () => "default"),
   ];
 
-  const generateRandomTiles = (count: number): string[] => {
+  const generateRandomTiles = (
+    count: number,
+  ): { id: string; type: string }[] => {
     return Array.from({ length: count }, () => {
       const randomIndex = Math.floor(Math.random() * tileTypes.length);
-      return tileTypes[randomIndex];
+      return { id: uuidv4(), type: tileTypes[randomIndex] };
     });
   };
-  const tiles = generateRandomTiles(1000).map((type, index) => (
-    <MapTile key={`${type}_${index}`} mapType={type} />
+
+  const tiles = generateRandomTiles(1000).map(({ id, type }) => (
+    <MapTile key={id} mapType={type} />
   ));
 
   return (
