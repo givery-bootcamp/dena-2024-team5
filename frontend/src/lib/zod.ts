@@ -2,16 +2,18 @@ import { z } from "zod";
 
 export const loginFormSchema = z.object({
   username: z
-    .string({
-      required_error: "ユーザーネームは必須です。",
+    .string()
+    .regex(/^[a-zA-Z0-9]*$/, {
+      message: "半角英数字のみを使用してください。",
     })
     .describe("ユーザーネーム"),
   password: z
-    .string({
-      required_error: "パスワードは必須です。",
-    })
+    .string()
     .min(8, {
-      message: "パスワードは8文字以上である必要があります。",
+      message: "ふっかつのじゅもんは8文字以上である必要があります。",
+    })
+    .regex(/^[ -~]*$/, {
+      message: "ふっかつのじゅもんは半角英数字と記号のみを使用してください。",
     })
     .describe("パスワード"),
 });
