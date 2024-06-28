@@ -21,7 +21,7 @@ export default async function Home({ params }: { params: { id: string } }) {
   const comments: Entity_Comment[] = postedItemsDetail.comments;
   const meId = await (await aspidaClient(jwtToken).users.me.$get()).id;
   return (
-    <div className="flex-1 grid gap-4">
+    <div className="flex-1 grid gap-4 container">
       <PostDetail
         postItem={postedItemsDetail}
         jwtToken={jwtToken}
@@ -39,8 +39,7 @@ export default async function Home({ params }: { params: { id: string } }) {
           />
         ))}
       </div>
-      <div className="fixed bottom-0 left-0 w-full z-30 bg-red-300">
-        {/* <DashboardFooterLayer jwtToken={jwtToken} session={session} /> */}
+      <div className="fixed bottom-0 left-0 w-full z-30 bg-transparent">
         <DetailFooterLayer
           jwtToken={jwtToken}
           session={session}

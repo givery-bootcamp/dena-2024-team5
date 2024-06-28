@@ -41,7 +41,6 @@ export const PostDetail = ({
   }
   return (
     <div className="flex-1 grid gap-4">
-      {/* <h1 className="text-4xl font-bold">{postItem.title}</h1> */}
       <div>
         <center className="flex justify-center">
           <ImgWithJumpMotion imgPath={imgPath} />
@@ -52,15 +51,12 @@ export const PostDetail = ({
               likeCount={postItem.like_count}
               jwtToken={jwtToken}
             />
-            {/* <div className="min-w-40" /> */}
-            {/* <CommentPostButton postId={postItem.id} /> */}
           </div>
         </center>
         <div className="grid items-end">
           <div className="nes-container is-dark">{postItem.title}</div>
         </div>
       </div>
-      {/* <div className="border-b px-4" /> */}
       <div className="whitespace-break-spaces min-h-32 nes-container is-dark">
         {postItem.body}
         <div className="absolute bottom-0 right-0 flex">
