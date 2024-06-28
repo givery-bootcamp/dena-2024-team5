@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
 
@@ -21,6 +21,7 @@ export const PostForm = ({ jwtToken }: Props) => {
   const router = useRouter();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -28,11 +29,13 @@ export const PostForm = ({ jwtToken }: Props) => {
     defaultValues: {
       title: "",
       body: "",
+      file: undefined,
     },
   });
   const onSubmit = async (formdata: onSubmitType) => {
     try {
       await createPost({ formdata, jwtToken });
+      reset();
       toast({
         description: "投稿に成功しました!",
       });
@@ -47,20 +50,55 @@ export const PostForm = ({ jwtToken }: Props) => {
   };
 
   return (
-    <form className="flex-1 grid gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <span className="text-sm">タイトル</span>
-      <Input {...register("title")} className="nes-input" />
-      {errors.title && (
-        <p className="text-red-500 text-sm">{errors.title.message}</p>
-      )}
-      <span className="text-sm">内容</span>
-      <Textarea {...register("body")} className="nes-textarea" />
-      {errors.body && (
-        <p className="text-red-500 text-sm">{errors.body.message}</p>
-      )}
-      <Button type="submit" variant="nesPrimary">
-        投稿する
-      </Button>
+    <form
+      className="flex-1 grid gap-4 h-36"
+      id="post-form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Tabs defaultValue="title" className="flex-1">
+        <TabsList className="dark">
+          <TabsTrigger value="title">タイトル</TabsTrigger>
+          <TabsTrigger value="body">内容</TabsTrigger>
+          <TabsTrigger value="attachment">しるし</TabsTrigger>
+        </TabsList>
+        <TabsContent value="title">
+          <span className="text-sm">
+            タイトル
+            {errors.title && (
+              <span className="text-red-500 text-sm">
+                *{errors.title.message}*
+              </span>
+            )}
+          </span>
+          <Input {...register("title")} className="nes-input is-dark" />
+        </TabsContent>
+        <TabsContent value="body">
+          <span className="text-sm">
+            内容
+            {errors.body && (
+              <span className="text-red-500 text-sm">
+                *{errors.body.message}*
+              </span>
+            )}
+          </span>
+          <Textarea {...register("body")} className="nes-textarea is-dark" />
+        </TabsContent>
+        <TabsContent value="attachment">
+          <span className="text-sm">
+            ファイル
+            {errors.file && (
+              <span className="text-red-500 text-sm">
+                *{errors.file.message}*
+              </span>
+            )}
+          </span>
+          <Input
+            {...register("file")}
+            className="nes-input is-dark"
+            type="file"
+          />
+        </TabsContent>
+      </Tabs>
     </form>
   );
 };
