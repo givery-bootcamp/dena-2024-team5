@@ -22,14 +22,16 @@ export default async function Home({ params }: { params: { id: string } }) {
       />
       <div className="border-b px-4" />
       <CommentPostButton postId={postedItemsDetail.id} />
-      {comments.map((data) => (
-        <CommentItem
-          key={data.id}
-          comment={data}
-          jwtToken={jwtToken}
-          meId={meId}
-        />
-      ))}
+      <div className="grid grid-cols-2">
+        {comments.map((data) => (
+          <CommentItem
+            key={data.id}
+            comment={data}
+            jwtToken={jwtToken}
+            meId={meId}
+          />
+        ))}
+      </div>
     </div>
   );
 }
