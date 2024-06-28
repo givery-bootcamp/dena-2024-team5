@@ -1,8 +1,8 @@
 "use client";
 import { SigninDialog } from "@/components/SigninDialog";
-import Link from "next/link";
+import { SignupDialog } from "@/components/SignupDialog";
 
-export default function SiginInSignUpCard() {
+export const SiginInSignUpCard = () => {
   return (
     <div className="p-12 pt-0 ">
       <div className="h-full nes-container is-dark with-title is-centered">
@@ -11,17 +11,11 @@ export default function SiginInSignUpCard() {
         </div>
         <div className="grid grid-cols-2 gap-4 ">
           <SigninDialog />
-          <Link
-            href="signup"
-            type="button"
-            className="nes-btn is-warning text-xl"
-          >
-            サインアップ
-          </Link>
+          <SignupDialog />
         </div>
       </div>
       {/* スクロール調整用↓ */}
       <div className="h-40" />
     </div>
   );
-}
+};
