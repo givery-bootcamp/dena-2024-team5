@@ -15,7 +15,7 @@ type Props = {
 export const editPost = async ({ postId, jwtToken, editData }: Props) => {
   try {
     const res = await aspidaClient(jwtToken)
-      .posts._postID_number(postId)
+      .posts._postID(postId)
       .put({ body: editData });
     if (res.status !== 204) {
       throw new Error("編集に失敗しました...");
