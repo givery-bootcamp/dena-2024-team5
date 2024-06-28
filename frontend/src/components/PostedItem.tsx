@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { dateFormatString2DateJa } from "@/utils/date";
+import { Avatar } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import type { Entity_Post } from "../../api/@types/";
 import { LikeButton } from "./LikeButton";
+import { AvatarImage } from "./ui/avatar";
 
 type Props = {
   postedItem: Entity_Post;
@@ -12,19 +12,27 @@ type Props = {
 
 export default async function PostedItem({ postedItem, jwtToken }: Props) {
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>{postedItem.title}</CardTitle>
-      </CardHeader>
-      <CardFooter className="flex justify-between">
-        <p className="text-sm">{postedItem.username}</p>
-        <p className="text-sm">
-          {dateFormatString2DateJa(postedItem.created_at)}
-        </p>
+    <Card className="bg-transparent outline-none border-none shadow-none">
+      <Link href={`posts/${postedItem.id}`} className="hover:no-underline">
+        <CardHeader>
+          <CardTitle className="nes-balloon from-left">
+            {postedItem.title}
+          </CardTitle>
+        </CardHeader>
+      </Link>
+      <CardFooter className="flex justify-start gap-x-8">
+        <Link
+          href={`posts/${postedItem.id}`}
+          className="hover:no-underline transion"
+        >
+          <Avatar>
+            <AvatarImage
+              src="/img/dots/character/character_kishi_man_01_red_black.svg"
+              className="w-14 h-14"
+            />
+          </Avatar>
+        </Link>
         <div className="flex gap-4 items-center">
-          <Button variant="nesPrimary" asChild>
-            <Link href={`posts/${postedItem.id}`}>詳細</Link>
-          </Button>
           <LikeButton
             postId={postedItem.id}
             likeCount={postedItem.like_count}

@@ -46,7 +46,7 @@ export const LikeButton = ({
     >
       <div>
         <i className="ml-[2px] nes-icon heart items-center" />
-        <span>{numLikes}</span>
+        <span className="font-extrabold">{numLikes}</span>
       </div>
     </Button>
   );
