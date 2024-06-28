@@ -45,7 +45,7 @@ func (p *UserRepository) Create(username, password string) (*entity.User, error)
 		return nil, errors.New("user with the same name already exists")
 	}
 
-	newUser := model.User{Name: username, Password: password}
+	newUser := model.User{Name: username, Password: password, UserType: entity.NormalUser}
 	if err := p.Conn.Create(&newUser).Error; err != nil {
 		return nil, err
 	}
