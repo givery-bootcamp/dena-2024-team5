@@ -18,17 +18,12 @@ export default function RootLayout({
   return (
     <>
       <NotificationStreamer />
-      {/* <div className="grid w-full container max-w-6xl items-start gap-8 my-4 mx-auto md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]"> */}
-      {/* <div className="w-full">
-          <LeftMenu />
-        </div> */}
       <div className="w-full">
         <main className="flex min-h-screen map-tile">
           <div className="flex-1 relative">{children}</div>
         </main>
       </div>
       <ClientAudio src="/audio/maou_bgm_orchestra20.mp3" />
-      {/* </div> */}
     </>
   );
 }
