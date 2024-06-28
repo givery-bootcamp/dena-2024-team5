@@ -5,6 +5,7 @@ import "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
+import { saltAndHash } from "./utils/encrypt";
 
 class CustomError extends CredentialsSignin {
   code = "custom_error";
@@ -59,8 +60,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           let user = null;
           const { username, password } =
             await loginFormSchema.parseAsync(credentials);
+          const passwordHash = saltAndHash(password);
           const userInfo = await aspidaClient("").signin.post({
-            body: { username, password },
+            body: { username, password: passwordHash },
           });
           // set-cookieの値を読み取ってcookieにセットする
           // これにより次回以降のリクエストで認証情報が送信される
