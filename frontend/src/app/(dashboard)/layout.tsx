@@ -1,11 +1,8 @@
-import { AudioButton } from "@/components/Buttons";
 import Header from "@/components/Header";
 import { NotificationStreamer } from "@/components/NotificationStreamer";
-import {audioOn, ClientAudio} from "@/components/clientAudio";
+import { ClientAudio } from "@/components/clientAudio";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { useAtom } from "jotai";
-import { isAudioOnAtom } from "@/lib/atom";
 
 const inter = Inter({ subsets: ["latin"] });
 

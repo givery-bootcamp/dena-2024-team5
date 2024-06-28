@@ -13,9 +13,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { isCommentEditModeAtom, isEditModeAtom, isAudioOnAtom } from "@/lib/atom";
+import {
+  isAudioOnAtom,
+  isCommentEditModeAtom,
+  isEditModeAtom,
+} from "@/lib/atom";
 import { useAtom } from "jotai";
-import { Icon, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import Image from "next/image";
 
 type Props = {
@@ -139,9 +143,5 @@ export const AudioButton = () => {
   // const audio = new Audio("/audio/maou_bgm_orchestra20.mp3");
   const [isAudioOn] = useAtom(isAudioOnAtom);
 
-  return (
-    <Button onClick={()=>setIsAudioOn(!isAudioOn)}>
-      BGM on/off
-    </Button>
-  )
-}
+  return <Button onClick={() => setIsAudioOn(!isAudioOn)}>BGM on/off</Button>;
+};
