@@ -10,14 +10,37 @@ import { loginFormSchema } from "@/lib/zod";
 import { serversideSignIn } from "@/utils/signIn";
 import Link from "next/link";
 
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { Flip } from "gsap/Flip";
+import FlipContainer from "./dots/atom/FlipContainer";
+import FlipBox from "./dots/atom/FlipBox";
+gsap.registerPlugin(Flip);
+
 export function LoginForm() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const state = Flip.getState(".box");
+    Flip.from(state, {
+      duration: 3,
+      absolute: true,
+    });
+  }, []);
   return (
     <Card className="w-full max-w-md border-0 shadow-none">
       <CardHeader>
         <CardTitle className="text-4xl text-center">Login</CardTitle>
-        <CardDescription>
-          ユーザーネームとパスワードを入力してください
-        </CardDescription>
+        <CardDescription>ふっかつのじゅもんを いれてください</CardDescription>
+        <FlipContainer>
+          <FlipBox className="red">Box A</FlipBox>
+          <FlipBox className="red">Box B</FlipBox>
+          <style jsx>{`
+        .red {
+          background-color: lightcoral;
+        }
+      `}</style>
+        </FlipContainer>
       </CardHeader>
       <AutoForm
         formSchema={loginFormSchema}

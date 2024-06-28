@@ -32,7 +32,7 @@ export default function GameDescription() {
           },
         })
         .to("#desc-1", {
-          x: vwToPx(-150),
+          x: vwToPx(-200),
           duration: 5,
         })
         .to(
