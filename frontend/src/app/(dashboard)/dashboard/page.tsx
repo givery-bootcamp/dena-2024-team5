@@ -17,11 +17,11 @@ export default async function Home() {
   try {
     const postedItems = await aspidaClient(jwtToken).posts.$get();
     return (
-      <div className="relative   h-[100vh] w-screen overflow-x-hidden overflow-y-hidden">
+      <div className="relative   h-screen w-screen overflow-x-hidden overflow-y-hidden">
         <div className="absolute inset-0 bg-gray-200 z-10">
           <DashboardBackgroundLayer />
         </div>
-        <div className="absolute inset-0 z-20 ">
+        <div className="absolute inset-0 z-20">
           <DashboardPeopleLayer
             postedItems={postedItems}
             session={session}
