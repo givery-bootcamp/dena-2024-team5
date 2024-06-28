@@ -13,13 +13,9 @@ type Props = {
 };
 
 export const createPost = async ({ buffer, formdata, jwtToken }: Props) => {
-  console.log("createPost");
   // arraybuffer to File
   // TODO: typeは後で特定させる
-  const blob = new Blob([buffer], { type: "image/png" });
-  // blob to file
-  const file = new File([blob], "image.png", { type: "image/png" });
-  console.log("size", file.size);
+  const file = new File([new Uint8Array(buffer)], "image.png", { type: "image/png" });
   try {
     const res = await aspidaClient(jwtToken).posts.post({
       body: {
