@@ -82,6 +82,8 @@ definitions:
         type: string
       user_id:
         type: integer
+      user_type:
+        $ref: '#/definitions/entity.UserType'
     required:
     - body
     - created_at
@@ -89,6 +91,7 @@ definitions:
     - post_id
     - updated_at
     - user_id
+    - user_type
     type: object
   entity.Post:
     properties:
@@ -129,12 +132,23 @@ definitions:
     properties:
       id:
         type: integer
+      user_type:
+        $ref: '#/definitions/entity.UserType'
       username:
         type: string
     required:
     - id
+    - user_type
     - username
     type: object
+  entity.UserType:
+    enum:
+    - normal
+    - zombie
+    type: string
+    x-enum-varnames:
+    - NormalUser
+    - ZombieUser
 info:
   contact: {}
   description: このswaggerはweb application演習5班のAPI仕様書です。
