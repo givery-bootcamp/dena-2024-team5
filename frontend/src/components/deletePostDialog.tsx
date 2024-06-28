@@ -2,7 +2,6 @@
 
 import { deletePost } from "@/utils/deletePost";
 import { Trash } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import {
@@ -33,13 +32,8 @@ export const PostDeleteDialog = ({
       <div className="grid items-end">
         <DialogTrigger asChild>
           <Button variant="nesError">
-            <Image
-              src="/img/dots/item/kokubankeshi_01.svg"
-              alt="image"
-              width="90"
-              height="30"
-            />
-            削除
+            <Trash className="mr-2 h-4 w-4" />
+            削除する
           </Button>
         </DialogTrigger>
       </div>

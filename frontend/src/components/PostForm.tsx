@@ -56,10 +56,25 @@ export const PostForm = ({ jwtToken }: Props) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Tabs defaultValue="title" className="flex-1">
-        <TabsList className="dark">
-          <TabsTrigger value="title">タイトル</TabsTrigger>
-          <TabsTrigger value="body">内容</TabsTrigger>
-          <TabsTrigger value="attachment">しるし</TabsTrigger>
+        <TabsList className="dark bg-[#212528]">
+          <TabsTrigger
+            value="title"
+            className="data-[state=active]:bg-[#8c959b]"
+          >
+            タイトル
+          </TabsTrigger>
+          <TabsTrigger
+            value="body"
+            className="data-[state=active]:bg-[#8c959b]"
+          >
+            内容
+          </TabsTrigger>
+          <TabsTrigger
+            value="attachment"
+            className="data-[state=active]:bg-[#8c959b]"
+          >
+            しるし
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="title">
           <span className="text-sm">
@@ -81,7 +96,10 @@ export const PostForm = ({ jwtToken }: Props) => {
               </span>
             )}
           </span>
-          <Textarea {...register("body")} className="nes-textarea is-dark" />
+          <Textarea
+            {...register("body")}
+            className="nes-textarea is-dark resize-none"
+          />
         </TabsContent>
         <TabsContent value="attachment">
           <span className="text-sm">

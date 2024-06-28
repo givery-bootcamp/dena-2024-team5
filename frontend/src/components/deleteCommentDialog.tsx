@@ -2,7 +2,6 @@
 
 import { deleteComment } from "@/utils/deleteComment";
 import { Trash } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import {
@@ -31,15 +30,9 @@ export const CommentDeleteDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {/* <Button variant="nesError"> */}
-        <Image
-          src="/img/dots/item/kokubankeshi_01.svg"
-          alt="image"
-          width="30"
-          height="10"
-        />
-        {/* 削除 */}
-        {/* </Button> */}
+        <Button size="icon" variant="nesError">
+          <Trash />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

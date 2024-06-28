@@ -46,18 +46,6 @@ export function CommentItem({
       jwtToken={jwtToken}
       imgPath={userId2ImagePath(comment.user_id, meId)}
     />
-    // <div className="flex justify-center">
-    // <ImgWithLeft2RightMotion
-    //   imgPath={userId2ImagePath(comment.user_id, meId)}
-    // />
-    //   <div className="nes-balloon from-left ">
-    //     {comment.body}
-    //     <div className="absolute bottom-0 right-0 flex">
-    //       <CommentEditButton commentId={comment.id} />
-    //       <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 

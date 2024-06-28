@@ -19,8 +19,7 @@ import {
   isEditModeAtom,
 } from "@/lib/atom";
 import { useAtom } from "jotai";
-import { Send } from "lucide-react";
-import Image from "next/image";
+import { Pen, Send } from "lucide-react";
 
 type Props = {
   session: Session | null;
@@ -90,14 +89,8 @@ export const PostEditButton = () => {
   const [_, setIsEditMode] = useAtom(isEditModeAtom);
   return (
     <Button onClick={() => setIsEditMode(true)} variant="nesPrimary">
-      <Image
-        src="/img/dots/item/chalk_white.svg"
-        alt="edit"
-        width="15"
-        height="15"
-        className="rotate-45"
-      />
-      <p>編集</p>
+      <Pen className="mr-2 h-4 w-4" />
+      編集する
     </Button>
   );
 };
@@ -114,17 +107,9 @@ export const PostEditCancelButton = () => {
 export const CommentEditButton = ({ commentId }: { commentId: number }) => {
   const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
-    // <Button onClick={() => setIsEditMode(true)}>
-    <Image
-      src="/img/dots/item/chalk_white.svg"
-      alt="edit"
-      width="10"
-      height="10"
-      className="rotate-45"
-      onClick={() => setIsEditMode(true)}
-    />
-    // {/* <Pen className="mr-2 h-4 w-4" /> */}
-    // </Button>
+    <Button variant="nesNormal" size="icon" onClick={() => setIsEditMode(true)}>
+      <Pen />
+    </Button>
   );
 };
 export const CommentEditCancelButton = ({

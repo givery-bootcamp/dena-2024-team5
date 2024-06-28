@@ -34,12 +34,9 @@ export default function RandomwalkCharacterWithComment({
   return (
     <div className="flex" ref={boxRef}>
       <Image src={imgPath} alt="character" width={100} height={100} />
-      <div className="nes-balloon from-left ">
+      <div className="nes-balloon from-left grid grid-cols-2 gap-2">
         {comment.body}
-        <div className="absolute bottom-0 right-0 flex">
-          {/* <p className="text-sm">
-            {dateFormatString2DateJa(comment.created_at)}
-          </p> */}
+        <div className="grid grid-cols-2 gap-x-2 justify-end">
           <CommentEditButton commentId={comment.id} />
           <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
         </div>
