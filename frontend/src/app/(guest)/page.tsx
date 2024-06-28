@@ -20,6 +20,7 @@ export default async function Home() {
       <GameDescription />
       <GameTitle />
       <SiginInSignUpCard />
+      音楽：魔王魂
       {/* <Credits /> */}
     </main>
   );
