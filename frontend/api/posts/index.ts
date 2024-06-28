@@ -13,7 +13,7 @@ export type Methods = {
   /** サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する */
   post: {
     status: 204
-    reqFormat: URLSearchParams
+    reqFormat: FormData
 
     reqBody: {
       body: string

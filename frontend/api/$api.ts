@@ -137,12 +137,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
        * サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
        */
       post: (option: { body: Methods_1kz9onh['post']['reqBody'], config?: T | undefined }) =>
-        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option, 'URLSearchParams').send(),
+        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option, 'FormData').send(),
       /**
        * サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
        */
       $post: (option: { body: Methods_1kz9onh['post']['reqBody'], config?: T | undefined }) =>
-        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option, 'URLSearchParams').send().then(r => r.body),
+        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option, 'FormData').send().then(r => r.body),
       $path: () => `${prefix}${PATH1}`,
     },
     signin: {

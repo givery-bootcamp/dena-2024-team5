@@ -33,7 +33,9 @@ export const PostForm = ({ jwtToken }: Props) => {
   });
   const onSubmit = async (formdata: onSubmitType) => {
     const arrayBuffer = await formdata.image?.item(0)?.arrayBuffer()
+    console.log({arrayBuffer})
     const buffer = new Uint8Array(arrayBuffer ?? new ArrayBuffer(0));
+    console.log({buffer})
     try {
       await createPost({ formdata: {body: formdata.body, title: formdata.title}, buffer, jwtToken });
       toast({

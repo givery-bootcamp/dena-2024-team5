@@ -56,7 +56,9 @@ func PostNew(ctx *gin.Context, usecase *usecase.PostNewUsecase) {
 		fileName = req.Image.Filename
 		file, err = req.Image.Open()
 		contentType = req.Image.Header.Get("Content-Type")
+		fmt.Println("fileName: ", fileName)
 		fmt.Println("image size: ", req.Image.Size)
+		fmt.Println("contentType: ", contentType)
 		if err != nil {
 			log.Printf("failed to open file: %v", err)
 			handleError(ctx, http.StatusBadRequest, fmt.Errorf("failed to open file: %w", err))

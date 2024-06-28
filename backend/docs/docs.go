@@ -180,7 +180,7 @@ const docTemplate = `{
             "post": {
                 "description": "サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "tags": [
                     "posts"

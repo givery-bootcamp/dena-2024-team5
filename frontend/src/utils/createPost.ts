@@ -13,23 +13,20 @@ type Props = {
 };
 
 export const createPost = async ({ buffer, formdata, jwtToken }: Props) => {
+  console.log("createPost");
   // arraybuffer to File
   // TODO: typeは後で特定させる
-  const file = new File([buffer], "image.png", { type: "image/png" });
+  const blob = new Blob([buffer], { type: "image/png" });
+  // blob to file
+  const file = new File([blob], "image.png", { type: "image/png" });
+  console.log("size", file.size);
   try {
     const res = await aspidaClient(jwtToken).posts.post({
       body: {
         ...formdata,
         image: file,
       },
-      config: {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      },
     });
-    console.log("body", JSON.stringify(res.body));
-    console.log(JSON.stringify(res.originalResponse));
     if (res.status !== 204) {
       throw new Error("投稿に失敗しました...");
     }
