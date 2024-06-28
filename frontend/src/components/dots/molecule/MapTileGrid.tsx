@@ -4,11 +4,16 @@ import MapTile from "../atom/MapTile";
 export default function MapTileGrid() {
   const tileTypes: string[] = [
     "ie1",
+    "ie2",
+    "ie3",
     "treasure",
-    "kyokai",
+    "haka",
     "ki",
-    "hachiue",
+    "saku",
     "shiro",
+    "kirikabu",
+    "tsubo",
+    "kibako",
     // defaultを大量に用意して過疎化する
     ...Array.from({ length: 100 }, () => "default"),
   ];
