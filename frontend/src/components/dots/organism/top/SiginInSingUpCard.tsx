@@ -1,4 +1,5 @@
 "use client";
+import { SigninDialog } from "@/components/SigninDialog";
 import Link from "next/link";
 
 export default function SiginInSignUpCard() {
@@ -9,13 +10,7 @@ export default function SiginInSignUpCard() {
           <p className="text-3xl">世界に入る方法を選んでください</p>
         </div>
         <div className="grid grid-cols-2 gap-4 ">
-          <Link
-            href="signin"
-            type="button"
-            className="nes-btn is-success text-xl z-10"
-          >
-            サインイン
-          </Link>
+          <SigninDialog />
           <Link
             href="signup"
             type="button"
