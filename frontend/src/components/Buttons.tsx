@@ -110,16 +110,17 @@ export const PostEditCancelButton = () => {
 export const CommentEditButton = ({ commentId }: { commentId: number }) => {
   const [_, setIsEditMode] = useAtom(isCommentEditModeAtom(commentId));
   return (
-    <Button onClick={() => setIsEditMode(true)}>
-      <Image
-        src="/img/dots/item/chalk_white.svg"
-        alt="edit"
-        width="10"
-        height="10"
-        className="rotate-45"
-      />
-      {/* <Pen className="mr-2 h-4 w-4" /> */}
-    </Button>
+    // <Button onClick={() => setIsEditMode(true)}>
+    <Image
+      src="/img/dots/item/chalk_white.svg"
+      alt="edit"
+      width="10"
+      height="10"
+      className="rotate-45"
+      onClick={() => setIsEditMode(true)}
+    />
+    // {/* <Pen className="mr-2 h-4 w-4" /> */}
+    // </Button>
   );
 };
 export const CommentEditCancelButton = ({

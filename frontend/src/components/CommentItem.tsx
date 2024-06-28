@@ -2,7 +2,6 @@
 
 import { isCommentEditModeAtom } from "@/lib/atom";
 import { editCommentFormSchema } from "@/lib/zod";
-import { dateFormatString2DateJa } from "@/utils/date";
 import { editComment } from "@/utils/editComment";
 import userId2ImagePath from "@/utils/userId2Image";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,12 +12,14 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Entity_Comment } from "../../api/@types";
-import { CommentEditButton, CommentEditCancelButton } from "./Buttons";
-import { CommentDeleteDialog } from "./deleteCommentDialog";
-import ImgWithLeft2RightMotion from "./dots/atom/imgWithLeft2Right";
+import { CommentEditButton } from "./Buttons";
+import { CommentEditCancelButton } from "./Buttons";
+import RandomwalkCharacterWithComment from "./dots/organism/RandomWalkCharacterWithComment";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
+import ImgWithLeft2RightMotion from "./dots/atom/imgWithLeft2Right";
+import { CommentDeleteDialog } from "./deleteCommentDialog";
 
 type CommentDetailProps = {
   commentEntity: Entity_Comment;
@@ -43,24 +44,23 @@ export function CommentItem({
   }
 
   return (
-    <div className="flex justify-center">
-      {/* <ImgWithJumpMotion imgPath={userId2ImagePath(comment.user_id, meId)} /> */}
-      <ImgWithLeft2RightMotion
-        imgPath={userId2ImagePath(comment.user_id, meId)}
-      />
-      <div className="nes-container is-dark w-full">
-        {comment.body}
-        {/* <p className="text-sm">{comment.user_id}</p> */}
-        {/* <p className="text-sm">{dateFormatString2DateJa(comment.created_at)}</p> */}
-        <div className="absolute bottom-0 right-0 flex">
-          <p className="text-sm">
-            {dateFormatString2DateJa(comment.created_at)}
-          </p>
-          <CommentEditButton commentId={comment.id} />
-          <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
-        </div>
-      </div>
-    </div>
+    <RandomwalkCharacterWithComment
+      comment={comment}
+      jwtToken={jwtToken}
+      imgPath={userId2ImagePath(comment.user_id, meId)}
+    />
+    // <div className="flex justify-center">
+    // <ImgWithLeft2RightMotion
+    //   imgPath={userId2ImagePath(comment.user_id, meId)}
+    // />
+    //   <div className="nes-balloon from-left ">
+    //     {comment.body}
+    //     <div className="absolute bottom-0 right-0 flex">
+    //       <CommentEditButton commentId={comment.id} />
+    //       <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+    //     </div>
+    //   </div>
+    // </div>
   );
 }
 
