@@ -28,11 +28,14 @@ export const PostForm = ({ jwtToken }: Props) => {
     defaultValues: {
       title: "",
       body: "",
+      image: null,
     },
   });
   const onSubmit = async (formdata: onSubmitType) => {
+    const arrayBuffer = await formdata.image?.item(0)?.arrayBuffer()
+    const buffer = new Uint8Array(arrayBuffer ?? new ArrayBuffer(0));
     try {
-      await createPost({ formdata, jwtToken });
+      await createPost({ formdata: {body: formdata.body, title: formdata.title}, buffer, jwtToken });
       toast({
         description: "投稿に成功しました!",
       });
@@ -58,6 +61,7 @@ export const PostForm = ({ jwtToken }: Props) => {
       {errors.body && (
         <p className="text-red-500 text-sm">{errors.body.message}</p>
       )}
+      <Input type="file" {...register("image")} />
       <Button type="submit" variant="nesPrimary">
         投稿する
       </Button>

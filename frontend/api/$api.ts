@@ -2,8 +2,8 @@ import type { AspidaClient, BasicHeaders } from 'aspida';
 import type { Methods as Methods_vbicos } from './comments';
 import type { Methods as Methods_1mt0zrm } from './comments/_commentID';
 import type { Methods as Methods_1kz9onh } from './posts';
-import type { Methods as Methods_jlcona } from './posts/_postID/like';
 import type { Methods as Methods_rslgc9 } from './posts/_postID@number';
+import type { Methods as Methods_1oua0ix } from './posts/_postID@number/like';
 import type { Methods as Methods_1oqkkb0 } from './signin';
 import type { Methods as Methods_1xhiioa } from './users';
 import type { Methods as Methods_jzr18p } from './users/me';
@@ -67,7 +67,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       $path: () => `${prefix}${PATH0}`,
     },
     posts: {
-      _postID: (val1: number | string) => {
+      _postID: (val1: number) => {
         const prefix1 = `${PATH1}/${val1}`;
 
         return {
@@ -76,20 +76,14 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
              * 投稿に対して、いいねを付与します。
              */
             post: (option?: { config?: T | undefined } | undefined) =>
-              fetch<void, BasicHeaders, Methods_jlcona['post']['status']>(prefix, `${prefix1}${PATH2}`, POST, option).send(),
+              fetch<void, BasicHeaders, Methods_1oua0ix['post']['status']>(prefix, `${prefix1}${PATH2}`, POST, option).send(),
             /**
              * 投稿に対して、いいねを付与します。
              */
             $post: (option?: { config?: T | undefined } | undefined) =>
-              fetch<void, BasicHeaders, Methods_jlcona['post']['status']>(prefix, `${prefix1}${PATH2}`, POST, option).send().then(r => r.body),
+              fetch<void, BasicHeaders, Methods_1oua0ix['post']['status']>(prefix, `${prefix1}${PATH2}`, POST, option).send().then(r => r.body),
             $path: () => `${prefix}${prefix1}${PATH2}`,
           },
-        };
-      },
-      _postID_number: (val1: number) => {
-        const prefix1 = `${PATH1}/${val1}`;
-
-        return {
           /**
            * 投稿の詳細を取得します
            * @returns OK
@@ -141,16 +135,14 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
         fetch<Methods_1kz9onh['get']['resBody'], BasicHeaders, Methods_1kz9onh['get']['status']>(prefix, PATH1, GET, option).json().then(r => r.body),
       /**
        * サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
-       * @param option.body - リクエストパラメータ
        */
       post: (option: { body: Methods_1kz9onh['post']['reqBody'], config?: T | undefined }) =>
-        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option).send(),
+        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option, 'URLSearchParams').send(),
       /**
        * サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
-       * @param option.body - リクエストパラメータ
        */
       $post: (option: { body: Methods_1kz9onh['post']['reqBody'], config?: T | undefined }) =>
-        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option).send().then(r => r.body),
+        fetch<void, BasicHeaders, Methods_1kz9onh['post']['status']>(prefix, PATH1, POST, option, 'URLSearchParams').send().then(r => r.body),
       $path: () => `${prefix}${PATH1}`,
     },
     signin: {

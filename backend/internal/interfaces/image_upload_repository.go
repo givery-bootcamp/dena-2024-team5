@@ -5,5 +5,5 @@ import (
 )
 
 type ImageUploadRepository interface {
-	Upload(key string, image io.Reader) (url string, err error)
+	Upload(key string, image io.Reader, contentType string) (url string, err error)
 }

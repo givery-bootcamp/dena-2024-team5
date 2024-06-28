@@ -41,6 +41,7 @@ export const commentFormSchema = z.object({
 export const editPostFormSchema = z.object({
   title: z.string().describe("タイトル").min(1, "タイトルを入力してください"),
   body: z.string().describe("内容").min(1, "内容を入力してください"),
+  image: z.custom<FileList>().nullable(),
 });
 
 export const editCommentFormSchema = z.object({

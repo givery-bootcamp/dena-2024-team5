@@ -34,17 +34,6 @@ definitions:
     required:
     - message
     type: object
-  controller.PostNewReq:
-    properties:
-      body:
-        type: string
-      title:
-        maxLength: 100
-        type: string
-    required:
-    - body
-    - title
-    type: object
   controller.PostUpdateRequest:
     properties:
       body:
@@ -103,6 +92,8 @@ definitions:
         type: string
       id:
         type: integer
+      image_url:
+        type: string
       like_count:
         type: integer
       title:
@@ -119,6 +110,7 @@ definitions:
     - comments
     - created_at
     - id
+    - image_url
     - like_count
     - title
     - updated_at
@@ -253,12 +245,19 @@ paths:
       - application/json
       description: サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する
       parameters:
-      - description: リクエストパラメータ
-        in: body
-        name: signinPost
+      - in: formData
+        name: body
         required: true
-        schema:
-          $ref: '#/definitions/controller.PostNewReq'
+        type: string
+      - in: formData
+        maxLength: 100
+        name: title
+        required: true
+        type: string
+      - description: 画像ファイル
+        in: formData
+        name: image
+        type: file
       responses:
         "204":
           description: No Content

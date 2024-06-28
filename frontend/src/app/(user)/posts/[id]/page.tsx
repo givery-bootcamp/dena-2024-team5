@@ -9,7 +9,7 @@ export default async function Home({ params }: { params: { id: string } }) {
   const cookieStore = cookies();
   const jwtToken = cookieStore.get("jwt")?.value ?? "";
   const postedItemsDetail = await aspidaClient(jwtToken)
-    .posts._postID_number(Number(params.id))
+    .posts._postID(Number(params.id))
     .$get();
   const comments: Entity_Comment[] = postedItemsDetail.comments;
   return (

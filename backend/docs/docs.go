@@ -188,13 +188,23 @@ const docTemplate = `{
                 "summary": "new post API",
                 "parameters": [
                     {
-                        "description": "リクエストパラメータ",
-                        "name": "signinPost",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.PostNewReq"
-                        }
+                        "type": "string",
+                        "name": "body",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "name": "title",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "画像ファイル",
+                        "name": "image",
+                        "in": "formData"
                     }
                 ],
                 "responses": {
@@ -581,22 +591,6 @@ const docTemplate = `{
                 }
             }
         },
-        "controller.PostNewReq": {
-            "type": "object",
-            "required": [
-                "body",
-                "title"
-            ],
-            "properties": {
-                "body": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string",
-                    "maxLength": 100
-                }
-            }
-        },
         "controller.PostUpdateRequest": {
             "type": "object",
             "required": [
@@ -668,6 +662,7 @@ const docTemplate = `{
                 "comments",
                 "created_at",
                 "id",
+                "image_url",
                 "like_count",
                 "title",
                 "updated_at",
@@ -690,6 +685,9 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "image_url": {
+                    "type": "string"
                 },
                 "like_count": {
                     "type": "integer"

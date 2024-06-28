@@ -17,11 +17,6 @@ export type Controller_ErrorResponse = {
   message: string
 }
 
-export type Controller_PostNewReq = {
-  body: string
-  title: string
-}
-
 export type Controller_PostUpdateRequest = {
   body: string
   title: string
@@ -46,6 +41,7 @@ export type Entity_Post = {
   comments: Entity_Comment[]
   created_at: string
   id: number
+  image_url: string
   like_count: number
   title: string
   updated_at: string

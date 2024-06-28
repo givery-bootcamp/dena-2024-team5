@@ -1,4 +1,5 @@
 /* eslint-disable */
+import type { ReadStream } from 'fs'
 import type * as Types from '../@types'
 
 export type Methods = {
@@ -12,7 +13,13 @@ export type Methods = {
   /** サインインしているユーザーで、指定されたタイトル、本文の投稿を作成する */
   post: {
     status: 204
-    /** リクエストパラメータ */
-    reqBody: Types.Controller_PostNewReq
+    reqFormat: URLSearchParams
+
+    reqBody: {
+      body: string
+      title: string
+      /** 画像ファイル */
+      image?: (File | ReadStream) | undefined
+    }
   }
 }
