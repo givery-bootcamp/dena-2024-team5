@@ -12,6 +12,7 @@ type Post struct {
 	Body     string
 	UserID   uint
 	User     User
+	ImageUrl string
 	Comments []Comment
 }
 
@@ -46,6 +47,7 @@ func ConvertPostWithModelToEntity(p *PostWith) *entity.Post {
 		ID:        p.ID,
 		Title:     p.Title,
 		Body:      p.Body,
+		ImageUrl:  p.ImageUrl,
 		UserID:    p.UserID,
 		Comments:  comments,
 		Username:  p.User.Name,

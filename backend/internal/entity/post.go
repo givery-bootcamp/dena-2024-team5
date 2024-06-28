@@ -6,6 +6,7 @@ type Post struct {
 	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
 	Body      string    `json:"body"`
+	ImageUrl  string    `json:"image_url"`
 	UserID    uint      `json:"user_id"`
 	Username  string    `json:"username"`
 	Comments  []Comment `json:"comments"`

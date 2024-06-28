@@ -2,6 +2,8 @@ package controller
 
 import (
 	"errors"
+	"fmt"
+	"mime/multipart"
 	"myapp/internal/constant"
 	"myapp/internal/usecase"
 	"net/http"
@@ -10,8 +12,9 @@ import (
 )
 
 type PostNewReq struct {
-	Title string `json:"title" binding:"required,max=100" maxLength:"100"`
-	Body  string `json:"body" binding:"required"`
+	Title string                `form:"title" binding:"required,max=100" maxLength:"100"`
+	Body  string                `form:"body" binding:"required"`
+	Image *multipart.FileHeader `form:"image"`
 }
 
 // New post
@@ -30,17 +33,29 @@ func PostNew(ctx *gin.Context, usecase *usecase.PostNewUsecase) {
 		return
 	}
 	var req PostNewReq
-	err := ctx.ShouldBindJSON(&req)
+	err := ctx.ShouldBind(&req)
 	if err != nil {
-		handleError(ctx, http.StatusBadRequest, err)
+		handleError(ctx, http.StatusBadRequest, fmt.Errorf("failed to parse request: %w", err))
 		return
 	}
+
 	userID, ok := ctx.Value(constant.GIN_CONTEXT_USERID).(uint)
 	if !ok {
 		handleError(ctx, http.StatusBadRequest, errors.New("user id not found"))
 		return
 	}
-	err = usecase.Execute(userID, req.Title, req.Body)
+
+	var file multipart.File
+
+	if req.Image != nil {
+		file, err = req.Image.Open()
+		if err != nil {
+			handleError(ctx, http.StatusBadRequest, fmt.Errorf("failed to open file: %w", err))
+			return
+		}
+	}
+
+	err = usecase.Execute(userID, req.Title, req.Body, file)
 	if err != nil {
 		handleError(ctx, http.StatusInternalServerError, err)
 		return

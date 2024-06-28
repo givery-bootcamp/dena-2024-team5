@@ -17,12 +17,14 @@ import (
 func main() {
 	// Initialize database
 	external.SetupDB()
+	external.SetupS3Client()
 
 	broker := sse.NewServer()
 
 	// Setup webserver
 	app := gin.Default()
 	app.Use(middleware.Transaction())
+	app.Use(middleware.AWS())
 	app.Use(middleware.Cors())
 	app.Use(middleware.NotificationBroker(broker))
 	middleware.SetupRoutes(app)

@@ -4,9 +4,11 @@ services:
       context: ./docker
       dockerfile: backend.Dockerfile
     ports:
-      - '9000:9000'
+      - "9000:9000"
     volumes:
       - ./backend:/go/src/myapp
+      - ~/.aws/credentials:/root/.aws/credentials:ro
+      - ~/.aws/config:/root/.aws/config:rosrc/myapp
     command: "air"
     depends_on:
       db:
@@ -37,16 +39,25 @@ services:
       - ./mysql/sql:/docker-entrypoint-initdb.d
       # - ./mysql/sql:/sqlscripts
     ports:
-      - '3306:3306'
+      - "3306:3306"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=training
-    healthcheck:   # here
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+    healthcheck: # here
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p$MYSQL_ROOT_PASSWORD",
+        ]
       interval: 8s
       timeout: 5s
       retries: 6
       start_period: 8s
 volumes:
   db-store:
-
