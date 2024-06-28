@@ -10,11 +10,11 @@ import { loginFormSchema } from "@/lib/zod";
 import { serversideSignIn } from "@/utils/signIn";
 import Link from "next/link";
 
-import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
-import FlipContainer from "./dots/atom/FlipContainer";
+import { useEffect, useRef } from "react";
 import FlipBox from "./dots/atom/FlipBox";
+import FlipContainer from "./dots/atom/FlipContainer";
 gsap.registerPlugin(Flip);
 
 export function LoginForm() {
