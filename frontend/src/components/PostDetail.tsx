@@ -1,6 +1,6 @@
 "use client";
 import { isEditModeAtom } from "@/lib/atom";
-import { editPostFormSchema } from "@/lib/zod";
+import { postFormSchema } from "@/lib/zod";
 import { dateFormatString2DateJa } from "@/utils/date";
 import { editPost } from "@/utils/editPost";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,7 +25,7 @@ type PostDetailProps = {
   imgPath: string;
 };
 
-type onSubmitType = z.infer<typeof editPostFormSchema>;
+type onSubmitType = z.infer<typeof postFormSchema>;
 
 export const PostDetail = ({
   postItem,
@@ -86,7 +86,7 @@ const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(editPostFormSchema),
+    resolver: zodResolver(postFormSchema),
     defaultValues: {
       title: postItem.title,
       body: postItem.body,

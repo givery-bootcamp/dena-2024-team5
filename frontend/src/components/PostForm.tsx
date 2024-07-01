@@ -1,6 +1,6 @@
 "use client";
 import { isValErrorAtom } from "@/lib/atom";
-import { editPostFormSchema } from "@/lib/zod";
+import { postFormSchema } from "@/lib/zod";
 import { createPost } from "@/utils/createPost";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
@@ -17,7 +17,7 @@ type Props = {
   jwtToken: string;
 };
 
-type onSubmitType = z.infer<typeof editPostFormSchema>;
+type onSubmitType = z.infer<typeof postFormSchema>;
 
 export const PostForm = ({ jwtToken }: Props) => {
   const router = useRouter();
@@ -29,11 +29,10 @@ export const PostForm = ({ jwtToken }: Props) => {
     watch,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(editPostFormSchema),
+    resolver: zodResolver(postFormSchema),
     defaultValues: {
       title: "",
       body: "",
-      file: undefined,
     },
   });
   const onSubmit = async (formdata: onSubmitType) => {
@@ -71,12 +70,6 @@ export const PostForm = ({ jwtToken }: Props) => {
           >
             内容
           </TabsTrigger>
-          <TabsTrigger
-            value="attachment"
-            className="data-[state=active]:bg-[#8c959b]"
-          >
-            しるし
-          </TabsTrigger>
         </TabsList>
         <TabsContent value="title">
           <span className="text-sm">
@@ -101,21 +94,6 @@ export const PostForm = ({ jwtToken }: Props) => {
           <Textarea
             {...register("body")}
             className="nes-textarea is-dark resize-none"
-          />
-        </TabsContent>
-        <TabsContent value="attachment">
-          <span className="text-sm">
-            ファイル
-            {errors.file && (
-              <span className="text-red-500 text-sm">
-                *{errors.file.message}*
-              </span>
-            )}
-          </span>
-          <Input
-            {...register("file")}
-            className="nes-input is-dark"
-            type="file"
           />
         </TabsContent>
       </Tabs>
