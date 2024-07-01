@@ -33,7 +33,7 @@ export const SignupForm = () => {
       const logindata = { username: user, password: password };
       await serversideSignUp(formdata);
       await serversideSignIn(logindata);
-      toast("あなたはゆうしゃとしてとうろくされました！");
+      toast.success("あなたはゆうしゃとしてとうろくされました！");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);

@@ -71,7 +71,7 @@ export const CommentForm = ({ jwtToken, postId }: Props) => {
     try {
       await createComment({ formdata, jwtToken, postId });
       reset();
-      toast.info("応援に成功しました!");
+      toast.success("応援に成功しました!");
       router.push(`/posts/${postId.toString()}`);
     } catch (error) {
       console.error(error);

@@ -27,7 +27,7 @@ export const SigninForm = () => {
   const onSubmit = async (formdata: onSubmitType) => {
     try {
       await serversideSignIn(formdata);
-      toast("ゆうしゃをふっかつさせました！");
+      toast.success("ゆうしゃをふっかつさせました！");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);

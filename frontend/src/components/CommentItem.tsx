@@ -67,7 +67,7 @@ const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
       await editComment({ id: commentEntity.id, jwtToken, editData: data });
       setIsEditMode(false);
       router.push(`/posts/${commentEntity.post_id}`);
-      toast("編集に成功しました!📝");
+      toast.success("編集に成功しました!📝");
     } catch (error) {
       console.error(error);
       toast.error("編集に失敗しました...😭");
