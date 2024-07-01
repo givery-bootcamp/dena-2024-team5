@@ -10,13 +10,13 @@ import { Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 import type { Entity_Comment } from "../../api/@types";
 import { CommentEditCancelButton } from "./Buttons";
 import RandomwalkCharacterWithComment from "./dots/organism/RandomWalkCharacterWithComment";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
 
 type CommentDetailProps = {
   commentEntity: Entity_Comment;
@@ -51,7 +51,6 @@ export function CommentItem({
 
 const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
   const [, setIsEditMode] = useAtom(isCommentEditModeAtom(commentEntity.id));
-  const { toast } = useToast();
   const router = useRouter();
   const {
     register,
@@ -68,15 +67,10 @@ const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
       await editComment({ id: commentEntity.id, jwtToken, editData: data });
       setIsEditMode(false);
       router.push(`/posts/${commentEntity.post_id}`);
-      toast({
-        description: "編集に成功しました!📝",
-      });
+      toast("編集に成功しました!📝");
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "編集に失敗しました...😭",
-      });
+      toast.error("編集に失敗しました...😭");
     }
   };
 

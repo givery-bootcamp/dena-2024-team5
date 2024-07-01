@@ -1,7 +1,7 @@
 import { AudioButton, SignInSignOutButton } from "@/components/Buttons";
 import { MyAvatar } from "@/components/MyAvatar";
+import { PostFormButton } from "@/components/PostButton";
 import { PostForm } from "@/components/PostForm";
-import { Button } from "@/components/ui/button";
 import type { Session } from "next-auth";
 type PanelProps = {
   jwtToken: string;
@@ -19,9 +19,7 @@ export default function DashboardFooterLayer({
         <PostForm jwtToken={jwtToken} />
       </div>
       <div className="grid grid-cols-1 gap-4">
-        <Button variant="nesPrimary" type="submit" form="post-form">
-          投稿
-        </Button>
+        <PostFormButton />
         <AudioButton />
         <SignInSignOutButton session={session} />
       </div>

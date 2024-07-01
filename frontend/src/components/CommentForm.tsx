@@ -4,10 +4,10 @@ import { createComment } from "@/utils/createComment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 import {} from "./ui/tabs";
 import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
 
 type Props = {
   jwtToken: string;
@@ -55,7 +55,6 @@ type Props = {
 type onSubmitType = z.infer<typeof editCommentFormSchema>;
 
 export const CommentForm = ({ jwtToken, postId }: Props) => {
-  const { toast } = useToast();
   const router = useRouter();
   const {
     register,
@@ -72,16 +71,11 @@ export const CommentForm = ({ jwtToken, postId }: Props) => {
     try {
       await createComment({ formdata, jwtToken, postId });
       reset();
-      toast({
-        description: "応援に成功しました!",
-      });
+      toast.info("応援に成功しました!");
       router.push(`/posts/${postId.toString()}`);
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "応援に失敗しました...",
-      });
+      toast.error("応援に失敗しました...");
     }
   };
 

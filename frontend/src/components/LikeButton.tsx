@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { addLike } from "@/utils/addLike";
 import { useState } from "react";
-import { useToast } from "./ui/use-toast";
+import { toast } from "sonner";
 
 type LikeButtonProps = {
   postId: number;
@@ -15,7 +15,6 @@ export const LikeButton = ({
   likeCount,
   jwtToken,
 }: LikeButtonProps) => {
-  const { toast } = useToast();
   const [isLiked, setIsLiked] = useState(false);
   const [numLikes, setNumLikes] = useState(likeCount);
   return (
@@ -28,19 +27,13 @@ export const LikeButton = ({
             await addLike({ postId, jwtToken });
             setIsLiked((prev) => !prev);
             setNumLikes((prev) => prev + 1);
-            toast({
-              description: "♥いいねしました！",
-            });
+            toast("♥いいねしました！");
           } catch (error) {
-            toast({
-              description: "すでにいいね済みかも？",
-            });
+            toast.error("すでにいいね済みかも？");
             return;
           }
         } else {
-          toast({
-            description: "♥いいね済みです！",
-          });
+          toast.error("すでにいいね済みかも？");
         }
       }}
     >

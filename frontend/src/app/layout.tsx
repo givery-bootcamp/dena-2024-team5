@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DotGothic16 } from "next/font/google";
 import "nes.css/css/nes.min.css";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "sonner";
 
 const inter = DotGothic16({ weight: "400", subsets: ["latin"] });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="ja" suppressHydrationWarning>
       <body className={inter.className}>
         {children}
-        <Toaster />
+        <Sonner />
       </body>
     </html>
   );
