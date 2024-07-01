@@ -10,11 +10,13 @@ type PanelProps = {
   comment: Entity_Comment;
   imgPath: string;
   jwtToken: string;
+  meId: number;
 };
 export default function RandomwalkCharacterWithComment({
   comment,
   imgPath,
   jwtToken,
+  meId,
 }: PanelProps) {
   gsap.registerPlugin(useGSAP);
   const boxRef = useRef(null);
@@ -34,12 +36,14 @@ export default function RandomwalkCharacterWithComment({
   return (
     <div className="flex" ref={boxRef}>
       <Image src={imgPath} alt="character" width={100} height={100} />
-      <div className="nes-balloon from-left grid grid-cols-2 gap-2">
+      <div className="nes-balloon from-left flex gap-2">
         {comment.body}
-        <div className="grid grid-cols-2 gap-x-2 justify-end">
-          <CommentEditButton commentId={comment.id} />
-          <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
-        </div>
+        {comment.user_id === meId && (
+          <div className="grid grid-cols-2 gap-x-2 justify-end">
+            <CommentEditButton commentId={comment.id} />
+            <CommentDeleteDialog commentId={comment.id} jwtToken={jwtToken} />
+          </div>
+        )}
       </div>
     </div>
   );

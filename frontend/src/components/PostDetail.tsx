@@ -23,6 +23,7 @@ type PostDetailProps = {
   postItem: Entity_Post;
   jwtToken: string;
   imgPath: string;
+  meId: number;
 };
 
 type onSubmitType = z.infer<typeof postFormSchema>;
@@ -31,12 +32,18 @@ export const PostDetail = ({
   postItem,
   jwtToken,
   imgPath,
+  meId,
 }: PostDetailProps) => {
   const [isEditMode] = useAtom(isEditModeAtom);
 
   if (isEditMode) {
     return (
-      <PostEditForm postItem={postItem} jwtToken={jwtToken} imgPath={imgPath} />
+      <PostEditForm
+        postItem={postItem}
+        jwtToken={jwtToken}
+        imgPath={imgPath}
+        meId={meId}
+      />
     );
   }
   return (
@@ -59,10 +66,12 @@ export const PostDetail = ({
       </div>
       <div className="whitespace-break-spaces min-h-32 nes-container is-dark">
         {postItem.body}
-        <div className="absolute bottom-0 right-0 flex">
-          <PostEditButton />
-          <PostDeleteDialog postId={postItem.id} jwtToken={jwtToken} />
-        </div>
+        {meId === postItem.user_id && (
+          <div className="absolute bottom-0 right-0 flex">
+            <PostEditButton />
+            <PostDeleteDialog postId={postItem.id} jwtToken={jwtToken} />
+          </div>
+        )}
       </div>
       <div className="flex justify-end gap-4">
         <p>
