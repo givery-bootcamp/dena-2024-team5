@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"myapp/internal/config"
 	"myapp/internal/usecase"
 	"net/http"
 
@@ -41,8 +42,8 @@ func AuthSignin(ctx *gin.Context, usecase *usecase.AuthSigninUsecase) {
 		handleError(ctx, http.StatusBadRequest, err)
 		return
 	}
-	// // samesiteをnonemodeにする
+	// samesiteをnonemodeにする
 	// ctx.SetSameSite(http.SameSiteNoneMode)
-	ctx.SetCookie("jwt", token, 60*60*24, "/", "localhost", false, false)
+	ctx.SetCookie("jwt", token, 60*60*24, "/", config.Domain, false, false)
 	ctx.JSON(http.StatusOK, result)
 }
