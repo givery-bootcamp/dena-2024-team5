@@ -9,6 +9,9 @@ const inter = DotGothic16({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "ドットゾンビ",
   description: "team5でつくりました！",
+  openGraph: {
+    images: ["/img/dots/bg/pattern_kabosu_02.png"],
+  },
   icons: [
     {
       rel: "icon",
