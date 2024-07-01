@@ -26,6 +26,7 @@ export default async function Home({ params }: { params: { id: string } }) {
         postItem={postedItemsDetail}
         jwtToken={jwtToken}
         imgPath="/img/dots/character/character_kishi_man_01_red_black.svg"
+        meId={meId}
       />
       {/* <div className="border-b px-4" /> */}
       {/* <CommentPostButton postId={postedItemsDetail.id} /> */}

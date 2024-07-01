@@ -20,6 +20,7 @@ import { Textarea } from "./ui/textarea";
 type CommentDetailProps = {
   commentEntity: Entity_Comment;
   jwtToken: string;
+  meId: number;
 };
 
 type onSubmitType = z.infer<typeof editCommentFormSchema>;
@@ -36,7 +37,13 @@ export function CommentItem({
   const [isEditMode] = useAtom(isCommentEditModeAtom(comment.id));
 
   if (isEditMode) {
-    return <CommentEditForm commentEntity={comment} jwtToken={jwtToken} />;
+    return (
+      <CommentEditForm
+        commentEntity={comment}
+        jwtToken={jwtToken}
+        meId={meId}
+      />
+    );
   }
 
   let characterImgPath = "";
@@ -56,11 +63,16 @@ export function CommentItem({
       comment={comment}
       jwtToken={jwtToken}
       imgPath={characterImgPath}
+      meId={meId}
     />
   );
 }
 
-const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
+const CommentEditForm = ({
+  commentEntity,
+  jwtToken,
+  meId,
+}: CommentDetailProps) => {
   const [, setIsEditMode] = useAtom(isCommentEditModeAtom(commentEntity.id));
   const router = useRouter();
   const {
@@ -94,6 +106,7 @@ const CommentEditForm = ({ commentEntity, jwtToken }: CommentDetailProps) => {
         <p className="text-red-500 text-sm">{errors.body.message}</p>
       )}
       <div className="flex justify-end gap-4">
+        {}
         <CommentEditCancelButton commentId={commentEntity.id} />
         <Button variant="nesPrimary" type="submit">
           <Pen className="mr-2 w-4 h-4" />
