@@ -115,33 +115,34 @@ const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
 
   return (
     <form className="flex-1 grid gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-4xl font-bold">
-        <Input {...register("title")} />
-      </h1>
-      {errors.title && (
-        <p className="text-red-500 text-sm">{errors.title.message}</p>
-      )}
-      <div className="text-right">
-        <p>
-          投稿者:
-          {postItem.username}
-        </p>
-        <p>
-          投稿日時:
-          {dateFormatString2DateJa(postItem.created_at)}
-        </p>
-        <p>
-          更新日時:
-          {dateFormatString2DateJa(postItem.updated_at)}
-        </p>
+      <center className="flex justify-center">
+        <ImgWithJumpMotion imgPath={imgPath} />
+        <div className="flex items-center">
+          <div className="text-6xl">{postItem.username}</div>
+          <LikeButton
+            postId={postItem.id}
+            likeCount={postItem.like_count}
+            jwtToken={jwtToken}
+          />
+        </div>
+      </center>
+      <div className="grid items-end">
+        <div className="nes-container is-dark">
+          <Input {...register("title")} className="nes-input is-dark" />
+          {errors.title && (
+            <p className="text-red-500 text-sm">{errors.title.message}</p>
+          )}
+        </div>
       </div>
-      <div className="border-b px-4" />
-      <div className="grid whitespace-break-spaces min-h-32">
-        <Textarea {...register("body")} className="min-h-24" />
+      <div className="grid whitespace-break-spaces min-h-32 nes-container is-dark">
+        <Textarea
+          {...register("body")}
+          className="min-h-24 nes-textarea is-dark"
+        />
+        {errors.body && (
+          <p className="text-red-500 text-sm">{errors.body.message}</p>
+        )}
       </div>
-      {errors.body && (
-        <p className="text-red-500 text-sm">{errors.body.message}</p>
-      )}
       <div className="flex justify-end gap-4">
         <PostEditCancelButton />
         <Button variant="nesPrimary" type="submit">
