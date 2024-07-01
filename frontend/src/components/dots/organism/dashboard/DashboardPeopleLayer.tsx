@@ -26,8 +26,8 @@ export default function DashboardPeopleLayer({
       for (const box of boxes) {
         // a
         gsap.set(box, {
-          x: (Math.random() - 0.5) * vwToPx(40),
-          y: (Math.random() - 0.5) * vhToPx(60),
+          x: (Math.random() - 0.5) * vwToPx(80),
+          y: (Math.random() - 0.5) * vhToPx(80) + vhToPx(30),
         });
         // 一定間隔でx軸方向への移動、y軸方向への移動、停止をランダムに繰り返す
         gsap
