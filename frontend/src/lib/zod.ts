@@ -6,7 +6,7 @@ export const loginFormSchema = z.object({
     .regex(/^[a-zA-Z0-9]*$/, {
       message: "半角英数字のみを使用してください。",
     })
-    .describe("ユーザーネーム"),
+    .describe("ゆうしゃの名前"),
   password: z
     .string()
     .min(8, {
@@ -67,28 +67,9 @@ export const commentFormSchema = z.object({
 const MAX_FILE_SIZE = 1024 * 1024 * 3; // 3MB
 const ACCEPT_FILE_TYPES = ["image/png", "image/jpeg", "image/gif"];
 
-export const editPostFormSchema = z.object({
+export const postFormSchema = z.object({
   title: z.string().describe("タイトル").min(1, "タイトルを入力してください"),
   body: z.string().describe("内容").min(1, "内容を入力してください"),
-  // file: z
-  //   .custom<File>()
-  //   .optional()
-  //   .refine(
-  //     (file) => {
-  //       file.size >= MAX_FILE_SIZE;
-  //     },
-  //     {
-  //       message:
-  //         "ファイルサイズが大きすぎます。3MB以下のファイルを選択してください。",
-  //     }
-  //   )
-  //   .refine(
-  //     (file) => {
-  //       if (!file) return true;
-  //       return ACCEPT_FILE_TYPES.includes(file.type);
-  //     },
-  //     { message: "画像ファイルを選択してください。" }
-  //   ),
 });
 
 export const editCommentFormSchema = z.object({

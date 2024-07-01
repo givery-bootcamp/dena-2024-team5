@@ -1,10 +1,10 @@
 "use server";
 
 import { aspidaClient } from "@/lib/aspidaClient";
-import type { editPostFormSchema } from "@/lib/zod";
+import type { postFormSchema } from "@/lib/zod";
 import type { z } from "zod";
 
-type createPostFormType = z.infer<typeof editPostFormSchema>;
+type createPostFormType = z.infer<typeof postFormSchema>;
 
 type Props = {
   formdata: createPostFormType;
