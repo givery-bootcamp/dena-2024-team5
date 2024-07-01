@@ -3,6 +3,7 @@
 import { deletePost } from "@/utils/deletePost";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -14,7 +15,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { useToast } from "./ui/use-toast";
 
 type PostDeleteButtonProps = {
   postId: number;
@@ -26,7 +26,6 @@ export const PostDeleteDialog = ({
   jwtToken,
 }: PostDeleteButtonProps) => {
   const router = useRouter();
-  const { toast } = useToast();
   return (
     <Dialog>
       <div className="grid items-end">
@@ -50,15 +49,10 @@ export const PostDeleteDialog = ({
                 try {
                   await deletePost({ postId, jwtToken });
                   router.push("/dashboard");
-                  toast({
-                    description: "🔥削除に成功しました!🔥",
-                  });
+                  toast.success("削除に成功しました！");
                 } catch (error) {
                   console.error(error);
-                  toast({
-                    variant: "destructive",
-                    description: "削除に失敗しました...😭",
-                  });
+                  toast.error("削除に失敗しました...");
                 }
               }}
             >

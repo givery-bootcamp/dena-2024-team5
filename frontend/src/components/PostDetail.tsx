@@ -8,6 +8,7 @@ import { useAtom } from "jotai";
 import { Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 import type { Entity_Post } from "../../api/@types";
 import { PostEditButton, PostEditCancelButton } from "./Buttons";
@@ -17,7 +18,6 @@ import ImgWithJumpMotion from "./dots/atom/imgWithJumpMotion";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
 
 type PostDetailProps = {
   postItem: Entity_Post;
@@ -80,7 +80,6 @@ export const PostDetail = ({
 
 const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
   const [, setIsEditMode] = useAtom(isEditModeAtom);
-  const { toast } = useToast();
   const router = useRouter();
   const {
     register,
@@ -98,15 +97,10 @@ const PostEditForm = ({ postItem, jwtToken, imgPath }: PostDetailProps) => {
       await editPost({ postId: postItem.id, jwtToken, editData: data });
       setIsEditMode(false);
       router.push(`/posts/${postItem.id}`);
-      toast({
-        description: "編集に成功しました!📝",
-      });
+      toast.success("編集に成功しました!📝");
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "編集に失敗しました...😭",
-      });
+      toast.error("編集に失敗しました...😭");
     }
   };
 

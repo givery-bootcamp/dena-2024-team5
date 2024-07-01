@@ -1,14 +1,17 @@
 "use client";
+import { isValErrorAtom } from "@/lib/atom";
 import { editPostFormSchema } from "@/lib/zod";
 import { createPost } from "@/utils/createPost";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 import { Input } from "./ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
 
 type Props = {
   jwtToken: string;
@@ -17,12 +20,13 @@ type Props = {
 type onSubmitType = z.infer<typeof editPostFormSchema>;
 
 export const PostForm = ({ jwtToken }: Props) => {
-  const { toast } = useToast();
   const router = useRouter();
+  const [isValError, setIsValError] = useAtom(isValErrorAtom);
   const {
     register,
     reset,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(editPostFormSchema),
@@ -36,18 +40,16 @@ export const PostForm = ({ jwtToken }: Props) => {
     try {
       await createPost({ formdata, jwtToken });
       reset();
-      toast({
-        description: "投稿に成功しました!",
-      });
+      toast.success("投稿に成功しました!");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "投稿に失敗しました...",
-      });
+      toast.error("投稿に失敗しました...");
     }
   };
+  useEffect(() => {
+    setIsValError((errors.title && true) || (errors.body && true) || false);
+  }, [errors.title, errors.body, setIsValError]);
 
   return (
     <form

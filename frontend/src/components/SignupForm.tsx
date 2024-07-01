@@ -5,15 +5,14 @@ import { serversideSignUp } from "@/utils/signup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useToast } from "./ui/use-toast";
 
 type onSubmitType = z.infer<typeof signUpFormSchema>;
 
 export const SignupForm = () => {
-  const { toast } = useToast();
   const router = useRouter();
   const {
     register,
@@ -34,16 +33,11 @@ export const SignupForm = () => {
       const logindata = { username: user, password: password };
       await serversideSignUp(formdata);
       await serversideSignIn(logindata);
-      toast({
-        description: "あなたはゆうしゃとしてとうろくされました！",
-      });
+      toast.success("あなたはゆうしゃとしてとうろくされました！");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "ゆうしゃになれませんでした…",
-      });
+      toast.error("ゆうしゃになれませんでした…");
     }
   };
 

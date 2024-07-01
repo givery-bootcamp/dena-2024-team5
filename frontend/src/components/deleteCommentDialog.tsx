@@ -3,6 +3,7 @@
 import { deleteComment } from "@/utils/deleteComment";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -14,7 +15,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { useToast } from "./ui/use-toast";
 
 type CommentDeleteButtonProps = {
   commentId: number;
@@ -26,7 +26,6 @@ export const CommentDeleteDialog = ({
   jwtToken,
 }: CommentDeleteButtonProps) => {
   const router = useRouter();
-  const { toast } = useToast();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -47,15 +46,10 @@ export const CommentDeleteDialog = ({
                 try {
                   await deleteComment({ commentId, jwtToken });
                   router.refresh();
-                  toast({
-                    description: "🔥削除に成功しました!🔥",
-                  });
+                  toast.success("削除に成功しました！");
                 } catch (error) {
                   console.error(error);
-                  toast({
-                    variant: "destructive",
-                    description: "削除に失敗しました...😭",
-                  });
+                  toast.error("削除に失敗しました...");
                 }
               }}
             >

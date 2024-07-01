@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { useToast } from "./ui/use-toast";
+import { toast } from "sonner";
 
 export function NotificationStreamer() {
-  const { toast } = useToast();
-
   useEffect(() => {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const eventSource = new EventSource(`${baseUrl}/stream`, {
@@ -13,7 +11,9 @@ export function NotificationStreamer() {
     });
 
     eventSource.onmessage = (event) => {
-      toast({ description: event.data });
+      setTimeout(() => {
+        toast.info(event.data);
+      }, 1000);
     };
 
     eventSource.onerror = () => {
@@ -24,7 +24,7 @@ export function NotificationStreamer() {
     return () => {
       eventSource.close();
     };
-  }, [toast]);
+  }, []);
 
   return <></>;
 }
