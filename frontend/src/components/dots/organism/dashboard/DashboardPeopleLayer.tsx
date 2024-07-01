@@ -26,60 +26,60 @@ export default function DashboardPeopleLayer({
       for (const box of boxes) {
         // a
         gsap.set(box, {
-          x: (Math.random() - 0.5) * vwToPx(40),
-          y: (Math.random() - 0.5) * vhToPx(60),
+          x: (Math.random() - 0.5) * vwToPx(100),
+          y: (Math.random() - 0.5) * vhToPx(100),
         });
         // 一定間隔でx軸方向への移動、y軸方向への移動、停止をランダムに繰り返す
         gsap
           .timeline({ repeat: -1, yoyo: true })
           // x軸方向への移動
           .to(box, {
-            x: (Math.random() - 0.5) * vwToPx(80),
-            duration: Math.max(Math.random() * 10, 2),
+            x: (Math.random() - 0.5) * vwToPx(100),
+            duration: Math.max(Math.random() * 15, 2),
             ease: "power1.inOut",
           })
           // y軸方向へ移動
           .to(box, {
-            y: (Math.random() - 0.5) * vhToPx(80),
-            duration: Math.max(Math.random() * 10, 2),
+            y: (Math.random() - 0.5) * vhToPx(100),
+            duration: Math.max(Math.random() * 15, 2),
             ease: "power1.inOut",
           })
           // 停止
           .to(box, {
-            duration: Math.max(Math.random() * 10, 2),
+            duration: Math.max(Math.random() * 15, 2),
           })
 
           // x軸方向への移動
           .to(box, {
-            x: (Math.random() - 0.5) * vwToPx(80),
-            duration: Math.max(Math.random() * 10, 2),
+            x: (Math.random() - 0.5) * vwToPx(100),
+            duration: Math.max(Math.random() * 15, 2),
             ease: "power1.inOut",
           })
           // y軸方向へ移動
           .to(box, {
-            y: (Math.random() - 0.5) * vhToPx(80),
-            duration: Math.max(Math.random() * 10, 2),
+            y: (Math.random() - 0.5) * vhToPx(100),
+            duration: Math.max(Math.random() * 15, 2),
             ease: "power1.inOut",
           })
           // 停止
           .to(box, {
-            duration: Math.max(Math.random() * 10, 2),
+            duration: Math.max(Math.random() * 15, 2),
           })
           // x軸方向への移動
           .to(box, {
-            x: (Math.random() - 0.5) * vwToPx(80),
-            duration: Math.max(Math.random() * 10, 2),
+            x: (Math.random() - 0.5) * vwToPx(100),
+            duration: Math.max(Math.random() * 15, 2),
             ease: "power1.inOut",
           })
           // y軸方向へ移動
           .to(box, {
-            y: (Math.random() - 0.5) * vhToPx(80),
-            duration: Math.max(Math.random() * 10, 2),
+            y: (Math.random() - 0.5) * vhToPx(100),
+            duration: Math.max(Math.random() * 15, 2),
             ease: "power1.inOut",
           })
           // 停止
           .to(box, {
-            duration: Math.max(Math.random() * 10, 2),
+            duration: Math.max(Math.random() * 15, 2),
           });
       }
     },
