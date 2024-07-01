@@ -16,6 +16,7 @@ var DBPassword = ""
 var DBPort = 3306
 var DBName = "training"
 var AuthSecretKey = ""
+var Domain = "localhost"
 
 func init() {
 	if v := os.Getenv("HOSTNAME"); v != "" {
@@ -41,6 +42,9 @@ func init() {
 	}
 	if v := os.Getenv("DB_NAME"); v != "" {
 		DBName = v
+	}
+	if v := os.Getenv("DOMAIN"); v != "" {
+		Domain = v
 	}
 	if v := os.Getenv("AUTH_SECRET_KEY"); v != "" {
 		AuthSecretKey = v
