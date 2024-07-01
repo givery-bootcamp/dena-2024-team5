@@ -39,6 +39,7 @@ export type Entity_Comment = {
   post_id: number
   updated_at: string
   user_id: number
+  user_type: Entity_UserType
 }
 
 export type Entity_Post = {
@@ -55,5 +56,8 @@ export type Entity_Post = {
 
 export type Entity_User = {
   id: number
+  user_type: Entity_UserType
   username: string
 }
+
+export type Entity_UserType = 'normal' | 'zombie'

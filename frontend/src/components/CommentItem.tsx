@@ -3,7 +3,6 @@
 import { isCommentEditModeAtom } from "@/lib/atom";
 import { editCommentFormSchema } from "@/lib/zod";
 import { editComment } from "@/utils/editComment";
-import userId2ImagePath from "@/utils/userId2Image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
 import { Pen } from "lucide-react";
@@ -40,11 +39,23 @@ export function CommentItem({
     return <CommentEditForm commentEntity={comment} jwtToken={jwtToken} />;
   }
 
+  let characterImgPath = "";
+  if (comment.user_id === meId) {
+    characterImgPath =
+      "/img/dots/character/character_kishi_man_01_red_black.svg";
+  } else if (comment.user_type === "normal") {
+    characterImgPath = "/img/dots/character/character_madoshi_01_purple.svg";
+  } else if (comment.user_type === "zombie") {
+    characterImgPath = "/img/dots/character/character_monster_zombie_brown.svg";
+  } else {
+    console.log(`unknown user type ${comment.user_type}`);
+  }
+
   return (
     <RandomwalkCharacterWithComment
       comment={comment}
       jwtToken={jwtToken}
-      imgPath={userId2ImagePath(comment.user_id, meId)}
+      imgPath={characterImgPath}
     />
   );
 }
