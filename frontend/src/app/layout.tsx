@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "ドットゾンビ",
   description: "team5でつくりました！",
   openGraph: {
-    images: ["/img/dots/character/character_monster_zombie_brown.svg"],
+    images: ["/img/dots/bg/pattern_kabosu_02.png"],
   },
   icons: [
     {
