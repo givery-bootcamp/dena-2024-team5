@@ -43,7 +43,7 @@ func AuthSignin(ctx *gin.Context, usecase *usecase.AuthSigninUsecase) {
 		return
 	}
 	// samesiteをnonemodeにする
-	// ctx.SetSameSite(http.SameSiteNoneMode)
+	ctx.SetSameSite(http.SameSiteNoneMode)
 	ctx.SetCookie("jwt", token, 60*60*24, "/", config.Domain, false, false)
 	ctx.JSON(http.StatusOK, result)
 }
